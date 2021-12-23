@@ -1,11 +1,16 @@
 package appandcontrollers.maze;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class PlayerController {
 
@@ -92,16 +97,30 @@ public class PlayerController {
 
     @FXML
     void initialize() {
+        //кнопка загрузить у игрока
+        playerMenuFileLoad.setOnAction(actionEvent -> {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(new Stage());
+        try {
+            Scanner scanner = new Scanner(file);
+            //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Load"));
+        });
+
+
 
         //Установка группы для радиокнопок(алгоритмы)
         ToggleGroup groupA = new ToggleGroup();
         playerAlgorithmBreadthFirstSearch.setToggleGroup(groupA);
         playerAlgorithmDepthFirstSearch.setToggleGroup(groupA);
 
-        //установка аобработчика события нажатия
+        //установка обработчика события нажатия
         playerAlgorithmApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupA.getSelectedToggle();
-            playerAlgorithmApply.setText(selection.getText());
+
             // включение алгоритма в сетку...
         });
 
@@ -113,7 +132,7 @@ public class PlayerController {
         //установка обработчика события для выбора типа визуализации
         playerVisualizationApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupV.getSelectedToggle();
-            playerVisualizationApply.setText(selection.getText());
+
             //включение алгоритма в сетку и разблокирование выбора скорости
             // персонажа(если выбран динамический)...
 

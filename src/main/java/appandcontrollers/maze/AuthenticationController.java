@@ -47,13 +47,7 @@ public class AuthenticationController {
         //Задание и проверка логина игрока
         entranceP.setOnAction(ActionEvent -> {
             String loginPl = loginP.getText();
-            if (loginPl.equals("")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("В поле Логин пусто! Введите свой ник");
-                alert.showAndWait();
-            }
+
             if ((loginPl.length() > 8) || loginPl.length() < 4) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -61,40 +55,48 @@ public class AuthenticationController {
                 alert.setContentText("Недопустимое количество символов в нике");
                 alert.showAndWait();
             } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Successful authentication");
-                alert.setHeaderText("Welcome, " + loginP.getText());
-                alert.showAndWait();
+                if (loginPl.equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("В поле Логин пусто! Введите свой ник");
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Successful authentication");
+                    alert.setHeaderText("Welcome, " + loginP.getText());
+                    alert.showAndWait();
 
-                //переход в поле игрока,после нажатия войти
-                entranceP.getScene().getWindow().hide();
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("PlayerFiled.fxml"));
-                try {
-                    loader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    //переход в поле игрока,после нажатия войти
+                    entranceP.getScene().getWindow().hide();
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("PlayerFiled.fxml"));
+                    try {
+                        loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Parent root = loader.getRoot();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Окно создания нового лабиринта");
+                    stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                    stage.showAndWait();
                 }
-                Parent root = loader.getRoot();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Окно создания нового лабиринта");
-                stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
-                stage.showAndWait();
             }
         });
         //Задание и проверка логина и пароля админа
         //Не хватает проверки на другой тип данных, так как при вводе 1234 и.т.д. он выдает ошибку в консоли,а не окном
         entranceA.setOnAction(actionEvent -> {
             String loginAd = loginA.getText();
-            char passwordAd = (char) Integer.parseInt(passwordA.getText());
+            String passwordAd = passwordA.getText();
             String LOGIN_ADMIN = "Admin";
-            char PASSWORD_ADMIN = 12345;
-            if (!(loginAd.equals(LOGIN_ADMIN)) && !(passwordAd == PASSWORD_ADMIN)) {
+            String PASSWORD_ADMIN = "12345";
+            if ((!(loginAd.equals(LOGIN_ADMIN)) || !(passwordAd.equals(PASSWORD_ADMIN)))) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Неправильный логин или пароль");
+                alert.setContentText("Некорректные Логин и Пароль");
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
