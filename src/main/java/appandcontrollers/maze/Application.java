@@ -10,8 +10,6 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
 
-    public static String LOGIN_ADMIN = "Admin";
-    public static int PASSWORD_ADMIN = 12345;
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -92,6 +92,7 @@ public class PlayerController {
 
     @FXML
     void initialize() {
+
         //Установка группы для радиокнопок(алгоритмы)
         ToggleGroup groupA = new ToggleGroup();
         playerAlgorithmBreadthFirstSearch.setToggleGroup(groupA);
