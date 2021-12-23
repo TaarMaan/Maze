@@ -90,21 +90,15 @@ public class AuthenticationController {
         entranceA.setOnAction(actionEvent -> {
             String loginAd = loginA.getText();
             String passwordAd = passwordA.getText();
-            String LOGIN_ADMIN = "Admin";
-            String PASSWORD_ADMIN = "12345";
-            if ((!(loginAd.equals(LOGIN_ADMIN)) || !(passwordAd.equals(PASSWORD_ADMIN)))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Некорректные Логин и Пароль");
-                alert.showAndWait();
-            } else {
+
+            if (loginAd.equals("Admin") && passwordAd.equals("12345")) {
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Welcome!");
                 alert.setHeaderText(null);
                 alert.setContentText("Вы зашли как Администратор");
                 alert.showAndWait();
-                //переход в поле администратора,после нажатия войти
+//переход в поле администратора,после нажатия войти
                 entranceA.getScene().getWindow().hide();
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("AdminField.fxml"));
@@ -119,9 +113,24 @@ public class AuthenticationController {
                 stage.setTitle("Окно создания нового лабиринта");
                 stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 stage.showAndWait();
+            } else {
+                if (loginAd.equals("") || passwordAd.equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("В поле логина или пароля пусто");
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Неправильный логин или пароль");
+                    alert.showAndWait();
+                }
             }
         });
     }
 }
+
 
 
