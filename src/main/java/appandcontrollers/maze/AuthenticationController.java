@@ -80,6 +80,7 @@ public class AuthenticationController {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setTitle("Окно создания нового лабиринта");
+                    stage.setResizable(false);
                     stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     stage.showAndWait();
                 }
@@ -111,6 +112,7 @@ public class AuthenticationController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Окно создания нового лабиринта");
+                stage.setResizable(false);
                 stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 stage.showAndWait();
             } else {

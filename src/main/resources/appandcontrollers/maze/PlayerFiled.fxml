@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -7,6 +8,8 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -28,19 +31,19 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
       <children>
-            <AnchorPane prefHeight="575.0" prefWidth="233.0" style="-fx-background-color: #3599ff;">
+            <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
                <children>
-                  <AnchorPane layoutX="7.0" layoutY="7.0" prefHeight="106.0" prefWidth="217.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="7.0" layoutY="7.0" prefHeight="106.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerTopicApply" layoutX="34.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerTopicApply" layoutX="39.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
                         <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="53.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
                            <children>
-                              <MenuButton fx:id="playerTopic" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Тема">
+                              <MenuButton fx:id="playerTopic" layoutX="38.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="Тема">
                                 <items>
                                   <MenuItem fx:id="playerTopicSpring" mnemonicParsing="false" text="Весна" />
                                   <MenuItem fx:id="playerTopicSummer" mnemonicParsing="false" text="Лето" />
@@ -55,15 +58,15 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="7.0" layoutY="122.0" prefHeight="127.0" prefWidth="217.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="7.0" layoutY="122.0" prefHeight="127.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerAlgorithmApply" layoutX="34.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerAlgorithmApply" layoutX="39.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="216.0" style="-fx-background-color: #9fc9ff;">
                            <children>
-                              <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="57.0" layoutY="1.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм:" textAlignment="CENTER">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -82,20 +85,20 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="playerStart" layoutX="6.0" layoutY="508.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="217.0" text="СТАРТ">
+                  <Button fx:id="playerStart" layoutX="6.0" layoutY="508.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="228.0" text="СТАРТ">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="7.0" layoutY="258.0" prefHeight="127.0" prefWidth="217.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="7.0" layoutY="258.0" prefHeight="127.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerVisualizationApply" layoutX="34.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerVisualizationApply" layoutX="39.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="216.0" style="-fx-background-color: #9fc9ff;">
                            <children>
-                              <Label alignment="CENTER" layoutX="14.0" layoutY="2.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #9fc9ff;" text="Тип визуализации:" textAlignment="CENTER">
+                              <Label alignment="CENTER" layoutX="18.0" layoutY="1.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #9fc9ff;" text="Тип визуализации:" textAlignment="CENTER">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -114,15 +117,15 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="7.0" layoutY="395.0" prefHeight="106.0" prefWidth="217.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="7.0" layoutY="395.0" prefHeight="106.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerSpeedApply" layoutX="34.0" layoutY="69.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerSpeedApply" layoutX="39.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
                         <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="53.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
                            <children>
-                              <MenuButton fx:id="playerSpeedBall" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Скорость персонажа">
+                              <MenuButton fx:id="playerSpeedBall" layoutX="19.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Скорость персонажа">
                                  <items>
                                     <MenuItem fx:id="playerSpeed1" mnemonicParsing="false" text="Медленно" />
                                     <MenuItem fx:id="playerSpeed2" mnemonicParsing="false" text="Средне" />
@@ -139,7 +142,30 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ImageField" layoutX="234.0" prefHeight="575.0" prefWidth="567.0" />
+            <Group fx:id="playerTopicGroup" layoutX="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="playerImageSpring" fitHeight="600.0" fitWidth="560.0" visible="false">
+                     <image>
+                        <Image url="@../../Images/spring.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playerImageSummer" fitHeight="600.0" fitWidth="560.0" visible="false">
+                     <image>
+                        <Image url="@../../Images/summer.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playerImageAutumn" fitHeight="600.0" fitWidth="560.0" visible="false">
+                     <image>
+                        <Image url="@../../Images/autumn.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playerImageWinter" fitHeight="600.0" fitWidth="560.0" visible="false">
+                     <image>
+                        <Image url="@../../Images/winter.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
       </children>
     </AnchorPane>
   </children>

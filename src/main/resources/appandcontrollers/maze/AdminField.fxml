@@ -9,13 +9,16 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appandcontrollers.maze.AdminController">
     <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
       <menus>
         <Menu fx:id="adminMenuFile" mnemonicParsing="false" text="Файл">
           <items>
@@ -30,9 +33,9 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="575.0" prefWidth="230.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
       <children>
-            <AnchorPane prefHeight="575.0" prefWidth="233.0" style="-fx-background-color: #3599ff;">
+            <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
                <children>
                   <AnchorPane layoutX="8.0" layoutY="7.0" prefHeight="181.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
                      <children>
@@ -136,7 +139,30 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ImageField" layoutX="234.0" prefHeight="575.0" prefWidth="566.0" />
+            <StackPane fx:id="adminStackPane" layoutX="240.0" prefHeight="600.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="adminImageSpring" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../../Images/spring.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="adminImageSummer" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../../Images/summer.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="adminImageAutumn" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../../Images/autumn.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="adminImageWinter" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../../Images/winter.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
       </children>
     </AnchorPane>
   </children>

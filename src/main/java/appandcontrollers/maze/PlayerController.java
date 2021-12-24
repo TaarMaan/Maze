@@ -2,12 +2,19 @@ package appandcontrollers.maze;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -63,7 +70,16 @@ public class PlayerController {
     private MenuButton playerSpeedBall;
 
     @FXML
-    private AnchorPane ImageField;
+    private ImageView playerImageSpring;
+    @FXML
+    private ImageView playerImageSummer;
+    @FXML
+    private ImageView playerImageWinter;
+    @FXML
+    private ImageView playerImageAutumn;
+
+    @FXML
+    private Group playerTopicGroup;
 
     @FXML
     private Button playerStart;
@@ -97,19 +113,54 @@ public class PlayerController {
 
     @FXML
     void initialize() {
-        //кнопка загрузить у игрока
-        playerMenuFileLoad.setOnAction(actionEvent -> {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(new Stage());
-        try {
-            Scanner scanner = new Scanner(file);
-            //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Load"));
+        //темы
+        playerTopicSpring.setOnAction(actionEvent -> {
+            playerImageSpring.setVisible(true);
+        });
+        playerTopicSummer.setOnAction(actionEvent -> {
+            playerImageSummer.setVisible(true);
+        });
+        playerTopicAutumn.setOnAction(actionEvent -> {
+            playerImageAutumn.setVisible(true);
+        });
+        playerTopicWinter.setOnAction(actionEvent -> {
+            playerImageWinter.setVisible(true);
         });
 
+
+//        iv.fitWidthProperty().bind(root.widthProperty());
+        //      iv.fitHeightProperty().bind(root.heightProperty());
+
+        //справка о разработчиках
+        playerMenuReferenceDevelopers.setOnAction(actionEvent -> {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("AboutDevelopers.fxml"));
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("О разработчиках");
+            stage.setResizable(false);
+            stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+            stage.showAndWait();
+        });
+
+        //кнопка загрузить у игрока
+        playerMenuFileLoad.setOnAction(actionEvent -> {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(new Stage());
+            try {
+                Scanner scanner = new Scanner(file);
+                //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Load"));
+        });
 
 
         //Установка группы для радиокнопок(алгоритмы)
