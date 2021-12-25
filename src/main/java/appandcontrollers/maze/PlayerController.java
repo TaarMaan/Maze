@@ -115,16 +115,44 @@ public class PlayerController {
     void initialize() {
         //темы
         playerTopicSpring.setOnAction(actionEvent -> {
-            playerImageSpring.setVisible(true);
+            if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
+                playerImageSpring.setVisible(true);
+            } else {
+                playerImageSpring.setVisible(true);
+                playerImageSummer.setVisible(false);
+                playerImageAutumn.setVisible(false);
+                playerImageWinter.setVisible(false);
+            }
         });
         playerTopicSummer.setOnAction(actionEvent -> {
-            playerImageSummer.setVisible(true);
+            if (!playerImageSpring.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
+                playerImageSummer.setVisible(true);
+            } else {
+                playerImageSpring.setVisible(false);
+                playerImageSummer.setVisible(true);
+                playerImageAutumn.setVisible(false);
+                playerImageWinter.setVisible(false);
+            }
         });
         playerTopicAutumn.setOnAction(actionEvent -> {
-            playerImageAutumn.setVisible(true);
+            if (!playerImageSummer.isVisible() && !playerImageSpring.isVisible() && !playerImageWinter.isVisible()) {
+                playerImageAutumn.setVisible(true);
+            } else {
+                playerImageSpring.setVisible(false);
+                playerImageSummer.setVisible(false);
+                playerImageAutumn.setVisible(true);
+                playerImageWinter.setVisible(false);
+            }
         });
         playerTopicWinter.setOnAction(actionEvent -> {
-            playerImageWinter.setVisible(true);
+            if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageSpring.isVisible()) {
+                playerImageWinter.setVisible(true);
+            } else {
+                playerImageSpring.setVisible(false);
+                playerImageSummer.setVisible(false);
+                playerImageAutumn.setVisible(false);
+                playerImageWinter.setVisible(true);
+            }
         });
 
 

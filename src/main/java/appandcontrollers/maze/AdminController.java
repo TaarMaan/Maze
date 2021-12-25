@@ -96,16 +96,44 @@ public class AdminController {
     void initialize() {
         //Темы
         adminTopicSpring.setOnAction(actionEvent -> {
-            adminImageSpring.setVisible(true);
+            if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
+                adminImageSpring.setVisible(true);
+            } else {
+                adminImageSpring.setVisible(true);
+                adminImageSummer.setVisible(false);
+                adminImageAutumn.setVisible(false);
+                adminImageWinter.setVisible(false);
+            }
         });
         adminTopicSummer.setOnAction(actionEvent -> {
-            adminImageSummer.setVisible(true);
+            if (!adminImageSpring.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
+                adminImageSummer.setVisible(true);
+            } else {
+                adminImageSpring.setVisible(false);
+                adminImageSummer.setVisible(true);
+                adminImageAutumn.setVisible(false);
+                adminImageWinter.setVisible(false);
+            }
         });
         adminTopicAutumn.setOnAction(actionEvent -> {
-            adminImageAutumn.setVisible(true);
+            if (!adminImageSummer.isVisible() && !adminImageSpring.isVisible() && !adminImageWinter.isVisible()) {
+                adminImageAutumn.setVisible(true);
+            } else {
+                adminImageSpring.setVisible(false);
+                adminImageSummer.setVisible(false);
+                adminImageAutumn.setVisible(true);
+                adminImageWinter.setVisible(false);
+            }
         });
         adminTopicWinter.setOnAction(actionEvent -> {
-            adminImageWinter.setVisible(true);
+            if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageSpring.isVisible()) {
+                adminImageWinter.setVisible(true);
+            } else {
+                adminImageSpring.setVisible(false);
+                adminImageSummer.setVisible(false);
+                adminImageAutumn.setVisible(false);
+                adminImageWinter.setVisible(true);
+            }
         });
 
 
