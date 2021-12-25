@@ -78,8 +78,6 @@ public class PlayerController {
     @FXML
     private ImageView playerImageAutumn;
 
-    @FXML
-    private Group playerTopicGroup;
 
     @FXML
     private Button playerStart;
@@ -113,6 +111,11 @@ public class PlayerController {
 
     @FXML
     void initialize() {
+        //НАПИСАТЬ что все кнопки дизейбл,пока чел не загрузит...
+        //а как только загрузил,может нажать старт с выставленными значениями "по умолчанию"
+
+
+
         //темы
         playerTopicSpring.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -154,10 +157,11 @@ public class PlayerController {
                 playerImageWinter.setVisible(true);
             }
         });
+        //закрепляем выбранную тему
+playerTopicApply.setOnAction(actionEvent -> {
+    playerTopic.setDisable(true);
+});
 
-
-//        iv.fitWidthProperty().bind(root.widthProperty());
-        //      iv.fitHeightProperty().bind(root.heightProperty());
 
         //справка о разработчиках
         playerMenuReferenceDevelopers.setOnAction(actionEvent -> {
@@ -216,6 +220,7 @@ public class PlayerController {
             // персонажа(если выбран динамический)...
 
         });
+
     }
 
 }

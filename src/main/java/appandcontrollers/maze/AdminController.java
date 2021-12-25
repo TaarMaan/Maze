@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class AdminController {
 
@@ -94,6 +95,33 @@ public class AdminController {
 
     @FXML
     void initialize() {
+        //написать что вся значения окон имеют свои "по умолчанию" и если нихера не жать и нажать только "Сгенерировать"
+        // то он сделает шаблон.
+
+        adminApply.setOnAction(actionEvent -> {
+            String H = adminHeight.getText();
+            String W = adminWidth.getText();
+            if (H.equals("9") || H.equals("11") || H.equals("13") || H.equals("15") || H.equals("17")
+                    || H.equals("19") || H.equals("21") || H.equals("23") || H.equals("25")) {
+                if (W.equals("9") || W.equals("11") || W.equals("13") || W.equals("15") || W.equals("17")
+                        || W.equals("19") || W.equals("21") || W.equals("23") || W.equals("25") || W.equals("27")
+                        || W.equals("29") || W.equals("31")) {
+                    adminHeight.setEditable(false);
+                    adminWidth.setEditable(false);
+                    adminTopic.setDisable(true);
+                    //запуск генерации сетки
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Successful authentication");
+                    alert.setHeaderText("Некорректные значения высоты или ширины");
+                    alert.showAndWait();
+                }
+
+
+            }
+
+        });
+
         //Темы
         adminTopicSpring.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
@@ -135,8 +163,6 @@ public class AdminController {
                 adminImageWinter.setVisible(true);
             }
         });
-
-
         //справка о разработчиках
         adminMenuReferenceDevelopers.setOnAction(actionEvent ->
 
@@ -155,6 +181,7 @@ public class AdminController {
             stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
             stage.showAndWait();
         });
+
 
         //кнопка сохранить у админа
         /*adminMenuFileSave.setOnAction(actionEvent -> {
