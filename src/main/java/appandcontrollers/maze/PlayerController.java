@@ -123,8 +123,8 @@ public class PlayerController {
             } else {
                 playerImageSpring.setVisible(true);
                 playerImageSummer.setVisible(false);
-                playerImageAutumn.setVisible(false);
                 playerImageWinter.setVisible(false);
+                playerImageAutumn.setVisible(false);
             }
         });
         playerTopicSummer.setOnAction(actionEvent -> {
