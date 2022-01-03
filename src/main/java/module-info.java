@@ -10,6 +10,7 @@ module appandcontrollers.maze {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.desktop;
+    requires java.logging;
 
     opens appandcontrollers.maze to javafx.fxml;
     exports appandcontrollers.maze;
