@@ -13,6 +13,5 @@ module appandcontrollers.maze {
 
     opens appandcontrollers.maze to javafx.fxml;
     exports appandcontrollers.maze;
-    exports Labirint;
-    opens Labirint to javafx.fxml;
+
 }

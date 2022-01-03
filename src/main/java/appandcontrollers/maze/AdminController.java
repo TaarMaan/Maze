@@ -1,22 +1,31 @@
 package appandcontrollers.maze;
 
+//import Labirint.Ball;
+//import Labirint.Lattice;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class AdminController {
+public class AdminController extends AuthenticationController {
 
     @FXML
     private ResourceBundle resources;
@@ -73,6 +82,9 @@ public class AdminController {
     private RadioButton adminPrim;
 
     @FXML
+    private StackPane adminStackPane;
+
+    @FXML
     private Button adminStart;
 
     @FXML
@@ -97,7 +109,6 @@ public class AdminController {
     void initialize() {
         //написать что вся значения окон имеют свои "по умолчанию" и если нихера не жать и нажать только "Сгенерировать"
         // то он сделает шаблон.
-
         adminApply.setOnAction(actionEvent -> {
             String H = adminHeight.getText();
             String W = adminWidth.getText();
@@ -110,6 +121,7 @@ public class AdminController {
                     adminWidth.setEditable(false);
                     adminTopic.setDisable(true);
                     //запуск генерации сетки
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Successful authentication");
@@ -163,6 +175,8 @@ public class AdminController {
                 adminImageWinter.setVisible(true);
             }
         });
+
+
         //справка о разработчиках
         adminMenuReferenceDevelopers.setOnAction(actionEvent ->
 
@@ -230,10 +244,3 @@ public class AdminController {
         });
     }
 }
-
-
-
-
-
-
-
