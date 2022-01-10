@@ -1,8 +1,5 @@
 package appandcontrollers.maze;
 
-//import Labirint.Ball;
-//import Labirint.Lattice;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,24 +11,28 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
-public class AdminController extends AuthenticationController {
+public class AdminController extends Observable {
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private MenuItem AdminMenuArrangeEntrance;
+    @FXML
+    private MenuButton AdminMenuArrangeEntxit;
+    @FXML
+    private MenuItem AdminMenuArrangeExit;
 
     @FXML
     private Button adminApply;
@@ -109,14 +110,15 @@ public class AdminController extends AuthenticationController {
     void initialize() {
         //написать что вся значения окон имеют свои "по умолчанию" и если нихера не жать и нажать только "Сгенерировать"
         // то он сделает шаблон.
+
         adminApply.setOnAction(actionEvent -> {
-            String H = adminHeight.getText();
-            String W = adminWidth.getText();
-            if (H.equals("9") || H.equals("11") || H.equals("13") || H.equals("15") || H.equals("17")
-                    || H.equals("19") || H.equals("21") || H.equals("23") || H.equals("25")) {
-                if (W.equals("9") || W.equals("11") || W.equals("13") || W.equals("15") || W.equals("17")
-                        || W.equals("19") || W.equals("21") || W.equals("23") || W.equals("25") || W.equals("27")
-                        || W.equals("29") || W.equals("31")) {
+            String y = adminHeight.getText();
+            String x = adminWidth.getText();
+            if (y.equals("9") || y.equals("11") || y.equals("13") || y.equals("15") || y.equals("17")
+                    || y.equals("19") || y.equals("21") || y.equals("23") || y.equals("25")) {
+                if (x.equals("9") || x.equals("11") || x.equals("13") || x.equals("15") || x.equals("17")
+                        || x.equals("19") || x.equals("21") || x.equals("23") || x.equals("25") || x.equals("27")
+                        || x.equals("29") || x.equals("31")) {
                     adminHeight.setEditable(false);
                     adminWidth.setEditable(false);
                     adminTopic.setDisable(true);

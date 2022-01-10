@@ -77,9 +77,9 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="11.0" layoutY="355.0" prefHeight="154.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="11.0" layoutY="343.0" prefHeight="192.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="adminArrangeEntrence" layoutX="34.0" layoutY="116.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Расставить">
+                        <Button fx:id="adminArrangeEntrence" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Расставить">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
@@ -102,14 +102,23 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
+                        <MenuButton fx:id="AdminMenuArrangeEntxit" layoutX="58.0" layoutY="113.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="101.0" text="Вход/Выход">
+                           <items>
+                              <MenuItem fx:id="AdminMenuArrangeEntrance" mnemonicParsing="false" text="Вход" />
+                              <MenuItem fx:id="AdminMenuArrangeExit" mnemonicParsing="false" text="Выход" />
+                           </items>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="adminStart" layoutX="8.0" layoutY="526.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="217.0" text="Сгенерировать лабиринт">
+                  <Button fx:id="adminStart" layoutX="11.0" layoutY="540.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="217.0" text="Сгенерировать лабиринт">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="11.0" layoutY="204.0" prefHeight="140.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="11.0" layoutY="195.0" prefHeight="140.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
                      <children>
                         <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
                            <children>

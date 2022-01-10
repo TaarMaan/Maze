@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ViewController;
 
-import Model.Grid;
-import Model.Tile;
-import Strategy.MazeGenerationStrategy.MazeGenerationStrategy;
-import Strategy.PathfindingStrategy.PathfindingStrategy;
+import Algorithms.FindingExit;
+import Algorithms.MazeGeneration;
+import GridModel.Grid;
+import GridModel.Tile;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -150,7 +146,7 @@ public class View implements Observer {
         hboxAlgorithmTxt.getChildren().addAll(txtAlgorithms, separatorAlgo, txtAlgorithmsHeuristic);
         HBox hboxcbAlgorithmBox = new HBox(padding);
         hboxcbAlgorithmBox.setAlignment(Pos.CENTER);
-        cbAlgorithmBox = new ComboBox(FXCollections.observableArrayList(PathfindingStrategy.Algorithms.values()));
+        cbAlgorithmBox = new ComboBox(FXCollections.observableArrayList(FindingExit.Algorithms.values()));
         cbAlgorithmBox.getSelectionModel().selectFirst();
         cbAlgorithmBox.setTooltip(new Tooltip("Algorithm picker"));
         cbHeuristicBox = new ComboBox(FXCollections.observableArrayList(AStarStrategy.Heuristic.values()));
@@ -188,7 +184,7 @@ public class View implements Observer {
         hboxMaze.getChildren().add(txtMaze);
         HBox hboxMazeGen = new HBox(padding);
         hboxMazeGen.setAlignment(Pos.CENTER);
-        cbMazeGenBox = new ComboBox(FXCollections.observableArrayList(MazeGenerationStrategy.MazeGen.values()));
+        cbMazeGenBox = new ComboBox(FXCollections.observableArrayList(MazeGeneration.MazeGen.values()));
         cbMazeGenBox.getSelectionModel().selectFirst();
         cbMazeGenBox.setTooltip(new Tooltip("Maze generation algorithm picker"));
         btnMaze = new Button("MAZE GEN");
@@ -258,7 +254,7 @@ public class View implements Observer {
         // Generates a random maze
         btnMaze.setOnAction((event) ->
         {
-            FXCollections.observableArrayList(MazeGenerationStrategy.MazeGen.values()).stream().filter((item) -> (cbMazeGenBox.getValue().toString().equals(item.toString()))).forEachOrdered((item) ->
+            FXCollections.observableArrayList(MazeGeneration.MazeGen.values()).stream().filter((item) -> (cbMazeGenBox.getValue().toString().equals(item.toString()))).forEachOrdered((item) ->
             {
                 if (gridPane != null)
                     controller.doGenerateMaze(item);
@@ -297,25 +293,20 @@ public class View implements Observer {
         // Run pathfinding algorithms
         btnRun.setOnAction((event) ->
         {
-            PathfindingStrategy.Algorithms algorithm = null;
-            AStarStrategy.Heuristic heuristic = null;
+           FindingExit.Algorithms algorithm = null;
 
-            for (PathfindingStrategy.Algorithms algo : FXCollections.observableArrayList(PathfindingStrategy.Algorithms.values())) {
+
+            for (FindingExit.Algorithms algo : FXCollections.observableArrayList(FindingExit.Algorithms.values())) {
                 if (algo == cbAlgorithmBox.getValue()) {
                     algorithm = algo;
                 }
             }
 
-            for (AStarStrategy.Heuristic heur : FXCollections.observableArrayList(AStarStrategy.Heuristic.values())) {
-                if (heur == cbHeuristicBox.getValue()) {
-                    heuristic = heur;
-                }
-            }
 
             boolean success;
-            if (algorithm != null && heuristic != null) {
+            if (algorithm != null ) {
                 try {
-                    success = controller.doShortestPathAlgorithm(algorithm, heuristic);
+                    success = controller.doShortestPathAlgorithm(algorithm);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -363,3 +354,5 @@ public class View implements Observer {
 
     }
 }
+
+

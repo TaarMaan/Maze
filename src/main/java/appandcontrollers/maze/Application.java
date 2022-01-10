@@ -1,21 +1,16 @@
 package appandcontrollers.maze;
 
-import javafx.event.Event;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
+
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
-
 
     @Override
     public void start(Stage stage) throws IOException {

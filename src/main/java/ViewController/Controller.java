@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ViewController;
 
+import Algorithms.FindingExit;
+import Algorithms.MazeGeneration;
 import Factory.StrategyFactory;
-import Model.Grid;
-import Model.Tile;
-import Strategy.MazeGenerationStrategy.MazeGenerationStrategy;
-import Strategy.PathfindingStrategy.PathfindingStrategy;
+import GridModel.Grid;
+import GridModel.Tile;
 
 public class Controller {
     private final Grid model;
@@ -44,19 +39,18 @@ public class Controller {
         this.model.addTileBorders(setBorder);
     }
 
-    public void doGenerateMaze(MazeGenerationStrategy.MazeGen strategy) {
-        MazeGenerationStrategy mazeGenerationStrategy = StrategyFactory.getMazeGenStrategy(strategy);
+    public void doGenerateMaze(MazeGeneration.MazeGen strategy) {
+        MazeGeneration mazeGenerationStrategy = StrategyFactory.getMazeGenStrategy(strategy);
         this.model.generateRandomMaze(mazeGenerationStrategy);
     }
 
     public void doToggleTileCoords(boolean toAdd) {
         this.model.toggleCoords(toAdd);
     }
-    public boolean doShortestPathAlgorithm(PathfindingStrategy.Algorithms algorithm, AStarStrategy.Heuristic heuristic) throws InterruptedException
+    public boolean doShortestPathAlgorithm(FindingExit.Algorithms algorithm) throws InterruptedException
     {
-        HeuristicStrategy heuristicStrategy = StrategyFactory.getHeuristicStrategy(heuristic);
-        PathfindingStrategy pathfindingStrategy = StrategyFactory.getPathfindingStrategy(algorithm, heuristicStrategy);
-        return this.model.executePathfinding(pathfindingStrategy);
+        FindingExit fExit = StrategyFactory.getFindingExit(algorithm);
+        return this.model.executeFinding(fExit);
     }
-
 }
+

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class PlayerController extends AuthenticationController{
+public class PlayerController extends Observable {
 
     @FXML
     private ResourceBundle resources;
@@ -101,6 +102,15 @@ public class PlayerController extends AuthenticationController{
 
     @FXML
     void initialize() {
+playerVisualizationApply.setDisable(true);
+playerVisualizationDynamic.setDisable(true);
+playerVisualizationStatic.setDisable(true);
+playerSpeedBall.setDisable(true);
+playerSpeedApply.setDisable(true);
+playerAlgorithmApply.setDisable(true);
+playerAlgorithmBreadthFirstSearch.setDisable(true);
+playerAlgorithmDepthFirstSearch.setDisable(true);
+playerStart.setDisable(true);
         //НАПИСАТЬ что все кнопки дизейбл,пока чел не загрузит...
         //а как только загрузил,может нажать старт с выставленными значениями "по умолчанию"
 
@@ -150,6 +160,10 @@ public class PlayerController extends AuthenticationController{
         //закрепляем выбранную тему
 playerTopicApply.setOnAction(actionEvent -> {
     playerTopic.setDisable(true);
+    playerTopicApply.setDisable(true);
+    playerAlgorithmApply.setDisable(false);
+    playerAlgorithmBreadthFirstSearch.setDisable(false);
+    playerAlgorithmDepthFirstSearch.setDisable(false);
 });
 
 
@@ -195,6 +209,12 @@ playerTopicApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupA.getSelectedToggle();
 
             // включение алгоритма в сетку...
+            playerAlgorithmApply.setDisable(true);
+            playerAlgorithmBreadthFirstSearch.setDisable(true);
+            playerAlgorithmDepthFirstSearch.setDisable(true);
+            playerVisualizationApply.setDisable(false);
+            playerVisualizationDynamic.setDisable(false);
+            playerVisualizationStatic.setDisable(false);
         });
 
         //Установка группы для радиокнопок(Тип визуализации)
@@ -208,8 +228,21 @@ playerTopicApply.setOnAction(actionEvent -> {
 
             //включение алгоритма в сетку и разблокирование выбора скорости
             // персонажа(если выбран динамический)...
-
+            playerVisualizationApply.setDisable(true);
+            playerVisualizationDynamic.setDisable(true);
+            playerVisualizationStatic.setDisable(true);
+            if(playerVisualizationDynamic.isSelected()){
+                playerSpeedBall.setDisable(false);
+                playerSpeedApply.setDisable(false);
+            }else{
+                playerStart.setDisable(false);
+            }
         });
+playerSpeedApply.setOnAction(actionEvent -> {
+    playerSpeedBall.setDisable(true);
+    playerSpeedApply.setDisable(true);
+    playerStart.setDisable(false);
+});
 
     }
 
