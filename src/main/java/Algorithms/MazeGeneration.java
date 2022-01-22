@@ -17,7 +17,7 @@ public abstract class MazeGeneration {
     // Maze generation algorithms
     public static enum MazeGen{
         Prim,
-        Eiler
+        Kruskal
     }
 
     public MazeGeneration()

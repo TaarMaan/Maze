@@ -87,7 +87,6 @@ public class AuthenticationController{
             }
         });
         //Задание и проверка логина и пароля админа
-        //Не хватает проверки на другой тип данных, так как при вводе 1234 и.т.д. он выдает ошибку в консоли,а не окном
         entranceA.setOnAction(actionEvent -> {
             String loginAd = loginA.getText();
             String passwordAd = passwordA.getText();
@@ -109,12 +108,12 @@ public class AuthenticationController{
                     e.printStackTrace();
                 }
                 Parent root = loader.getRoot();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Окно создания нового лабиринта");
-                stage.setResizable(false);
-                stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
-                stage.showAndWait();
+                Stage stage1 = new Stage();
+                stage1.setScene(new Scene(root));
+                stage1.setTitle("Окно создания нового лабиринта");
+                stage1.setResizable(false);
+                stage1.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                stage1.showAndWait();
             } else {
                 if (loginAd.equals("") || passwordAd.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

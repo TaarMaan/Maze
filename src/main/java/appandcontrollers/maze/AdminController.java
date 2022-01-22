@@ -1,5 +1,10 @@
 package appandcontrollers.maze;
 
+import Algorithms.MazeGeneration;
+import GridModel.Grid;
+import GridModel.Tile;
+//import GridModel.Controller;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,28 +16,30 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.io.*;
 import java.net.URL;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class AdminController extends Observable {
+public class AdminController {
 
     @FXML
     private ResourceBundle resources;
-
+    private Pane parentGridPane;
+    private GridPane gridPane;
+    private Grid model;
+    @FXML
+    private ComboBox AdminMenuArrangeEntxit;
     @FXML
     private URL location;
-
-    @FXML
-    private MenuItem AdminMenuArrangeEntrance;
-    @FXML
-    private MenuButton AdminMenuArrangeEntxit;
-    @FXML
-    private MenuItem AdminMenuArrangeExit;
 
     @FXML
     private Button adminApply;
@@ -49,8 +56,9 @@ public class AdminController extends Observable {
     @FXML
     private RadioButton adminArrangeManually;
 
+
     @FXML
-    private RadioButton adminEuler;
+    private RadioButton adminKruskal;
 
     @FXML
     private TextField adminHeight;
@@ -107,13 +115,28 @@ public class AdminController extends Observable {
     private TextField adminWidth;
 
     @FXML
-    void initialize() {
-        //написать что вся значения окон имеют свои "по умолчанию" и если нихера не жать и нажать только "Сгенерировать"
-        // то он сделает шаблон.
+    public void initialize() {
+        adminKruskal.setDisable(true);
+        adminPrim.setDisable(true);
+        adminArrangeAlgorithm.setDisable(true);
+        adminArrangeAuto.setDisable(true);
+        adminArrangeManually.setDisable(true);
+        AdminMenuArrangeEntxit.setDisable(true);
+        adminArrangeEntrence.setDisable(true);
+
+        AdminMenuArrangeEntxit = new ComboBox(FXCollections.observableArrayList(Tile.Type.values()));
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.PATH);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.HIGHLIGHT);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_DENSE);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_LIGHT);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MAX);
+        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MEDIUM);
+        AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
 
         adminApply.setOnAction(actionEvent -> {
-            String y = adminHeight.getText();
-            String x = adminWidth.getText();
+            String x = String.valueOf(adminWidth.getText());
+            String y = String.valueOf(adminHeight.getText());
             if (y.equals("9") || y.equals("11") || y.equals("13") || y.equals("15") || y.equals("17")
                     || y.equals("19") || y.equals("21") || y.equals("23") || y.equals("25")) {
                 if (x.equals("9") || x.equals("11") || x.equals("13") || x.equals("15") || x.equals("17")
@@ -122,8 +145,11 @@ public class AdminController extends Observable {
                     adminHeight.setEditable(false);
                     adminWidth.setEditable(false);
                     adminTopic.setDisable(true);
-                    //запуск генерации сетки
+                    adminKruskal.setDisable(false);
+                    adminPrim.setDisable(false);
+                    adminArrangeAlgorithm.setDisable(false);
 
+                    //запуск генерации сетки
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Successful authentication");
@@ -135,7 +161,6 @@ public class AdminController extends Observable {
             }
 
         });
-
         //Темы
         adminTopicSpring.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
@@ -177,11 +202,33 @@ public class AdminController extends Observable {
                 adminImageWinter.setVisible(true);
             }
         });
+        //установка группы для радиокнопок(алгоритмы)
+        ToggleGroup groupA = new ToggleGroup();
+        adminKruskal.setToggleGroup(groupA);
+        adminPrim.setToggleGroup(groupA);
+        adminPrim.setSelected(true);
+        adminArrangeAlgorithm.setOnAction(actionEvent ->
+        {
+            RadioButton selection = (RadioButton) groupA.getSelectedToggle();
+            adminArrangeAuto.setDisable(false);
+            adminArrangeEntrence.setDisable(false);
+            adminArrangeManually.setDisable(false);
 
+        });
+
+        //установка группы для радиокнопок(способ расстановки входов)
+        ToggleGroup groupV = new ToggleGroup();
+        adminArrangeAuto.setToggleGroup(groupV);
+        adminArrangeManually.setToggleGroup(groupV);
+        adminArrangeAuto.setSelected(true);
+
+        adminArrangeEntrence.setOnAction(actionEvent ->
+        {
+            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
+        });
 
         //справка о разработчиках
         adminMenuReferenceDevelopers.setOnAction(actionEvent ->
-
         {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("AboutDevelopers.fxml"));
@@ -197,52 +244,93 @@ public class AdminController extends Observable {
             stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
             stage.showAndWait();
         });
-
-
-        //кнопка сохранить у админа
-        /*adminMenuFileSave.setOnAction(actionEvent -> {
-            FileChooser fileChooser = new FileChooser();
-            File file = fileChooser.showSaveDialog(new Stage());
-            if (file != null){
-                saveSystem(file, );
-            }
+        adminMenuReferenceApp.setOnAction(actionEvent -> {
             try {
-                Scanner scanner = new Scanner(file);
-                //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                String path = "D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\appandcontrollers\\maze\\help.html";
+                File file = new File(path);
+                if (file.exists()) {
+                    Process process = Runtime.getRuntime().exec("rund1132 url.dll,FileProtocolHandler " + path);
+                    process.waitFor();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Предупреждение");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Файл справки поврежден или отсутствует...");
+                    alert.showAndWait();
+                }
+            } catch (InterruptedException | IOException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Файл справки поврежден или отсутствует...");
+                alert.showAndWait();
             }
-            fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Save"));
+        });
+        //кнопка сохранить у админа
+
+    /*    adminMenuFileSave.setOnAction(actionEvent -> {
+            public void speichern(ActionEvent event)
+            if (filename == null)
+                speichernUnter(event);
+            else {
+                Properties properties = new Properties();
+                FileOutputStream fos = null;
+                try {
+                    properties.setProperty("Высота", adminHeight.getText());
+                    properties.setProperty("Ширина", adminWidth.getText());
+                    if (adminPrim.isSelected()) {
+                        properties.setProperty("Прима", "yes");
+                    } else {
+                        adminKruskal.isSelected();
+                        properties.setProperty("Крускала", "yes");
+                    }
+                    //расстановку входа и выхода
+                    fos = new FileOutputStream(filename);
+                    properties.storeToXML(new FileOutputStream(filename), "Values and Settings", "UTF-8");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
+            public void speichernUnter ()
+            init();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Сохранить шаблон лабиринта");
+            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PROPERTIES Dateien (*.properties", "*.properties)");
+            fileChooser.getExtensionFilters().add(extensionFilter);
+            fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Samples"));
+            File file = fileChooser.showSaveDialog(new Stage());
+            if (file != null) {
+                try {
+                    FileWritter fileWritter = new FileWriter(file);
+                    fileWritter.close();
+                    filename = file.toString();
+                    speichern();
+                } catch (IOException e) {
+                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+
+                *//*fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Text Files", "*.txt"));*//*
+               *//* if (file != null) {
+                    // saveSystem(file, );
+                }
+                try {
+                    Scanner scanner = new Scanner(file);
+                    //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }*//*
+
         });*/
 
-
-        //установка группы для радиокнопок(алгоритмы)
-        ToggleGroup groupA = new ToggleGroup();
-        adminEuler.setToggleGroup(groupA);
-        adminPrim.setToggleGroup(groupA);
-
-        //установка обработчика события для выбора алгоритма генерации
-        adminArrangeAlgorithm.setOnAction(actionEvent ->
-
-        {
-            RadioButton selection = (RadioButton) groupA.getSelectedToggle();
-
-            //включение алгоритма в сетку...
-        });
-
-        //установка группы для радиокнопок(способ расстановки входов)
-        ToggleGroup groupV = new ToggleGroup();
-        adminArrangeAuto.setToggleGroup(groupV);
-        adminArrangeManually.setToggleGroup(groupV);
-
-        //установка обработчика события для расстановки входа и выхода
-        adminArrangeEntrence.setOnAction(actionEvent ->
-
-        {
-            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
-
-            //генерация сетки и открытие формы расставления входа
-            //если выбрано (расставить вручную)...
-        });
     }
 }

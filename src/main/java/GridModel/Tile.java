@@ -9,7 +9,7 @@ import java.util.Observable;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 
@@ -35,7 +35,7 @@ public class Tile extends Observable {
     private final int[] WEIGHTS = {
             this.getDefaultWeight(), 3, 6, 9, 12};
 
-    //private final StackPane adminStackPane;
+    private final StackPane adminStackPane;
     private final int x;
     private final int y;
     private final Rectangle rectangle;
@@ -46,8 +46,8 @@ public class Tile extends Observable {
     private final int size;
 
 
-    public Tile(int x, int y, int size) {
-        adminStackPane = new StackPane();
+    public Tile(int x, int y, int size,StackPane adminStackPane) {
+        this.adminStackPane = adminStackPane;
         // Type color Mapping
         typeMap = new HashMap<>();
         typeMap.put(Type.EXIT, Color.YELLOW);
@@ -82,6 +82,7 @@ public class Tile extends Observable {
         this.weight = defaultWeight;
         this.type = Type.EMPTY;
         this.size = size;
+        size = 20;
 
         // Tile content
         this.rectangle = new Rectangle(size - tileGap, size - tileGap);

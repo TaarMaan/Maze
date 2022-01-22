@@ -2,7 +2,8 @@
 package GridModel;
 
 import Algorithms.FindingExit;
-
+import Algorithms.MazeGeneration;
+import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -32,14 +33,19 @@ public class Grid extends Observable implements Observer {
         return true;
     }
 
-    public void gridInit(int x_tiles, int y_tiles, int tile_size) {
+    public void generateRandomMaze(MazeGeneration mazeGenerationStrategy) {
+        mazeGenerationStrategy.generate(this);
+    }
+
+    public void gridInit(int x_tiles, int y_tiles, int tile_size, StackPane adminStackPane) {
         this.x_size = x_tiles;
         this.y_size = y_tiles;
         this.grid = new Tile[x_tiles][y_tiles];
 
+
         for (int y = 0; y < y_tiles; y++) {
             for (int x = 0; x < x_tiles; x++) {
-                Tile tile = new Tile(x, y, tile_size);
+                Tile tile = new Tile(x, y, tile_size, adminStackPane);
                 tile.addObserver(this);
                 grid[x][y] = tile;
             }
@@ -53,18 +59,6 @@ public class Grid extends Observable implements Observer {
 
     public boolean isReady() {
         return !(entrance == null || exit == null);
-    }
-
-    public List<Tile> getTiles() {
-        List<Tile> tiles = new ArrayList<>();
-
-        for (int y = 0; y < this.y_size; y++) {
-            for (int x = 0; x < this.x_size; x++) {
-                tiles.add(grid[x][y]);
-            }
-        }
-
-        return tiles;
     }
 
     public void clearGrid() {
@@ -81,18 +75,6 @@ public class Grid extends Observable implements Observer {
                 grid[x][y].setTileStroke(setBorder);
             }
         }
-    }
-
-    public int getWallsAmount() {
-        int totalWalls = 0;
-
-        for (int y = 0; y < this.y_size; y++) {
-            for (int x = 0; x < this.x_size; x++) {
-                if (grid[x][y].isWall()) totalWalls++;
-            }
-        }
-
-        return totalWalls;
     }
 
     public List<Tile> getTileNeighbors(Tile tile) {

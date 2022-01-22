@@ -31,13 +31,13 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
       <children>
             <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
                <children>
-                  <AnchorPane layoutX="7.0" layoutY="7.0" prefHeight="106.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="5.0" prefHeight="115.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerTopicApply" layoutX="39.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerTopicApply" layoutX="34.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
@@ -58,13 +58,13 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="7.0" layoutY="122.0" prefHeight="127.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="130.0" prefHeight="130.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerAlgorithmApply" layoutX="39.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerAlgorithmApply" layoutX="35.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="216.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="80.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
                               <Label alignment="CENTER" layoutX="57.0" layoutY="1.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм:" textAlignment="CENTER">
                                  <font>
@@ -85,18 +85,18 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="playerStart" layoutX="6.0" layoutY="508.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="228.0" text="СТАРТ">
+                  <Button fx:id="playerStart" layoutX="10.0" layoutY="530.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="220.0" text="СТАРТ">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="7.0" layoutY="258.0" prefHeight="127.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="270.0" prefHeight="135.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerVisualizationApply" layoutX="39.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerVisualizationApply" layoutX="35.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="216.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="80.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
                               <Label alignment="CENTER" layoutX="18.0" layoutY="1.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #9fc9ff;" text="Тип визуализации:" textAlignment="CENTER">
                                  <font>
@@ -117,15 +117,15 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="7.0" layoutY="395.0" prefHeight="106.0" prefWidth="228.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="415.0" prefHeight="106.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <Button fx:id="playerSpeedApply" layoutX="39.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="playerSpeedApply" layoutX="35.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="53.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="53.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
-                              <MenuButton fx:id="playerSpeedBall" layoutX="19.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Скорость персонажа">
+                              <MenuButton fx:id="playerSpeedBall" layoutX="22.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="166.0" text="Скорость персонажа">
                                  <items>
                                     <MenuItem fx:id="playerSpeed1" mnemonicParsing="false" text="Медленно" />
                                     <MenuItem fx:id="playerSpeed2" mnemonicParsing="false" text="Средне" />

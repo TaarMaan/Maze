@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -18,7 +19,7 @@
 
 <VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appandcontrollers.maze.AdminController">
     <children>
-    <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
+    <MenuBar maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
       <menus>
         <Menu fx:id="adminMenuFile" mnemonicParsing="false" text="Файл">
           <items>
@@ -33,17 +34,17 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
       <children>
-            <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
+            <AnchorPane maxHeight="600.0" maxWidth="242.0" prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="8.0" layoutY="7.0" prefHeight="181.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="5.0" prefHeight="181.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
                         <Button fx:id="adminApply" layoutX="34.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="130.0" prefWidth="206.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="130.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
                               <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #9fc9ff;" text="Параметры" textAlignment="CENTER">
                                  <font>
@@ -77,13 +78,13 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="11.0" layoutY="343.0" prefHeight="192.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="335.0" prefHeight="192.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
                         <Button fx:id="adminArrangeEntrence" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Расставить">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="85.0" prefWidth="206.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="85.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
                               <Label alignment="CENTER" layoutX="56.0" layoutY="1.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Вход и Выход" textAlignment="CENTER">
                                  <font>
@@ -102,32 +103,24 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <MenuButton fx:id="AdminMenuArrangeEntxit" layoutX="58.0" layoutY="113.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="101.0" text="Вход/Выход">
-                           <items>
-                              <MenuItem fx:id="AdminMenuArrangeEntrance" mnemonicParsing="false" text="Вход" />
-                              <MenuItem fx:id="AdminMenuArrangeExit" mnemonicParsing="false" text="Выход" />
-                           </items>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </MenuButton>
+                        <ComboBox fx:id="AdminMenuArrangeEntxit" layoutX="55.0" layoutY="107.0" prefHeight="26.0" prefWidth="108.0" promptText="Вход/Выход" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="adminStart" layoutX="11.0" layoutY="540.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="217.0" text="Сгенерировать лабиринт">
+                  <Button fx:id="adminStart" layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="220.0" text="Сгенерировать лабиринт">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="11.0" layoutY="195.0" prefHeight="140.0" prefWidth="218.0" style="-fx-background-color: #9fc9ff;">
+                  <AnchorPane layoutX="10.0" layoutY="190.0" prefHeight="140.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                      <children>
-                        <AnchorPane layoutX="6.0" layoutY="6.0" prefHeight="80.0" prefWidth="205.0" style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="80.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                            <children>
                               <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм" textAlignment="CENTER">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <RadioButton fx:id="adminEuler" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Эйлера">
+                              <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Крускала">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
