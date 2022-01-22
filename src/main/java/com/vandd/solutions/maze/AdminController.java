@@ -3,6 +3,8 @@ package com.vandd.solutions.maze;
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
 //import com.vandd.solutions.maze.GridModel.Controller;
+import com.vandd.solutions.maze.algorithms.AlgoFactory;
+import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AdminController {
 
@@ -135,14 +138,17 @@ public class AdminController {
             if (y >= 9 && y <=31 && y % 2 == 1) {
                 if (x >= 9 && x <=31 && x % 2 == 1) {
                     //todo ubrat nahui
-                    adminHeight.setEditable(false);
-                    adminWidth.setEditable(false);
-                    adminTopic.setDisable(true);
+//                    adminHeight.setEditable(false);
+//                    adminWidth.setEditable(false);
+//                    adminTopic.setDisable(true);
                     adminKruskal.setDisable(false);
                     adminPrim.setDisable(false);
                     adminArrangeAlgorithm.setDisable(false);
 
                     //запуск генерации сетки
+                    var themeList = adminStackPane.getChildren().stream().limit(4).collect(Collectors.toList());
+                    adminStackPane.getChildren().clear();
+                    adminStackPane.getChildren().addAll(themeList);
                     grid = new Grid();
                     grid.gridInit(x, y, 600 / Integer.max(x,y));
                     fillGrid(grid.getGrid());
@@ -210,6 +216,14 @@ public class AdminController {
             adminArrangeAuto.setDisable(false);
             adminArrangeEntrence.setDisable(false);
             adminArrangeManually.setDisable(false);
+            MazeGeneration.MazeGen mazeGen = null;
+            if(selection.equals(adminKruskal)){
+                mazeGen = MazeGeneration.MazeGen.Kruskal;
+            }else if (selection.equals(adminPrim)){
+                mazeGen = MazeGeneration.MazeGen.Prim;
+            }
+            AlgoFactory.getMazeGenStrategy(mazeGen).generate(grid);
+
 
         });
 
@@ -333,7 +347,6 @@ public class AdminController {
 
     private void fillGrid(Tile[][] tiles)
     {
-//        adminStackPane.getChildren().clear();
         for(Tile[] row : tiles)
         {
             for(Tile tile: row)
