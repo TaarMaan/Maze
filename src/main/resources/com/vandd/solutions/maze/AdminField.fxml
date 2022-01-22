@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appandcontrollers.maze.AdminController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.AdminController">
     <children>
     <MenuBar maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
       <menus>
@@ -145,22 +145,22 @@
                <children>
                   <ImageView fx:id="adminImageSpring" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
                      <image>
-                        <Image url="@../../Images/spring.jpg" />
+                        <Image url="@spring.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="adminImageSummer" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
                      <image>
-                        <Image url="@../../Images/summer.jpg" />
+                        <Image url="@summer.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="adminImageAutumn" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
                      <image>
-                        <Image url="@../../Images/autumn.jpg" />
+                        <Image url="@autumn.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="adminImageWinter" fitHeight="600.0" fitWidth="560.0" visible="false" StackPane.alignment="CENTER">
                      <image>
-                        <Image url="@../../Images/winter.jpg" />
+                        <Image url="@winter.jpg" />
                      </image>
                   </ImageView>
                </children>

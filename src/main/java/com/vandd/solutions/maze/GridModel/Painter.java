@@ -1,7 +1,7 @@
 
-package GridModel;
+package com.vandd.solutions.maze.GridModel;
 
-import Algorithms.FindingExit;
+import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 
 import java.util.List;
 import java.util.concurrent.Executor;

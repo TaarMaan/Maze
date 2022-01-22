@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="409.0" style="-fx-background-color: #9fc9ff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appandcontrollers.maze.AuthenticationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="409.0" style="-fx-background-color: #9fc9ff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.AuthenticationController">
    <children>
       <TabPane layoutX="65.0" layoutY="98.0" prefHeight="190.0" prefWidth="278.0" style="-fx-border-color: #3599ff;" tabClosingPolicy="UNAVAILABLE">
         <tabs>

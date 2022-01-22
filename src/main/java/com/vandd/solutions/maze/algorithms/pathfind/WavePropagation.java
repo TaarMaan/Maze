@@ -1,7 +1,7 @@
-package Algorithms;
+package com.vandd.solutions.maze.algorithms.pathfind;
 
-import GridModel.Grid;
-import GridModel.Tile;
+import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Tile;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;

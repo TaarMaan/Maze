@@ -1,10 +1,15 @@
 
-package Factory;
+package com.vandd.solutions.maze.algorithms;
 
-import Algorithms.*;
+import com.vandd.solutions.maze.algorithms.generation.Kruskal;
+import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
+import com.vandd.solutions.maze.algorithms.generation.Prim;
+import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
+import com.vandd.solutions.maze.algorithms.pathfind.RightHand;
+import com.vandd.solutions.maze.algorithms.pathfind.WavePropagation;
 
-public class StrategyFactory {
-    // Pathfinding Factory
+public class AlgoFactory {
+    // Pathfinding com.vandd.solutions.maze.Factory
     public static FindingExit getFindingExit(FindingExit.Algorithms algorithmStrategy) {
         switch (algorithmStrategy) {
 
@@ -17,7 +22,7 @@ public class StrategyFactory {
         }
     }
 
-    // Maze generation Factory
+    // Maze generation com.vandd.solutions.maze.Factory
     public static MazeGeneration getMazeGenStrategy(MazeGeneration.MazeGen strategy) {
         switch (strategy) {
             case Prim:

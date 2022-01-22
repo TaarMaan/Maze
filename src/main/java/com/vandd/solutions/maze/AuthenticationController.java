@@ -1,4 +1,4 @@
-package appandcontrollers.maze;
+package com.vandd.solutions.maze;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,7 +81,7 @@ public class AuthenticationController{
                     stage.setScene(new Scene(root));
                     stage.setTitle("Окно создания нового лабиринта");
                     stage.setResizable(false);
-                    stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                    stage.getIcons().add(new Image("file:icon.png"));
                     stage.showAndWait();
                 }
             }
@@ -112,7 +112,7 @@ public class AuthenticationController{
                 stage1.setScene(new Scene(root));
                 stage1.setTitle("Окно создания нового лабиринта");
                 stage1.setResizable(false);
-                stage1.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                stage1.getIcons().add(new Image("file:icon.png"));
                 stage1.showAndWait();
             } else {
                 if (loginAd.equals("") || passwordAd.equals("")) {

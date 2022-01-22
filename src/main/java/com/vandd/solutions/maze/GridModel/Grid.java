@@ -1,8 +1,8 @@
 
-package GridModel;
+package com.vandd.solutions.maze.GridModel;
 
-import Algorithms.FindingExit;
-import Algorithms.MazeGeneration;
+import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
+import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;

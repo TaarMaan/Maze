@@ -1,7 +1,7 @@
-package Algorithms;
+package com.vandd.solutions.maze.algorithms.generation;
 
-import GridModel.Grid;
-import GridModel.Tile;
+import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Tile;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.util.Pair;

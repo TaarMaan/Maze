@@ -1,10 +1,10 @@
 
-package Algorithms;
+package com.vandd.solutions.maze.algorithms.generation;
 
 
-import GridModel.Grid;
-import GridModel.Tile;
-import GridModel.Painter;
+import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Tile;
+import com.vandd.solutions.maze.GridModel.Painter;
 import java.util.List;
 import java.util.Random;
 

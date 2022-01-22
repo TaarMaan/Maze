@@ -1,10 +1,8 @@
-package appandcontrollers.maze;
+package com.vandd.solutions.maze;
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class PlayerController extends Observable {
@@ -99,17 +96,17 @@ public class PlayerController extends Observable {
     private RadioButton playerVisualizationStatic;
 /*
     public PlayerController() {
-        cbAlgorithmBox = new ComboBox(FXCollections.observableArrayList(FindingExit.Algorithms.values()));
+        cbAlgorithmBox = new ComboBox(FXCollections.observableArrayList(FindingExit.com.vandd.solutions.maze.Algorithms.values()));
         cbAlgorithmBox.getSelectionModel().selectFirst();
         btnRun = new Button("RUN");
 
         // Run pathfinding algorithms
         btnRun.setOnAction((event) ->
         {
-            FindingExit.Algorithms algorithm = null;
+            FindingExit.com.vandd.solutions.maze.Algorithms algorithm = null;
 
 
-            for (FindingExit.Algorithms algo : FXCollections.observableArrayList(FindingExit.Algorithms.values())) {
+            for (FindingExit.com.vandd.solutions.maze.Algorithms algo : FXCollections.observableArrayList(FindingExit.com.vandd.solutions.maze.Algorithms.values())) {
                 if (algo == cbAlgorithmBox.getValue()) {
                     algorithm = algo;
                 }
@@ -209,7 +206,7 @@ public class PlayerController extends Observable {
             stage.setScene(new Scene(root));
             stage.setTitle("О разработчиках");
             stage.setResizable(false);
-            stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+            stage.getIcons().add(new Image("file:icon.png"));
             stage.showAndWait();
         });
         playerMenuReferenceApp.setOnAction(actionEvent -> {

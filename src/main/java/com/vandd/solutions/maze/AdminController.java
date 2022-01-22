@@ -1,9 +1,8 @@
-package appandcontrollers.maze;
+package com.vandd.solutions.maze;
 
-import Algorithms.MazeGeneration;
-import GridModel.Grid;
-import GridModel.Tile;
-//import GridModel.Controller;
+import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Tile;
+//import com.vandd.solutions.maze.GridModel.Controller;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,15 +18,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AdminController {
 

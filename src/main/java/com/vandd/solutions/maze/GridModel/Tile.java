@@ -1,5 +1,5 @@
 
-package GridModel;
+package com.vandd.solutions.maze.GridModel;
 
 
 

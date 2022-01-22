@@ -1,10 +1,10 @@
 
-package GridModel;
+package com.vandd.solutions.maze.GridModel;
 
-import Algorithms.FindingExit;
-import Algorithms.MazeGeneration;
-import Factory.StrategyFactory;
-import appandcontrollers.maze.AdminController;
+import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
+import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
+import com.vandd.solutions.maze.algorithms.AlgoFactory;
+import com.vandd.solutions.maze.AdminController;
 
 public class Controller{
     private final Grid model;
@@ -14,9 +14,9 @@ public class Controller{
 
 this.model = model;
         this.adminController = adminController;
-        this.adminController.setTriggers(this);
-        this.adminController.createGrid();
-        this.model.addObserver(adminController);
+//        this.adminController.setTriggers(this);
+//        this.adminController.createGrid();
+//        this.model.addObserver(adminController);
     }
 
     public void doChangeClickType(Tile.Type type) {
@@ -24,13 +24,13 @@ this.model = model;
     }
 
     public void doGenerateMaze(MazeGeneration.MazeGen strategy) {
-        MazeGeneration mazeGenerationStrategy = StrategyFactory.getMazeGenStrategy(strategy);
+        MazeGeneration mazeGenerationStrategy = AlgoFactory.getMazeGenStrategy(strategy);
         this.model.generateRandomMaze(mazeGenerationStrategy);
     }
 
     public boolean doShortestPathAlgorithm(FindingExit.Algorithms algorithm) throws InterruptedException
     {
-        FindingExit fExit = StrategyFactory.getFindingExit(algorithm);
+        FindingExit fExit = AlgoFactory.getFindingExit(algorithm);
         return this.model.executeFinding(fExit);
     }
 }
