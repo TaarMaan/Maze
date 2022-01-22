@@ -15,9 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -86,7 +84,7 @@ public class AdminController {
     private RadioButton adminPrim;
 
     @FXML
-    private StackPane adminStackPane;
+    private Pane adminStackPane;
 
     @FXML
     private Button adminStart;
@@ -109,6 +107,8 @@ public class AdminController {
     @FXML
     private TextField adminWidth;
 
+    private Grid grid;
+
     @FXML
     public void initialize() {
         adminKruskal.setDisable(true);
@@ -130,13 +130,11 @@ public class AdminController {
         AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
 
         adminApply.setOnAction(actionEvent -> {
-            String x = String.valueOf(adminWidth.getText());
-            String y = String.valueOf(adminHeight.getText());
-            if (y.equals("9") || y.equals("11") || y.equals("13") || y.equals("15") || y.equals("17")
-                    || y.equals("19") || y.equals("21") || y.equals("23") || y.equals("25")) {
-                if (x.equals("9") || x.equals("11") || x.equals("13") || x.equals("15") || x.equals("17")
-                        || x.equals("19") || x.equals("21") || x.equals("23") || x.equals("25") || x.equals("27")
-                        || x.equals("29") || x.equals("31")) {
+            int x = Integer.parseInt(adminWidth.getText());
+            int y = Integer.parseInt(adminHeight.getText());
+            if (y >= 9 && y <=31 && y % 2 == 1) {
+                if (x >= 9 && x <=31 && x % 2 == 1) {
+                    //todo ubrat nahui
                     adminHeight.setEditable(false);
                     adminWidth.setEditable(false);
                     adminTopic.setDisable(true);
@@ -145,6 +143,10 @@ public class AdminController {
                     adminArrangeAlgorithm.setDisable(false);
 
                     //запуск генерации сетки
+                    grid = new Grid();
+                    grid.gridInit(x, y, 600 / Integer.max(x,y));
+                    fillGrid(grid.getGrid());
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Successful authentication");
@@ -236,7 +238,7 @@ public class AdminController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("О разработчиках");
-            stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+            stage.getIcons().add(new Image("file:icon.png"));
             stage.showAndWait();
         });
         adminMenuReferenceApp.setOnAction(actionEvent -> {
@@ -327,5 +329,18 @@ public class AdminController {
 
         });*/
 
+    }
+
+    private void fillGrid(Tile[][] tiles)
+    {
+//        adminStackPane.getChildren().clear();
+        for(Tile[] row : tiles)
+        {
+            for(Tile tile: row)
+            {
+                adminStackPane.getChildren().add(tile.getStackPane());
+            }
+        }
+//        this.parentGridPane.getChildren().add(gridPane);
     }
 }

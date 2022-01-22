@@ -2,7 +2,6 @@
 package com.vandd.solutions.maze.GridModel;
 
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -10,6 +9,7 @@ import java.util.Observable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 
@@ -35,7 +35,8 @@ public class Tile extends Observable {
     private final int[] WEIGHTS = {
             this.getDefaultWeight(), 3, 6, 9, 12};
 
-    private final StackPane adminStackPane;
+    // JavaFX Node
+    private final StackPane pane;
     private final int x;
     private final int y;
     private final Rectangle rectangle;
@@ -46,8 +47,8 @@ public class Tile extends Observable {
     private final int size;
 
 
-    public Tile(int x, int y, int size,StackPane adminStackPane) {
-        this.adminStackPane = adminStackPane;
+    public Tile(int x, int y, int size) {
+        pane = new StackPane();
         // Type color Mapping
         typeMap = new HashMap<>();
         typeMap.put(Type.EXIT, Color.YELLOW);
@@ -68,7 +69,7 @@ public class Tile extends Observable {
 
         // Empty Weight color
         weightMap = new HashMap<>();
-        weightMap.put(this.WEIGHTS[0], Color.WHITE);
+        weightMap.put(this.WEIGHTS[0], Color.TRANSPARENT);
         weightMap.put(this.WEIGHTS[1], Color.LIGHTCYAN);
         weightMap.put(this.WEIGHTS[2], Color.AQUA);
         weightMap.put(this.WEIGHTS[3], Color.DEEPSKYBLUE);
@@ -82,23 +83,23 @@ public class Tile extends Observable {
         this.weight = defaultWeight;
         this.type = Type.EMPTY;
         this.size = size;
-        size = 20;
 
         // Tile content
         this.rectangle = new Rectangle(size - tileGap, size - tileGap);
-        this.rectangle.setFill(Color.WHITE);
+        this.rectangle.setFill(Color.TRANSPARENT);
         this.setTileStroke(true);
 
         // build this StackPane
-        adminStackPane.getChildren().add(rectangle);
-        adminStackPane.setTranslateX(x * size);
-        adminStackPane.setTranslateY(y * size);
+        pane.getChildren().add(rectangle);
+        pane.getStyleClass().add("cell");
+        pane.setTranslateX(x * size);
+        pane.setTranslateY(y * size);
 
         setEvents();
     }
 
     public StackPane getStackPane() {
-        return this.adminStackPane;
+        return this.pane;
     }
 
     public void setTileStroke(boolean setStroke) {
@@ -125,46 +126,46 @@ public class Tile extends Observable {
         this.type = type;
         this.weight = weight;
     }
-    public int getWeight()
-    {
+
+    public int getWeight() {
         return this.weight;
     }
-    public int getX()
-    {
+
+    public int getX() {
         return this.x;
     }
-    public int getY()
-    {
+
+    public int getY() {
         return this.y;
     }
-    public void clearTile()
-    {
+
+    public void clearTile() {
         this.setAttributes(Type.EMPTY, defaultWeight);
     }
-    public int getDefaultWeight()
-    {
+
+    public int getDefaultWeight() {
         return this.defaultWeight;
     }
-    public Type getType()
-    {
+
+    public Type getType() {
         return this.type;
     }
-    public boolean isWall()
-    {
+
+    public boolean isWall() {
         return (this.type == Type.WALL);
     }
-    private void setEvents()
-    {
-        adminStackPane.addEventFilter(MouseEvent.MOUSE_PRESSED, (MouseEvent me) ->
+
+    private void setEvents() {
+        pane.addEventFilter(MouseEvent.MOUSE_PRESSED, (MouseEvent me) ->
         {
             // Notifies the @Grid
             setChanged();
             notifyObservers();
         });
     }
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("%s - (%d,%d) W:%d", this.type, this.x, this.y, this.weight);
     }
 }

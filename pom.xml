@@ -58,6 +58,23 @@
                     <configuration>
                         <mainClass>com.vandd.solutions.maze.Application</mainClass>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>run</id>
+                            <configuration>
+                                <mainClass>com.vandd.solutions.maze.Application</mainClass>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>debug</id>
+                            <configuration>
+                                <mainClass>com.vandd.solutions.maze.Application</mainClass>
+                                <options>
+                                    <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</option>
+                                </options>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

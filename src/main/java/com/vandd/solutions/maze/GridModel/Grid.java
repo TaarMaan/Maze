@@ -4,6 +4,7 @@ package com.vandd.solutions.maze.GridModel;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import javafx.scene.layout.StackPane;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -37,7 +38,7 @@ public class Grid extends Observable implements Observer {
         mazeGenerationStrategy.generate(this);
     }
 
-    public void gridInit(int x_tiles, int y_tiles, int tile_size, StackPane adminStackPane) {
+    public void gridInit(int x_tiles, int y_tiles, int tile_size) {
         this.x_size = x_tiles;
         this.y_size = y_tiles;
         this.grid = new Tile[x_tiles][y_tiles];
@@ -45,7 +46,7 @@ public class Grid extends Observable implements Observer {
 
         for (int y = 0; y < y_tiles; y++) {
             for (int x = 0; x < x_tiles; x++) {
-                Tile tile = new Tile(x, y, tile_size, adminStackPane);
+                Tile tile = new Tile(x, y, tile_size);
                 tile.addObserver(this);
                 grid[x][y] = tile;
             }

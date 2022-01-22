@@ -109,7 +109,9 @@ public class AuthenticationController{
                 }
                 Parent root = loader.getRoot();
                 Stage stage1 = new Stage();
-                stage1.setScene(new Scene(root));
+                Scene scene1 = new Scene(root);
+                scene1.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+                stage1.setScene(scene1);
                 stage1.setTitle("Окно создания нового лабиринта");
                 stage1.setResizable(false);
                 stage1.getIcons().add(new Image("file:icon.png"));
