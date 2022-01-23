@@ -5,10 +5,8 @@ import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import javafx.scene.layout.StackPane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Grid extends Observable implements Observer {
     private int x_size;
@@ -52,6 +50,30 @@ public class Grid extends Observable implements Observer {
             }
 
         }
+    }
+
+    public void addRandomEntranceExit() {
+
+        Random random = new Random(System.currentTimeMillis());
+        List<Tile> temp = new ArrayList<>();
+
+        for (int y = 0; y < y_size; y++) {
+            for (int x = 0; x < x_size; x++) {
+                if ((y == 0 || y == y_size - 1) && (x > 0 && x < x_size - 1) || (x == 0 || x == x_size - 1) && (y > 0 && y < y_size - 1))
+                    temp.add(grid[x][y]);
+            }
+        }
+        System.out.println(temp);
+
+        temp = temp.stream().filter(tile -> !tile.isWall()).collect(Collectors.toList());
+        var tile = temp.remove(random.nextInt(temp.size()));
+        if (this.entrance != null) entrance.clearTile();
+        this.entrance = tile;
+        tile.setAttributes(Tile.Type.ENTRANCE, tile.getDefaultWeight());
+        tile = temp.get(random.nextInt(temp.size()));
+        if (this.exit != null) exit.clearTile();
+        this.exit = tile;
+        tile.setAttributes(Tile.Type.EXIT, tile.getDefaultWeight());
     }
 
     public Tile[][] getGrid() {

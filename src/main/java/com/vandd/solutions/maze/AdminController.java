@@ -6,6 +6,7 @@ import com.vandd.solutions.maze.GridModel.Tile;
 import com.vandd.solutions.maze.algorithms.AlgoFactory;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,7 +34,7 @@ public class AdminController {
     private GridPane gridPane;
     private Grid model;
     @FXML
-    private ComboBox AdminMenuArrangeEntxit;
+    private ComboBox<Tile.Type> AdminMenuArrangeEntxit;
     @FXML
     private URL location;
 
@@ -120,23 +121,45 @@ public class AdminController {
         adminArrangeAuto.setDisable(true);
         adminArrangeManually.setDisable(true);
         AdminMenuArrangeEntxit.setDisable(true);
-        adminArrangeEntrence.setDisable(true);
+//        adminArrangeEntrence.setDisable(true);
 
-        AdminMenuArrangeEntxit = new ComboBox(FXCollections.observableArrayList(Tile.Type.values()));
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.PATH);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.HIGHLIGHT);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_DENSE);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_LIGHT);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MAX);
-        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MEDIUM);
+        AdminMenuArrangeEntxit.getItems().add(Tile.Type.ENTRANCE);
+        AdminMenuArrangeEntxit.getItems().add(Tile.Type.EXIT);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.PATH);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.HIGHLIGHT);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_DENSE);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_LIGHT);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MAX);
+//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MEDIUM);
         AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
+        AdminMenuArrangeEntxit.setOnAction(actionEvent -> {
+            if (grid != null) grid.changeClickType(AdminMenuArrangeEntxit.getSelectionModel().getSelectedItem());
+        });
+
+        adminArrangeEntrence.setOnAction(actionEvent -> {
+            if(grid != null) {
+                grid.addRandomEntranceExit();
+            }
+        });
+
+        adminArrangeAuto.setOnAction(actionEvent ->
+        {
+            AdminMenuArrangeEntxit.setDisable(true);
+            adminArrangeEntrence.setDisable(false);
+        });
+
+        adminArrangeManually.setOnAction(actionEvent ->
+        {
+            AdminMenuArrangeEntxit.setDisable(false);
+            adminArrangeEntrence.setDisable(true);
+        });
 
         adminApply.setOnAction(actionEvent -> {
             int x = Integer.parseInt(adminWidth.getText());
             int y = Integer.parseInt(adminHeight.getText());
-            if (y >= 9 && y <=31 && y % 2 == 1) {
-                if (x >= 9 && x <=31 && x % 2 == 1) {
+            if (y >= 9 && y <= 31 && y % 2 == 1) {
+                if (x >= 9 && x <= 31 && x % 2 == 1) {
                     //todo ubrat nahui
 //                    adminHeight.setEditable(false);
 //                    adminWidth.setEditable(false);
@@ -150,7 +173,7 @@ public class AdminController {
                     adminStackPane.getChildren().clear();
                     adminStackPane.getChildren().addAll(themeList);
                     grid = new Grid();
-                    grid.gridInit(x, y, 600 / Integer.max(x,y));
+                    grid.gridInit(x, y, 600 / Integer.max(x, y));
                     fillGrid(grid.getGrid());
 
                 } else {
@@ -217,9 +240,9 @@ public class AdminController {
             adminArrangeEntrence.setDisable(false);
             adminArrangeManually.setDisable(false);
             MazeGeneration.MazeGen mazeGen = null;
-            if(selection.equals(adminKruskal)){
+            if (selection.equals(adminKruskal)) {
                 mazeGen = MazeGeneration.MazeGen.Kruskal;
-            }else if (selection.equals(adminPrim)){
+            } else if (selection.equals(adminPrim)) {
                 mazeGen = MazeGeneration.MazeGen.Prim;
             }
             AlgoFactory.getMazeGenStrategy(mazeGen).generate(grid);
@@ -233,10 +256,6 @@ public class AdminController {
         adminArrangeManually.setToggleGroup(groupV);
         adminArrangeAuto.setSelected(true);
 
-        adminArrangeEntrence.setOnAction(actionEvent ->
-        {
-            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
-        });
 
         //справка о разработчиках
         adminMenuReferenceDevelopers.setOnAction(actionEvent ->
@@ -331,7 +350,7 @@ public class AdminController {
 
                 *//*fileChooser.getExtensionFilters().addAll(
                         new FileChooser.ExtensionFilter("Text Files", "*.txt"));*//*
-               *//* if (file != null) {
+         *//* if (file != null) {
                     // saveSystem(file, );
                 }
                 try {
@@ -345,12 +364,9 @@ public class AdminController {
 
     }
 
-    private void fillGrid(Tile[][] tiles)
-    {
-        for(Tile[] row : tiles)
-        {
-            for(Tile tile: row)
-            {
+    private void fillGrid(Tile[][] tiles) {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
                 adminStackPane.getChildren().add(tile.getStackPane());
             }
         }
