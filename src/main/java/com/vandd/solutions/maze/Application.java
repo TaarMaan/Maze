@@ -19,7 +19,7 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image("file:icon.png"));
         stage.setResizable(false);
         stage.show();
-
+//fake
     }
 
     public static void main(String[] args) {
