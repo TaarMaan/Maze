@@ -46,7 +46,6 @@ public class Tile extends Observable {
     private final double tileGap = 0;
     private final int size;
 
-
     public Tile(int x, int y, int size) {
         pane = new StackPane();
         // Type color Mapping
@@ -97,7 +96,6 @@ public class Tile extends Observable {
 
         setEvents();
     }
-
     public StackPane getStackPane() {
         return this.pane;
     }

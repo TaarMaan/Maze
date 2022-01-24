@@ -1,5 +1,6 @@
 package com.vandd.solutions.maze;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -9,6 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -94,37 +98,6 @@ public class PlayerController extends Observable {
 
     @FXML
     private RadioButton playerVisualizationStatic;
-/*
-    public PlayerController() {
-        cbAlgorithmBox = new ComboBox(FXCollections.observableArrayList(FindingExit.com.vandd.solutions.maze.Algorithms.values()));
-        cbAlgorithmBox.getSelectionModel().selectFirst();
-        btnRun = new Button("RUN");
-
-        // Run pathfinding algorithms
-        btnRun.setOnAction((event) ->
-        {
-            FindingExit.com.vandd.solutions.maze.Algorithms algorithm = null;
-
-
-            for (FindingExit.com.vandd.solutions.maze.Algorithms algo : FXCollections.observableArrayList(FindingExit.com.vandd.solutions.maze.Algorithms.values())) {
-                if (algo == cbAlgorithmBox.getValue()) {
-                    algorithm = algo;
-                }
-            }
-
-
-            boolean success;
-            if (algorithm != null) {
-                try {
-                    success = controller.doShortestPathAlgorithm(algorithm);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
-
-*/
 
     @FXML
     void initialize() {
@@ -210,106 +183,18 @@ public class PlayerController extends Observable {
             stage.showAndWait();
         });
         playerMenuReferenceApp.setOnAction(actionEvent -> {
-            try {
-                String path = "D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\appandcontrollers\\maze\\help.html";
-                File file = new File(path);
-                if (file.exists()) {
-                    Process process = Runtime.getRuntime().exec("rund1132 url.dll,FileProtocolHandler " + path);
-                    process.waitFor();
-                } else {
+                File html = new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\com\\vandd\\solutions\\maze\\help.html");
+                try {
+                    Desktop.getDesktop().browse(html.toURI());
+                } catch (IOException e) {
+                    e.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Предупреждение");
                     alert.setHeaderText(null);
                     alert.setContentText("Файл справки поврежден или отсутствует...");
                     alert.showAndWait();
                 }
-            } catch (InterruptedException | IOException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Предупреждение");
-                alert.setHeaderText(null);
-                alert.setContentText("Файл справки поврежден или отсутствует...");
-                alert.showAndWait();
-            }
-        });
-
-        //кнопка загрузить у игрока
-      //  playerMenuFileLoad.setOnAction(actionEvent -> {
-            /*FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Выбрать шаблон лабиринта");
-            fileChooser.setInitialDirectory(new File("Samples"));
-            File file = fileChooser.showOpenDialog(new Stage());
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-
-            fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Samples"));
-        */
-           /* public void laden ()
-            {
-                if (filename == null)
-                    ladenVon();
-                else {
-                    Properties prop = new Properties();
-                    FileInputStream fis = null;
-                    try {
-
-                        fis = new FileInputStream(filename);
-
-                        // Load Properties from saved XML file
-                        prop.loadFromXML(fis);
-
-                        //textField.setText (prop.getProperty ("Name") ); // load the text
-*//*
-                    if (prop.getProperty ("RadioButtonState").equals ("yes") ) // load rb state
-                    {
-                        radioButton.setSelected ( );
-                    }
-
-                    if (checkBox.isSelected ( ) ) // Load cb state
-                        checkBox.setSelected (false);
-                    checkBox.setSelected (true);*//*
-                    } catch (InvalidPropertiesFormatException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //datePicker.setValue (LocalDate.parse (prop.getProperty ("Date") ) ); // load date
-
-                    //textArea.setText (prop.getProperty ("Text") ); // Load long text
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (fis != null)
-                            fis.close();
-                    }
-                }
-            }
-            public void ladenVon()
-            {
-                init();
-                FileChooser fileChooser = new FileChooser();
-
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PROPERTIES Dateien (*.properties)", "*.properties");
-                fileChooser.getExtensionFilters().add(extFilter);
-
-                //Show load file dialog
-                fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Samples"));
-
-                File file = fileChooser.showOpenDialog(new Stage());
-
-                if (file != null) {
-                    try {
-                        FileReader fileReader = new FileReader(file);
-                        fileReader.close();
-                        filename = file.toString();
-                        laden();
-                    } catch (IOException e) {
-                        Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, e);
-                    }
-                }
-            }
-        });*/
-
+            });
             //Установка группы для радиокнопок(алгоритмы)
             ToggleGroup groupA = new ToggleGroup();
             playerAlgorithmBreadthFirstSearch.setToggleGroup(groupA);
