@@ -185,6 +185,7 @@ public class AdminController {
                     adminStackPane.getChildren().clear();
                     adminStackPane.getChildren().addAll(themeList);
                     grid = new Grid();
+                    grid.setTheme(theme);
                     grid.gridInit(x, y, 600 / Integer.max(x, y));
                     fillGrid(grid.getGrid());
 
@@ -204,9 +205,11 @@ public class AdminController {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSpring.setVisible(true);
                 theme = "spring";
+                if(grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(true);
                 theme = "spring";
+                if(grid != null) grid.setTheme(theme);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
@@ -216,10 +219,12 @@ public class AdminController {
             if (!adminImageSpring.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSummer.setVisible(true);
                 theme = "summer";
+                if(grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(true);
                 theme = "summer";
+                if(grid != null) grid.setTheme(theme);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
             }
@@ -228,11 +233,13 @@ public class AdminController {
             if (!adminImageSummer.isVisible() && !adminImageSpring.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageAutumn.setVisible(true);
                 theme = "autumn";
+                if(grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(true);
                 theme = "autumn";
+                if(grid != null) grid.setTheme(theme);
                 adminImageWinter.setVisible(false);
             }
         });
@@ -240,12 +247,14 @@ public class AdminController {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageSpring.isVisible()) {
                 adminImageWinter.setVisible(true);
                 theme = "winter";
+                if(grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(true);
                 theme = "winter";
+                if(grid != null) grid.setTheme(theme);
             }
         });
         //установка группы для радиокнопок(алгоритмы)

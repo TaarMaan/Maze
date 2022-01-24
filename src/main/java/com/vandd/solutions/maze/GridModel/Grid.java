@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Grid extends Observable implements Observer {
+    private String theme = "";
     private int x_size;
     private int y_size;
     private Tile[][] grid;
@@ -33,12 +34,12 @@ public class Grid extends Observable implements Observer {
         painter = Painter.getInstance();
     }
 
-    public Grid fromLightweight(LightweightGrid lightweightGrid) {
+    public Grid fromLightweight(LightweightGrid lightweightGrid, String theme) {
         this.x_size = lightweightGrid.xSize;
         this.y_size = lightweightGrid.ySize;
         this.grid = new Tile[x_size][y_size];
         lightweightGrid.grid.forEach(t -> {
-            Tile tile = new Tile(t.x, t.y, t.size);
+            Tile tile = new Tile(t.x, t.y, t.size, theme);
             tile.setAttributes(t.type, t.weight);
             tile.addObserver(this);
             this.grid[tile.getX()][tile.getY()] = tile;
@@ -71,12 +72,22 @@ public class Grid extends Observable implements Observer {
 
         for (int y = 0; y < y_tiles; y++) {
             for (int x = 0; x < x_tiles; x++) {
-                Tile tile = new Tile(x, y, tile_size);
+                Tile tile = new Tile(x, y, tile_size, theme);
                 tile.addObserver(this);
                 grid[x][y] = tile;
             }
 
         }
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+        if (grid != null)
+            for (int y = 0; y < y_size; y++) {
+                for (int x = 0; x < x_size; x++) {
+                    grid[x][y].setTheme(theme);
+                }
+            }
     }
 
     public void addRandomEntranceExit() {

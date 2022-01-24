@@ -135,6 +135,7 @@ public class PlayerController extends Observable {
                 playerImageWinter.setVisible(false);
                 playerImageAutumn.setVisible(false);
             }
+            if(grid != null) grid.setTheme("spring");
         });
         playerTopicSummer.setOnAction(actionEvent -> {
             if (!playerImageSpring.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -145,6 +146,8 @@ public class PlayerController extends Observable {
                 playerImageAutumn.setVisible(false);
                 playerImageWinter.setVisible(false);
             }
+            if(grid != null) grid.setTheme("summer");
+
         });
         playerTopicAutumn.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageSpring.isVisible() && !playerImageWinter.isVisible()) {
@@ -155,6 +158,7 @@ public class PlayerController extends Observable {
                 playerImageAutumn.setVisible(true);
                 playerImageWinter.setVisible(false);
             }
+            if(grid != null) grid.setTheme("autumn");
         });
         playerTopicWinter.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageSpring.isVisible()) {
@@ -165,6 +169,7 @@ public class PlayerController extends Observable {
                 playerImageAutumn.setVisible(false);
                 playerImageWinter.setVisible(true);
             }
+            if(grid != null) grid.setTheme("winter");
         });
 
         //шаблоны
@@ -194,7 +199,7 @@ public class PlayerController extends Observable {
                         var themeList = StackPaneP.getChildren().stream().limit(4).collect(Collectors.toList());
                         StackPaneP.getChildren().clear();
                         StackPaneP.getChildren().addAll(themeList);
-                        this.grid = new Grid().fromLightweight(template.getGrid());
+                        this.grid = new Grid().fromLightweight(template.getGrid(), theme);
                         fillGrid(grid.getGrid());
                     }
             );

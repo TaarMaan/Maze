@@ -47,7 +47,8 @@ public class Tile extends Observable {
     private final double tileGap = 0;
     private final int size;
 
-    public Tile(int x, int y, int size) {
+    public Tile(int x, int y, int size, String theme) {
+
         pane = new StackPane();
         // Type color Mapping
         typeMap = new HashMap<>();
@@ -58,6 +59,15 @@ public class Tile extends Observable {
         typeMap.put(Type.PATH, Color.DEEPPINK);
         typeMap.put(Type.HIGHLIGHT, Color.RED);
         typeMap.put(Type.VISITED, Color.LIGHTGREEN);
+
+        if (theme.equals("autumn"))
+            typeMap.put(Type.WALL, Color.DARKORANGE);
+        if (theme.equals("spring"))
+            typeMap.put(Type.WALL, Color.DARKGREEN);
+        if (theme.equals("summer"))
+            typeMap.put(Type.WALL, Color.DARKRED);
+        if (theme.equals("winter"))
+            typeMap.put(Type.WALL, Color.DARKBLUE);
 
         // Visited Color based on weight
         visitedMap = new HashMap<>();
@@ -97,6 +107,7 @@ public class Tile extends Observable {
 
         setEvents();
     }
+
     public StackPane getStackPane() {
         return this.pane;
     }
@@ -168,7 +179,19 @@ public class Tile extends Observable {
     }
 
     public LightweightTile toLightweight() {
-        return  new LightweightTile(this.getX(), this.getY(), this.getType(), this.getSize(), this.getWeight());
+        return new LightweightTile(this.getX(), this.getY(), this.getType(), this.getSize(), this.getWeight());
+    }
+
+    public void setTheme(String theme) {
+        if (theme.equals("autumn"))
+            typeMap.put(Type.WALL, Color.DARKORANGE);
+        if (theme.equals("spring"))
+            typeMap.put(Type.WALL, Color.DARKGREEN);
+        if (theme.equals("summer"))
+            typeMap.put(Type.WALL, Color.DARKRED);
+        if (theme.equals("winter"))
+            typeMap.put(Type.WALL, Color.DARKBLUE);
+        setAttributes(type, weight);
     }
 
     @Override
