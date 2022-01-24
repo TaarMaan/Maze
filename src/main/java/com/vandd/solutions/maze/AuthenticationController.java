@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
-public class AuthenticationController{
+public class AuthenticationController {
 
     @FXML
     private ResourceBundle resources;

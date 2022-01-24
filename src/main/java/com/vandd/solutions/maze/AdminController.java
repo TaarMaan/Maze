@@ -1,5 +1,7 @@
 package com.vandd.solutions.maze;
 
+import com.sun.javafx.fxml.builder.web.WebEngineBuilder;
+import com.sun.prism.paint.Color;
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
 //import com.vandd.solutions.maze.GridModel.Controller;
@@ -21,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -113,6 +116,7 @@ public class AdminController {
 
     private Grid grid;
 
+
     @FXML
     public void initialize() {
         adminKruskal.setDisable(true);
@@ -138,7 +142,7 @@ public class AdminController {
         });
 
         adminArrangeEntrence.setOnAction(actionEvent -> {
-            if(grid != null) {
+            if (grid != null) {
                 grid.addRandomEntranceExit();
             }
         });
@@ -178,7 +182,7 @@ public class AdminController {
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Successful authentication");
+                    alert.setTitle("Ошибка!");
                     alert.setHeaderText("Некорректные значения высоты или ширины");
                     alert.showAndWait();
                 }
@@ -274,21 +278,13 @@ public class AdminController {
             stage.getIcons().add(new Image("file:icon.png"));
             stage.showAndWait();
         });
+
         adminMenuReferenceApp.setOnAction(actionEvent -> {
+            File html = new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\com\\vandd\\solutions\\maze\\help.html");
             try {
-                String path = "D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\appandcontrollers\\maze\\help.html";
-                File file = new File(path);
-                if (file.exists()) {
-                    Process process = Runtime.getRuntime().exec("rund1132 url.dll,FileProtocolHandler " + path);
-                    process.waitFor();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Предупреждение");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Файл справки поврежден или отсутствует...");
-                    alert.showAndWait();
-                }
-            } catch (InterruptedException | IOException e) {
+                Desktop.getDesktop().browse(html.toURI());
+            } catch (IOException e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
@@ -296,72 +292,6 @@ public class AdminController {
                 alert.showAndWait();
             }
         });
-        //кнопка сохранить у админа
-
-    /*    adminMenuFileSave.setOnAction(actionEvent -> {
-            public void speichern(ActionEvent event)
-            if (filename == null)
-                speichernUnter(event);
-            else {
-                Properties properties = new Properties();
-                FileOutputStream fos = null;
-                try {
-                    properties.setProperty("Высота", adminHeight.getText());
-                    properties.setProperty("Ширина", adminWidth.getText());
-                    if (adminPrim.isSelected()) {
-                        properties.setProperty("Прима", "yes");
-                    } else {
-                        adminKruskal.isSelected();
-                        properties.setProperty("Крускала", "yes");
-                    }
-                    //расстановку входа и выхода
-                    fos = new FileOutputStream(filename);
-                    properties.storeToXML(new FileOutputStream(filename), "Values and Settings", "UTF-8");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fos != null) {
-                        try {
-                            fos.close();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-            }
-            public void speichernUnter ()
-            init();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Сохранить шаблон лабиринта");
-            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PROPERTIES Dateien (*.properties", "*.properties)");
-            fileChooser.getExtensionFilters().add(extensionFilter);
-            fileChooser.setInitialDirectory(new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Samples"));
-            File file = fileChooser.showSaveDialog(new Stage());
-            if (file != null) {
-                try {
-                    FileWritter fileWritter = new FileWriter(file);
-                    fileWritter.close();
-                    filename = file.toString();
-                    speichern();
-                } catch (IOException e) {
-                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, e);
-                }
-            }
-
-                *//*fileChooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("Text Files", "*.txt"));*//*
-         *//* if (file != null) {
-                    // saveSystem(file, );
-                }
-                try {
-                    Scanner scanner = new Scanner(file);
-                    //тут написать логику того как что будет делаться или отрисовываться при загрузке хуйни
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }*//*
-
-        });*/
-
     }
 
     private void fillGrid(Tile[][] tiles) {
