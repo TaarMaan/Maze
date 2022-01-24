@@ -8,7 +8,7 @@ import java.util.*;
 public class TemplateManager {
 
     //название папки
-    private static final String TEMPLATES_PATH = "maze_templates";
+    private static final String TEMPLATES_PATH = "D:\\vlad\\ideaProjects\\Maze\\src\\main\\java\\maze_templates";
     private boolean isLoaded;
     private final Gson gson = new Gson();
     private final Random random = new Random(System.currentTimeMillis());

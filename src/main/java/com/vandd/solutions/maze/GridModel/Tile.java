@@ -52,16 +52,16 @@ public class Tile extends Observable {
         pane = new StackPane();
         // Type color Mapping
         typeMap = new HashMap<>();
-        typeMap.put(Type.EXIT, Color.YELLOW);
+        typeMap.put(Type.EXIT, Color.BLACK);
         typeMap.put(Type.ENTRANCE, Color.PURPLE);
         typeMap.put(Type.EMPTY, Color.WHITE);
         typeMap.put(Type.WALL, Color.BLACK);
         typeMap.put(Type.PATH, Color.DEEPPINK);
         typeMap.put(Type.HIGHLIGHT, Color.RED);
-        typeMap.put(Type.VISITED, Color.LIGHTGREEN);
+        typeMap.put(Type.VISITED, Color.BLUEVIOLET);
 
         if (theme.equals("autumn"))
-            typeMap.put(Type.WALL, Color.DARKORANGE);
+            typeMap.put(Type.WALL, Color.YELLOW);
         if (theme.equals("spring"))
             typeMap.put(Type.WALL, Color.DARKGREEN);
         if (theme.equals("summer"))

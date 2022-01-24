@@ -5,6 +5,7 @@ import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import com.vandd.solutions.maze.template.serialization.LightweightGrid;
 import com.vandd.solutions.maze.template.serialization.LightweightTile;
+import com.vandd.solutions.maze.algorithms.pathfind.Mouse;
 import javafx.scene.layout.StackPane;
 
 import java.util.*;
@@ -14,6 +15,7 @@ public class Grid extends Observable implements Observer {
     private String theme = "";
     private int x_size;
     private int y_size;
+    private Mouse mouse;
     private Tile[][] grid;
     Tile exit, entrance;
     private Tile.Type clickType;
@@ -266,6 +268,9 @@ public class Grid extends Observable implements Observer {
             }
         }
         return new LightweightGrid(x_size, y_size, lightweightTiles, exit != null ? exit.toLightweight() : null, entrance != null ? entrance.toLightweight() : null);
+    }
+    public void setMouse(Mouse mouse) {
+        this.mouse = mouse;
     }
 }
 
