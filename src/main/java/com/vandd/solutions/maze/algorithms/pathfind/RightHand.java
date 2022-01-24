@@ -15,4 +15,5 @@ public class RightHand extends FindingExit {
     protected int runPathfinder(Grid model, List<Tile> path) {
         return 0;
     }
+
 }

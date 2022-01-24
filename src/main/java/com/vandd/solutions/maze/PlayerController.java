@@ -29,9 +29,9 @@ public class PlayerController extends Observable {
     @FXML
     private Button playerAlgorithmApply;
     @FXML
-    private RadioButton playerAlgorithmBreadthFirstSearch;
+    private RadioButton playerAlgorithmRightHand;
     @FXML
-    private RadioButton playerAlgorithmDepthFirstSearch;
+    private RadioButton playerAlgorithmWave;
     @FXML
     private Menu playerMenuFile;
     @FXML
@@ -107,8 +107,8 @@ public class PlayerController extends Observable {
         playerSpeedBall.setDisable(true);
         playerSpeedApply.setDisable(true);
         playerAlgorithmApply.setDisable(true);
-        playerAlgorithmBreadthFirstSearch.setDisable(true);
-        playerAlgorithmDepthFirstSearch.setDisable(true);
+        playerAlgorithmRightHand.setDisable(true);
+        playerAlgorithmWave.setDisable(true);
         playerStart.setDisable(true);
         //НАПИСАТЬ что все кнопки дизейбл,пока чел не загрузит...
         //а как только загрузил,может нажать старт с выставленными значениями "по умолчанию"
@@ -160,8 +160,8 @@ public class PlayerController extends Observable {
             playerTopic.setDisable(true);
             playerTopicApply.setDisable(true);
             playerAlgorithmApply.setDisable(false);
-            playerAlgorithmBreadthFirstSearch.setDisable(false);
-            playerAlgorithmDepthFirstSearch.setDisable(false);
+            playerAlgorithmRightHand.setDisable(false);
+            playerAlgorithmWave.setDisable(false);
         });
 
 
@@ -197,9 +197,9 @@ public class PlayerController extends Observable {
             });
             //Установка группы для радиокнопок(алгоритмы)
             ToggleGroup groupA = new ToggleGroup();
-            playerAlgorithmBreadthFirstSearch.setToggleGroup(groupA);
-            playerAlgorithmDepthFirstSearch.setToggleGroup(groupA);
-            playerAlgorithmDepthFirstSearch.setSelected(true);
+            playerAlgorithmRightHand.setToggleGroup(groupA);
+            playerAlgorithmWave.setToggleGroup(groupA);
+            playerAlgorithmWave.setSelected(true);
 
             //установка обработчика события нажатия
             playerAlgorithmApply.setOnAction(actionEvent -> {
@@ -207,8 +207,8 @@ public class PlayerController extends Observable {
 
                 // включение алгоритма в сетку...
                 playerAlgorithmApply.setDisable(true);
-                playerAlgorithmBreadthFirstSearch.setDisable(true);
-                playerAlgorithmDepthFirstSearch.setDisable(true);
+                playerAlgorithmRightHand.setDisable(true);
+                playerAlgorithmWave.setDisable(true);
                 playerVisualizationApply.setDisable(false);
                 playerVisualizationDynamic.setDisable(false);
                 playerVisualizationStatic.setDisable(false);

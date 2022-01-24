@@ -71,12 +71,12 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <RadioButton fx:id="playerAlgorithmBreadthFirstSearch" layoutX="40.0" layoutY="27.0" mnemonicParsing="false" text="Правой руки">
+                              <RadioButton fx:id="playerAlgorithmRightHand" layoutX="40.0" layoutY="27.0" mnemonicParsing="false" text="Правой руки">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton fx:id="playerAlgorithmDepthFirstSearch" layoutX="40.0" layoutY="53.0" mnemonicParsing="false" text="Волновой">
+                              <RadioButton fx:id="playerAlgorithmWave" layoutX="40.0" layoutY="53.0" mnemonicParsing="false" text="Волновой">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
