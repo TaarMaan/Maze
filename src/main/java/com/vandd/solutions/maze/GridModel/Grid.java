@@ -3,6 +3,8 @@ package com.vandd.solutions.maze.GridModel;
 
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
+import com.vandd.solutions.maze.template.serialization.LightweightGrid;
+import com.vandd.solutions.maze.template.serialization.LightweightTile;
 import javafx.scene.layout.StackPane;
 
 import java.util.*;
@@ -16,6 +18,14 @@ public class Grid extends Observable implements Observer {
     private Tile.Type clickType;
     private final Painter painter;
 
+    public Tile getExit() {
+        return exit;
+    }
+
+    public Tile getEntrance() {
+        return entrance;
+    }
+
     public Grid() {
         this.exit = null;
         this.entrance = null;
@@ -23,7 +33,24 @@ public class Grid extends Observable implements Observer {
         painter = Painter.getInstance();
     }
 
-    public boolean executeFinding(FindingExit findingExit) throws InterruptedException {
+    public Grid fromLightweight(LightweightGrid lightweightGrid) {
+        this.x_size = lightweightGrid.xSize;
+        this.y_size = lightweightGrid.ySize;
+        this.grid = new Tile[x_size][y_size];
+        lightweightGrid.grid.forEach(t -> {
+            Tile tile = new Tile(t.x, t.y, t.size);
+            tile.setAttributes(t.type, t.weight);
+            tile.addObserver(this);
+            this.grid[tile.getX()][tile.getY()] = tile;
+        });
+        if (lightweightGrid.entrance != null)
+            this.entrance = this.grid[lightweightGrid.entrance.getX()][lightweightGrid.entrance.getY()];
+        if (lightweightGrid.exit != null)
+            this.exit = this.grid[lightweightGrid.exit.getX()][lightweightGrid.exit.getY()];
+        return this;
+    }
+
+    public boolean executeFinding(FindingExit findingExit) {
         if (entrance == null || exit == null) return false;
         this.painter.clearPath(this);
 
@@ -217,6 +244,17 @@ public class Grid extends Observable implements Observer {
         }
 
 
+    }
+
+    public LightweightGrid toLightweight() {
+
+        List<LightweightTile> lightweightTiles = new ArrayList<>();
+        for (int y = 0; y < y_size; y++) {
+            for (int x = 0; x < x_size; x++) {
+                lightweightTiles.add(grid[x][y].toLightweight());
+            }
+        }
+        return new LightweightGrid(x_size, y_size, lightweightTiles, exit != null ? exit.toLightweight() : null, entrance != null ? entrance.toLightweight() : null);
     }
 }
 

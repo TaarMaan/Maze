@@ -11,15 +11,11 @@ import com.vandd.solutions.maze.algorithms.pathfind.WavePropagation;
 public class AlgoFactory {
     // Pathfinding com.vandd.solutions.maze.Factory
     public static FindingExit getFindingExit(FindingExit.Algorithms algorithmStrategy) {
-        switch (algorithmStrategy) {
-
-            case WavePropagation:
-                return new WavePropagation();
-            case RightHand:
-                return new RightHand();
-            default:
-                throw new IllegalArgumentException("Pathfinding algorithm not found!");
-        }
+        return switch (algorithmStrategy) {
+            case WavePropagation -> new WavePropagation();
+            case RightHand -> new RightHand();
+            default -> throw new IllegalArgumentException("Pathfinding algorithm not found!");
+        };
     }
 
     // Maze generation com.vandd.solutions.maze.Factory

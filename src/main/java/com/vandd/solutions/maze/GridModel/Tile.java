@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
+import com.vandd.solutions.maze.template.serialization.LightweightTile;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.StackPane;
@@ -100,6 +101,10 @@ public class Tile extends Observable {
         return this.pane;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public void setTileStroke(boolean setStroke) {
         this.rectangle.setStroke((setStroke) ? Color.LIGHTGRAY : null);
     }
@@ -160,6 +165,10 @@ public class Tile extends Observable {
             setChanged();
             notifyObservers();
         });
+    }
+
+    public LightweightTile toLightweight() {
+        return  new LightweightTile(this.getX(), this.getY(), this.getType(), this.getSize(), this.getWeight());
     }
 
     @Override

@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.PlayerController">
+<?import javafx.scene.layout.Pane?>
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.PlayerController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -31,7 +32,7 @@
             </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
       <children>
             <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
                <children>
@@ -142,30 +143,30 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <StackPane fx:id="StackPaneP" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane fx:id="StackPaneP" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="playerImageSpring" fitHeight="600.0" fitWidth="560.0" visible="false">
+                  <ImageView fx:id="playerImageSpring" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
                         <Image url="@spring.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="playerImageSummer" fitHeight="600.0" fitWidth="560.0" visible="false">
+                  <ImageView fx:id="playerImageSummer" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
                         <Image url="@summer.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="playerImageAutumn" fitHeight="600.0" fitWidth="560.0" visible="false">
+                  <ImageView fx:id="playerImageAutumn" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
                         <Image url="@autumn.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="playerImageWinter" fitHeight="600.0" fitWidth="560.0" visible="false">
+                  <ImageView fx:id="playerImageWinter" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
                         <Image url="@winter.jpg" />
                      </image>
                   </ImageView>
                </children>
-            </StackPane>
+            </Pane>
       </children>
     </AnchorPane>
   </children>

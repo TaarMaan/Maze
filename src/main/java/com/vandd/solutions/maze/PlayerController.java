@@ -4,7 +4,14 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Tile;
+import com.vandd.solutions.maze.algorithms.AlgoFactory;
+import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
+import com.vandd.solutions.maze.template.Template;
+import com.vandd.solutions.maze.template.TemplateManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +22,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -25,7 +33,7 @@ public class PlayerController extends Observable {
     @FXML
     private URL location;
     @FXML
-    private StackPane StackPaneP;
+    private Pane StackPaneP;
     @FXML
     private Button playerAlgorithmApply;
     @FXML
@@ -99,6 +107,9 @@ public class PlayerController extends Observable {
     @FXML
     private RadioButton playerVisualizationStatic;
 
+    private final TemplateManager templateManager = new TemplateManager();
+    private Grid grid;
+
     @FXML
     void initialize() {
         playerVisualizationApply.setDisable(true);
@@ -155,6 +166,41 @@ public class PlayerController extends Observable {
                 playerImageWinter.setVisible(true);
             }
         });
+
+        //шаблоны
+        templateManager.allTemplates().stream().map(t -> {
+            MenuItem menuItem = new MenuItem(t.getName());
+            String templateId = t.getTemplateId();
+            menuItem.setOnAction(actionEvent ->
+                    {
+                        Template template = templateManager.load(templateId);
+                        String theme = template.getTheme();
+                        playerImageSpring.setVisible(false);
+                        playerImageSummer.setVisible(false);
+                        playerImageAutumn.setVisible(false);
+                        playerImageWinter.setVisible(false);
+                        if(theme.equals("summer")){
+                            playerImageSummer.setVisible(true);
+                        }
+                        if(theme.equals("autumn")){
+                            playerImageAutumn.setVisible(true);
+                        }
+                        if(theme.equals("spring")){
+                            playerImageSpring.setVisible(true);
+                        }
+                        if(theme.equals("winter")){
+                            playerImageWinter.setVisible(true);
+                        }
+                        var themeList = StackPaneP.getChildren().stream().limit(4).collect(Collectors.toList());
+                        StackPaneP.getChildren().clear();
+                        StackPaneP.getChildren().addAll(themeList);
+                        this.grid = new Grid().fromLightweight(template.getGrid());
+                        fillGrid(grid.getGrid());
+                    }
+            );
+            return menuItem;
+        }).forEach(mItem -> playerMenuFile.getItems().add(mItem));
+
         //закрепляем выбранную тему
         playerTopicApply.setOnAction(actionEvent -> {
             playerTopic.setDisable(true);
@@ -163,6 +209,11 @@ public class PlayerController extends Observable {
             playerAlgorithmRightHand.setDisable(false);
             playerAlgorithmWave.setDisable(false);
         });
+
+        //алгоритм старт
+        playerStart.setOnAction( actionEvent ->
+                System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)))
+        );
 
 
         //справка о разработчиках
@@ -183,65 +234,74 @@ public class PlayerController extends Observable {
             stage.showAndWait();
         });
         playerMenuReferenceApp.setOnAction(actionEvent -> {
-                File html = new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\com\\vandd\\solutions\\maze\\help.html");
-                try {
-                    Desktop.getDesktop().browse(html.toURI());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Предупреждение");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Файл справки поврежден или отсутствует...");
-                    alert.showAndWait();
-                }
-            });
-            //Установка группы для радиокнопок(алгоритмы)
-            ToggleGroup groupA = new ToggleGroup();
-            playerAlgorithmRightHand.setToggleGroup(groupA);
-            playerAlgorithmWave.setToggleGroup(groupA);
-            playerAlgorithmWave.setSelected(true);
+            File html = new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\com\\vandd\\solutions\\maze\\help.html");
+            try {
+                Desktop.getDesktop().browse(html.toURI());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText(null);
+                alert.setContentText("Файл справки поврежден или отсутствует...");
+                alert.showAndWait();
+            }
+        });
+        //Установка группы для радиокнопок(алгоритмы)
+        ToggleGroup groupA = new ToggleGroup();
+        playerAlgorithmRightHand.setToggleGroup(groupA);
+        playerAlgorithmWave.setToggleGroup(groupA);
+        playerAlgorithmWave.setSelected(true);
 
-            //установка обработчика события нажатия
-            playerAlgorithmApply.setOnAction(actionEvent -> {
-                RadioButton selection = (RadioButton) groupA.getSelectedToggle();
+        //установка обработчика события нажатия
+        playerAlgorithmApply.setOnAction(actionEvent -> {
+            RadioButton selection = (RadioButton) groupA.getSelectedToggle();
 
-                // включение алгоритма в сетку...
-                playerAlgorithmApply.setDisable(true);
-                playerAlgorithmRightHand.setDisable(true);
-                playerAlgorithmWave.setDisable(true);
-                playerVisualizationApply.setDisable(false);
-                playerVisualizationDynamic.setDisable(false);
-                playerVisualizationStatic.setDisable(false);
-            });
+            // включение алгоритма в сетку...
+            playerAlgorithmApply.setDisable(true);
+            playerAlgorithmRightHand.setDisable(true);
+            playerAlgorithmWave.setDisable(true);
+            playerVisualizationApply.setDisable(false);
+            playerVisualizationDynamic.setDisable(false);
+            playerVisualizationStatic.setDisable(false);
+        });
 
-            //Установка группы для радиокнопок(Тип визуализации)
-            ToggleGroup groupV = new ToggleGroup();
-            playerVisualizationDynamic.setToggleGroup(groupV);
-            playerVisualizationStatic.setToggleGroup(groupV);
+        //Установка группы для радиокнопок(Тип визуализации)
+        ToggleGroup groupV = new ToggleGroup();
+        playerVisualizationDynamic.setToggleGroup(groupV);
+        playerVisualizationStatic.setToggleGroup(groupV);
 
-            //установка обработчика события для выбора типа визуализации
-            playerVisualizationApply.setOnAction(actionEvent -> {
-                RadioButton selection = (RadioButton) groupV.getSelectedToggle();
+        //установка обработчика события для выбора типа визуализации
+        playerVisualizationApply.setOnAction(actionEvent -> {
+            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
 
-                //включение алгоритма в сетку и разблокирование выбора скорости
-                // персонажа(если выбран динамический)...
-                playerVisualizationApply.setDisable(true);
-                playerVisualizationDynamic.setDisable(true);
-                playerVisualizationStatic.setDisable(true);
-                if (playerVisualizationDynamic.isSelected()) {
-                    playerSpeedBall.setDisable(false);
-                    playerSpeedApply.setDisable(false);
-                } else {
-                    playerStart.setDisable(false);
-                }
-            });
-            playerSpeedApply.setOnAction(actionEvent -> {
-                playerSpeedBall.setDisable(true);
-                playerSpeedApply.setDisable(true);
+            //включение алгоритма в сетку и разблокирование выбора скорости
+            // персонажа(если выбран динамический)...
+            playerVisualizationApply.setDisable(true);
+            playerVisualizationDynamic.setDisable(true);
+            playerVisualizationStatic.setDisable(true);
+            if (playerVisualizationDynamic.isSelected()) {
+                playerSpeedBall.setDisable(false);
+                playerSpeedApply.setDisable(false);
+            } else {
                 playerStart.setDisable(false);
-            });
+            }
+        });
+        playerSpeedApply.setOnAction(actionEvent -> {
+            playerSpeedBall.setDisable(true);
+            playerSpeedApply.setDisable(true);
+            playerStart.setDisable(false);
+        });
 
 
 
+    }
+
+    private void fillGrid(Tile[][] tiles) {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                StackPaneP.getChildren().add(tile.getStackPane());
+            }
+        }
+//        this.parentGridPane.getChildren().add(gridPane);
     }
 }

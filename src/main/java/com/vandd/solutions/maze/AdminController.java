@@ -1,32 +1,31 @@
 package com.vandd.solutions.maze;
 
-import com.sun.javafx.fxml.builder.web.WebEngineBuilder;
-import com.sun.prism.paint.Color;
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
-//import com.vandd.solutions.maze.GridModel.Controller;
 import com.vandd.solutions.maze.algorithms.AlgoFactory;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
-import javafx.collections.FXCollections;
-import javafx.event.Event;
+import com.vandd.solutions.maze.template.Template;
+import com.vandd.solutions.maze.template.TemplateManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class AdminController {
@@ -36,10 +35,13 @@ public class AdminController {
     private Pane parentGridPane;
     private GridPane gridPane;
     private Grid model;
+    private final TemplateManager templateManager = new TemplateManager();
     @FXML
     private ComboBox<Tile.Type> AdminMenuArrangeEntxit;
     @FXML
     private URL location;
+    
+    private String theme = null;
 
     @FXML
     private Button adminApply;
@@ -159,6 +161,12 @@ public class AdminController {
             adminArrangeEntrence.setDisable(true);
         });
 
+        adminMenuFileSave.setOnAction(actionEvent ->
+        {
+            //использовать для сохранения шаблона
+            templateManager.save(new Template("test", grid, theme));
+        });
+
         adminApply.setOnAction(actionEvent -> {
             int x = Integer.parseInt(adminWidth.getText());
             int y = Integer.parseInt(adminHeight.getText());
@@ -195,8 +203,10 @@ public class AdminController {
         adminTopicSpring.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSpring.setVisible(true);
+                theme = "spring";
             } else {
                 adminImageSpring.setVisible(true);
+                theme = "spring";
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
@@ -205,9 +215,11 @@ public class AdminController {
         adminTopicSummer.setOnAction(actionEvent -> {
             if (!adminImageSpring.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSummer.setVisible(true);
+                theme = "summer";
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(true);
+                theme = "summer";
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
             }
@@ -215,21 +227,25 @@ public class AdminController {
         adminTopicAutumn.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageSpring.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageAutumn.setVisible(true);
+                theme = "autumn";
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(true);
+                theme = "autumn";
                 adminImageWinter.setVisible(false);
             }
         });
         adminTopicWinter.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageSpring.isVisible()) {
                 adminImageWinter.setVisible(true);
+                theme = "winter";
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(true);
+                theme = "winter";
             }
         });
         //установка группы для радиокнопок(алгоритмы)
