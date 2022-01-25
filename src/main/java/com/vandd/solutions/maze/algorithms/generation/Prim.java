@@ -2,22 +2,21 @@ package com.vandd.solutions.maze.algorithms.generation;
 
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
+
 import java.util.ArrayList;
 import java.util.List;
-import javafx.util.Pair;
 
+import javafx.util.Pair;
 
 public class Prim extends MazeGeneration {
 
-    public Prim()
-    {
+    public Prim() {
         super();
     }
 
 
     @Override
-    public void algorithm(Grid model)
-    {
+    public void algorithm(Grid model) {
         Tile[][] grid = model.getGrid();
         Tile currentTile = grid[0][0];
         List<Tile> neighbors = new ArrayList<>();
@@ -27,18 +26,13 @@ public class Prim extends MazeGeneration {
         List<Pair<Tile, Tile>> toVisit = new ArrayList<>();
         this.addNeighbors(model, currentTile, neighbors);
 
-        // Key is tile, value is it's parent
-        for(Tile tile: neighbors)
-        {
-            if(tile != null)
+        for (Tile tile : neighbors) {
+            if (tile != null)
                 toVisit.add(new Pair(tile, currentTile));
         }
 
         Tile current, parent;
-        while(!toVisit.isEmpty())
-        {
-            // Grabs random tile from to visit tiles
-            // For each pair: key is current tile, value is it's parent
+        while (!toVisit.isEmpty()) {
             Pair randomTile = toVisit.get(this.getRandomInt(toVisit.size(), 0));
 
             toVisit.remove(randomTile);
@@ -52,21 +46,17 @@ public class Prim extends MazeGeneration {
             this.painter.drawTile(parent, null, null, Tile.Type.EMPTY, painterWait);
 
             this.addNeighbors(model, current, neighbors);
-            for(Tile tile : neighbors)
-            {
-                if(!pairListContainsTile(toVisit, tile) && !pairListContainsTile(visited, tile) && tile != null)
-                {
+            for (Tile tile : neighbors) {
+                if (!pairListContainsTile(toVisit, tile) && !pairListContainsTile(visited, tile) && tile != null) {
                     toVisit.add(new Pair(tile, current));
                 }
             }
         }
     }
 
-    private boolean pairListContainsTile(List<Pair<Tile, Tile>> nodes, Tile tile)
-    {
-        for(Pair pair : nodes)
-        {
-            if(pair.getKey() == tile)
+    private boolean pairListContainsTile(List<Pair<Tile, Tile>> nodes, Tile tile) {
+        for (Pair pair : nodes) {
+            if (pair.getKey() == tile)
                 return true;
         }
         return false;

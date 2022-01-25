@@ -16,11 +16,12 @@ public final class Painter {
     private Painter() {
         executor = Executors.newSingleThreadExecutor();
     }
-    public static Painter getInstance(){
+
+    public static Painter getInstance() {
         return INSTANCE;
     }
-    public void drawPath(List<Tile> path, Grid model)
-    {
+
+    public void drawPath(List<Tile> path, Grid model) {
         this.executor.execute(
                 () ->
                 {
@@ -30,56 +31,47 @@ public final class Painter {
                         return tile;
                     }).forEachOrdered((_item) ->
                     {
-                        try
-                        {
+                        try {
                             Thread.sleep(20);
-                        }
-                        catch (InterruptedException ex)
-                        {
+                        } catch (InterruptedException ex) {
                             Logger.getLogger(Grid.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     });
                 });
     }
-    public void drawTile(Tile tile, Tile exit, Tile entrance, Tile.Type type, long sleep)
-    {
-        this.executor.execute(()->
+
+    public void drawTile(Tile tile, Tile exit, Tile entrance, Tile.Type type, long sleep) {
+        this.executor.execute(() ->
         {
-            if(tile != exit && tile != entrance)
+            if (tile != exit && tile != entrance)
                 tile.setAttributes(type, tile.getWeight());
 
-            try
-            {
+            try {
                 Thread.sleep(sleep);
-            }
-            catch (InterruptedException ex)
-            {
+            } catch (InterruptedException ex) {
                 Logger.getLogger(FindingExit.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
-    public void highlightTile(Tile tile, long waitTime)
-    {
+
+    public void highlightTile(Tile tile, long waitTime) {
         this.drawTile(tile, null, null, Tile.Type.HIGHLIGHT, waitTime);
         this.drawTile(tile, null, null, Tile.Type.EMPTY, waitTime);
     }
-    public void highlightTile(Tile tile, Tile.Type type, long waitTime)
-    {
+
+    public void highlightTile(Tile tile, Tile.Type type, long waitTime) {
         this.drawTile(tile, null, null, Tile.Type.HIGHLIGHT, waitTime);
         this.drawTile(tile, null, null, type, waitTime);
     }
-    public void clearPath(Grid model)
-    {
-        this.executor.execute(()->
+
+    public void clearPath(Grid model) {
+        this.executor.execute(() ->
         {
             Tile tile;
-            for(int y = 0; y < model.getYSize(); y++)
-            {
-                for(int x = 0; x < model.getXSize(); x++)
-                {
+            for (int y = 0; y < model.getYSize(); y++) {
+                for (int x = 0; x < model.getXSize(); x++) {
                     tile = model.getGrid()[x][y];
-                    if(tile.getType() == Tile.Type.PATH || tile.getType() == Tile.Type.VISITED)
-                    {
+                    if (tile.getType() == Tile.Type.PATH || tile.getType() == Tile.Type.VISITED) {
                         tile.setAttributes(Tile.Type.EMPTY, tile.getWeight());
                     }
                 }

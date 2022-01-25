@@ -2,6 +2,7 @@ package com.vandd.solutions.maze.algorithms.pathfind;
 
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,14 +14,12 @@ import java.util.Set;
 public class WavePropagation extends FindingExit {
     private final int DEFAULT_DISTANCE = 1;
 
-    public WavePropagation()
-    {
+    public WavePropagation() {
         super();
     }
 
     @Override
-    protected int runPathfinder(Grid model, List<Tile> path)
-    {
+    protected int runPathfinder(Grid model, List<Tile> path) {
         HashMap<Tile, Integer> tileData = new HashMap<>();
         this.executeWavePropagation(model, tileData);
 
@@ -33,39 +32,28 @@ public class WavePropagation extends FindingExit {
     }
 
 
-
-    private void executeWavePropagation(Grid model, HashMap<Tile, Integer> tileData)
-    {
-        // Keeps track of visited tiles
+    private void executeWavePropagation(Grid model, HashMap<Tile, Integer> tileData) {
         Set<Tile> visited = new HashSet<>();
-        // List of cells to be processed in the while iteration
         List<Tile> toProcess = new LinkedList<>();
-        // List of unprocessed cells (collected neighbors of toProcess)
         List<Tile> unprocessed = new LinkedList<>();
-        // Current distance from target node to current iterations
         int iteration = 0;
 
         unprocessed.add(model.getRoot());
         visited.add(model.getRoot());
         tileData.put(model.getRoot(), this.DEFAULT_DISTANCE);
 
-        while(!unprocessed.isEmpty())
-        {
+        while (!unprocessed.isEmpty()) {
             iteration++;
-            // shifts all elements from unprocced to toProcess
             toProcess.addAll(unprocessed);
             unprocessed.clear();
 
-            // Each iterations processed all neighbors from toProcess
-            for(Tile tile : toProcess)
-            {
+            for (Tile tile : toProcess) {
                 List<Tile> neighbors = model.getTileNeighbors(tile);
 
-                for(Tile elem : neighbors)
-                {
-                    if(elem == null) continue;
-                    if(elem.isWall()) continue;
-                    if(visited.contains(elem)) continue;
+                for (Tile elem : neighbors) {
+                    if (elem == null) continue;
+                    if (elem.isWall()) continue;
+                    if (visited.contains(elem)) continue;
 
                     unprocessed.add(elem);
                     visited.add(elem);
@@ -78,26 +66,23 @@ public class WavePropagation extends FindingExit {
         }
     }
 
-    private void buildPath(List<Tile> path, Grid model, HashMap<Tile, Integer> data)
-    {
+    private void buildPath(List<Tile> path, Grid model, HashMap<Tile, Integer> data) {
         Tile currentTile = model.getTarget();
 
-        do{
+        do {
             path.add(currentTile);
             Tile lowestCost = null;
 
-            for(Tile tile : model.getTileNeighbors(currentTile))
-            {
-                if(tile == null) continue;
-                if(tile.isWall()) continue;
+            for (Tile tile : model.getTileNeighbors(currentTile)) {
+                if (tile == null) continue;
+                if (tile.isWall()) continue;
 
-                if(lowestCost == null)
-                {
+                if (lowestCost == null) {
                     lowestCost = tile;
                     continue;
                 }
 
-                if(data.get(tile) < data.get(lowestCost))
+                if (data.get(tile) < data.get(lowestCost))
                     lowestCost = tile;
             }
             currentTile = lowestCost;

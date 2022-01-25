@@ -6,7 +6,6 @@ import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import com.vandd.solutions.maze.template.serialization.LightweightGrid;
 import com.vandd.solutions.maze.template.serialization.LightweightTile;
 import com.vandd.solutions.maze.algorithms.pathfind.Mouse;
-import javafx.scene.layout.StackPane;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -151,7 +150,7 @@ public class Grid extends Observable implements Observer {
         return neighbors;
     }
 
-    //
+
     public Tile getNorthTile(Tile tile) {
         return (tile.getY() - 1 >= 0) ? grid[tile.getX()][tile.getY() - 1] : null;
     }
@@ -168,7 +167,7 @@ public class Grid extends Observable implements Observer {
         return (tile.getX() + 1 <= x_size - 1) ? grid[tile.getX() + 1][tile.getY()] : null;
     }
 
-    //
+
     public boolean isOnNorth(Tile tile, Tile compare) {
         if (tile.getX() != compare.getX())
             return false;
@@ -197,7 +196,7 @@ public class Grid extends Observable implements Observer {
         return tile.getX() > compare.getX();
     }
 
-    //
+
     public int getYSize() {
         return this.y_size;
     }
@@ -220,24 +219,23 @@ public class Grid extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-// If the update came from a Tile Object
+
         if (o instanceof Tile) {
             Tile tile = (Tile) o;
 
-            // User can't override a wall, unless he's setting it as empty first.
+
             if (tile.isWall()) {
                 if (this.clickType == Tile.Type.EMPTY)
                     tile.setAttributes(clickType, tile.getDefaultWeight());
                 return;
             }
 
-            // What happens when you click a tile with a specific clickType (I.e. root, target, wall...)
+
             switch (this.clickType) {
-                // Tiles that  can only have one ocurrence throughout the grid
+
                 case ENTRANCE:
                 case EXIT:
 
-                    // Clear old tiles
                     if (clickType == Tile.Type.ENTRANCE) {
                         if (this.entrance != null) entrance.clearTile();
                         this.entrance = tile;
@@ -249,7 +247,6 @@ public class Grid extends Observable implements Observer {
                     tile.setAttributes(clickType, tile.getDefaultWeight());
 
                     break;
-                // Tiles that allow multiple ocurrences of themselfs
                 default:
                     tile.setAttributes(clickType, tile.getWeight());
                     break;
@@ -269,6 +266,7 @@ public class Grid extends Observable implements Observer {
         }
         return new LightweightGrid(x_size, y_size, lightweightTiles, exit != null ? exit.toLightweight() : null, entrance != null ? entrance.toLightweight() : null);
     }
+
     public void setMouse(Mouse mouse) {
         this.mouse = mouse;
     }

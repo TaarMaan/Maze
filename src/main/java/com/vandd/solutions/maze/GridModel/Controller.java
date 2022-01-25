@@ -14,9 +14,6 @@ public class Controller {
 
         this.model = model;
         this.adminController = adminController;
-//        this.adminController.setTriggers(this);
-//        this.adminController.createGrid();
-//        this.model.addObserver(adminController);
     }
 
     public void doChangeClickType(Tile.Type type) {

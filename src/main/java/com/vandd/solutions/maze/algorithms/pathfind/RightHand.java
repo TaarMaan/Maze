@@ -15,10 +15,12 @@ public class RightHand extends FindingExit {
     private Mouse mouse;
     private Grid grid;
     private Tile[][] tile;
+
     public RightHand() {
         super();
     }
-   @Override
+
+    @Override
     protected int runPathfinder(Grid grid, List<Tile> path) {
 
         HashMap<Tile, Integer> tileData = new HashMap<>();
@@ -36,7 +38,8 @@ public class RightHand extends FindingExit {
         tileData.put(grid.getRoot(), step);
 
     }
-    private void buildPath(List<Tile> path, Grid grid, HashMap<Tile, Integer> data){
+
+    private void buildPath(List<Tile> path, Grid grid, HashMap<Tile, Integer> data) {
 
         Tile currentTile = grid.getTarget();
         this.y = currentTile.getY();
@@ -44,34 +47,43 @@ public class RightHand extends FindingExit {
         do {
             path.add(currentTile);
             //for()
-        }while(currentTile != grid.getRoot());
+        } while (currentTile != grid.getRoot());
         Collections.reverse(path);
     }
     //Изменяет направление мыши при появлении на старте
 
     public void toStep() {
         switch (direction) {
-            case 0: --y; break;
-            case 1: ++x; break;
-            case 2: ++y; break;
-            case 3: --x; break;
+            case 0:
+                --y;
+                break;
+            case 1:
+                ++x;
+                break;
+            case 2:
+                ++y;
+                break;
+            case 3:
+                --x;
+                break;
         }
     }
+
     public boolean isFrontWall(Tile[][] tile) {
         int x = mouse.x;
         int y = mouse.y;
         int p = mouse.direction;
-        switch(p) {
+        switch (p) {
             //ЗАЛУУУУУПА вместо grid какую-то хуйню надо
             case 0: {
                 if (mouse.y == 0) return true;
-              //  return tile[x][y-1].downWall;
+                //  return tile[x][y-1].downWall;
             }
             case 1: {
                 //return tile[x][y].rightWall;
             }
             case 2: {
-               // return tile[x][y].downWall;
+                // return tile[x][y].downWall;
             }
             case 3: {
                 if (mouse.x == 0) return true;
@@ -85,20 +97,20 @@ public class RightHand extends FindingExit {
         int x = mouse.x;
         int y = mouse.y;
         int p = mouse.direction;
-        switch(p) {
+        switch (p) {
             case 0: {
-               // return tile[x][y].rightWall;
+                // return tile[x][y].rightWall;
             }
             case 1: {
                 //return tile[x][y].downWall;
             }
             case 2: {
                 if (mouse.x == 0) return true;
-               // return tile[x-1][y].rightWall;
+                // return tile[x-1][y].rightWall;
             }
             case 3: {
                 if (mouse.y == 0) return true;
-               // return tile[x][y-1].downWall;
+                // return tile[x][y-1].downWall;
             }
         }
         return true;

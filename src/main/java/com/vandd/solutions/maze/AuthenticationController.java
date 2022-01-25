@@ -1,8 +1,6 @@
 package com.vandd.solutions.maze;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,35 +10,17 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
 public class AuthenticationController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
     @FXML
     private Button entranceA;
-
     @FXML
     private Button entranceP;
-
     @FXML
     private TextField loginA;
-
     @FXML
     private TextField loginP;
-
     @FXML
     private PasswordField passwordA;
-
-    @FXML
-    private Tab tabA;
-
-    @FXML
-    private Tab tabP;
 
     @FXML
     void initialize() {
@@ -81,7 +61,7 @@ public class AuthenticationController {
                     stage.setScene(new Scene(root));
                     stage.setTitle("Окно создания нового лабиринта");
                     stage.setResizable(false);
-                    stage.getIcons().add(new Image("file:icon.png"));
+                    stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     stage.showAndWait();
                 }
             }
@@ -114,7 +94,7 @@ public class AuthenticationController {
                 stage1.setScene(scene1);
                 stage1.setTitle("Окно создания нового лабиринта");
                 stage1.setResizable(false);
-                stage1.getIcons().add(new Image("file:icon.png"));
+                stage1.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 stage1.showAndWait();
             } else {
                 if (loginAd.equals("") || passwordAd.equals("")) {

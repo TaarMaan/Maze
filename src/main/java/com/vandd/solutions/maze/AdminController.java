@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
@@ -24,7 +23,6 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -38,36 +36,21 @@ public class AdminController {
     private final TemplateManager templateManager = new TemplateManager();
     @FXML
     private ComboBox<Tile.Type> AdminMenuArrangeEntxit;
-    @FXML
-    private URL location;
-    
     private String theme = null;
-
     @FXML
     private Button adminApply;
-
     @FXML
     private Button adminArrangeAlgorithm;
-
     @FXML
     private RadioButton adminArrangeAuto;
-
     @FXML
     private Button adminArrangeEntrence;
-
     @FXML
     private RadioButton adminArrangeManually;
-
-
     @FXML
     private RadioButton adminKruskal;
-
     @FXML
     private TextField adminHeight;
-
-    @FXML
-    private Menu adminMenuFile;
-
     @FXML
     private ImageView adminImageAutumn;
     @FXML
@@ -76,48 +59,29 @@ public class AdminController {
     private ImageView adminImageSummer;
     @FXML
     private ImageView adminImageWinter;
-
     @FXML
     private MenuItem adminMenuFileSave;
-
-    @FXML
-    private Menu adminMenuReference;
-
     @FXML
     private MenuItem adminMenuReferenceApp;
-
     @FXML
     private MenuItem adminMenuReferenceDevelopers;
-
     @FXML
     private RadioButton adminPrim;
-
     @FXML
     private Pane adminStackPane;
-
     @FXML
     private Button adminStart;
-
-    @FXML
-    private MenuButton adminTopic;
-
     @FXML
     private MenuItem adminTopicAutumn;
-
     @FXML
     private MenuItem adminTopicSpring;
-
     @FXML
     private MenuItem adminTopicSummer;
-
     @FXML
     private MenuItem adminTopicWinter;
-
     @FXML
     private TextField adminWidth;
-
     private Grid grid;
-
 
     @FXML
     public void initialize() {
@@ -127,7 +91,6 @@ public class AdminController {
         adminArrangeAuto.setDisable(true);
         adminArrangeManually.setDisable(true);
         AdminMenuArrangeEntxit.setDisable(true);
-//        adminArrangeEntrence.setDisable(true);
 
         AdminMenuArrangeEntxit.getItems().add(Tile.Type.ENTRANCE);
         AdminMenuArrangeEntxit.getItems().add(Tile.Type.EXIT);
@@ -138,7 +101,7 @@ public class AdminController {
 //        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_LIGHT);
 //        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MAX);
 //        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MEDIUM);
-        AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
+          AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
         AdminMenuArrangeEntxit.setOnAction(actionEvent -> {
             if (grid != null) grid.changeClickType(AdminMenuArrangeEntxit.getSelectionModel().getSelectedItem());
         });
@@ -163,8 +126,24 @@ public class AdminController {
 
         adminMenuFileSave.setOnAction(actionEvent ->
         {
-            //использовать для сохранения шаблона
-            templateManager.save(new Template("test", grid, theme));
+            if (grid != null && (adminPrim.isSelected() || adminKruskal.isSelected()) && theme != null) {
+                String a;
+                if (adminPrim.isSelected()) {
+                    a = "Prim";
+                } else {
+                    a = "Kruskal";
+                }
+                //использовать для сохранения шаблона
+                templateManager.save(new Template("sample" + " " + theme + "_" + adminHeight.getText()
+                        + "_" + adminWidth.getText() + " " + a, grid, theme));
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка!");
+                alert.setHeaderText("Нечего сохранять!\n" +
+                        "Заполните сетку и инициализируйте генерацию лабиринта");
+                alert.setContentText(null);
+                alert.showAndWait();
+            }
         });
 
         adminApply.setOnAction(actionEvent -> {
@@ -172,14 +151,9 @@ public class AdminController {
             int y = Integer.parseInt(adminHeight.getText());
             if (y >= 9 && y <= 31 && y % 2 == 1) {
                 if (x >= 9 && x <= 31 && x % 2 == 1) {
-                    //todo ubrat nahui
-//                    adminHeight.setEditable(false);
-//                    adminWidth.setEditable(false);
-//                    adminTopic.setDisable(true);
                     adminKruskal.setDisable(false);
                     adminPrim.setDisable(false);
                     adminArrangeAlgorithm.setDisable(false);
-
                     //запуск генерации сетки
                     var themeList = adminStackPane.getChildren().stream().limit(4).collect(Collectors.toList());
                     adminStackPane.getChildren().clear();
@@ -188,28 +162,24 @@ public class AdminController {
                     grid.setTheme(theme);
                     grid.gridInit(x, y, 600 / Integer.max(x, y));
                     fillGrid(grid.getGrid());
-
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Ошибка!");
-                    alert.setHeaderText("Некорректные значения высоты или ширины");
+                    alert.setHeaderText("Некорректно введены параметры сетки!");
                     alert.showAndWait();
                 }
-
-
             }
-
         });
         //Темы
         adminTopicSpring.setOnAction(actionEvent -> {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSpring.setVisible(true);
                 theme = "spring";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(true);
                 theme = "spring";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
@@ -219,12 +189,12 @@ public class AdminController {
             if (!adminImageSpring.isVisible() && !adminImageAutumn.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageSummer.setVisible(true);
                 theme = "summer";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(true);
                 theme = "summer";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(false);
             }
@@ -233,13 +203,13 @@ public class AdminController {
             if (!adminImageSummer.isVisible() && !adminImageSpring.isVisible() && !adminImageWinter.isVisible()) {
                 adminImageAutumn.setVisible(true);
                 theme = "autumn";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(true);
                 theme = "autumn";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
                 adminImageWinter.setVisible(false);
             }
         });
@@ -247,14 +217,14 @@ public class AdminController {
             if (!adminImageSummer.isVisible() && !adminImageAutumn.isVisible() && !adminImageSpring.isVisible()) {
                 adminImageWinter.setVisible(true);
                 theme = "winter";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
             } else {
                 adminImageSpring.setVisible(false);
                 adminImageSummer.setVisible(false);
                 adminImageAutumn.setVisible(false);
                 adminImageWinter.setVisible(true);
                 theme = "winter";
-                if(grid != null) grid.setTheme(theme);
+                if (grid != null) grid.setTheme(theme);
             }
         });
         //установка группы для радиокнопок(алгоритмы)
@@ -275,17 +245,12 @@ public class AdminController {
                 mazeGen = MazeGeneration.MazeGen.Prim;
             }
             AlgoFactory.getMazeGenStrategy(mazeGen).generate(grid);
-
-
         });
-
         //установка группы для радиокнопок(способ расстановки входов)
         ToggleGroup groupV = new ToggleGroup();
         adminArrangeAuto.setToggleGroup(groupV);
         adminArrangeManually.setToggleGroup(groupV);
         adminArrangeAuto.setSelected(true);
-
-
         //справка о разработчиках
         adminMenuReferenceDevelopers.setOnAction(actionEvent ->
         {
@@ -300,10 +265,9 @@ public class AdminController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("О разработчиках");
-            stage.getIcons().add(new Image("file:icon.png"));
+            stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
             stage.showAndWait();
         });
-
         adminMenuReferenceApp.setOnAction(actionEvent -> {
             File html = new File("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\com\\vandd\\solutions\\maze\\help.html");
             try {
@@ -317,6 +281,29 @@ public class AdminController {
                 alert.showAndWait();
             }
         });
+        adminStart.setOnAction(actionEvent -> {
+            Thread t = new Thread();
+            t.run();
+            if (adminWidth.getText().equals("") && adminHeight.getText().equals("")) {
+                int a = 25;
+                adminWidth.setText(String.valueOf(a));
+                adminHeight.setText(String.valueOf(a));
+            }
+            adminTopicWinter.fire();
+            adminPrim.isSelected();
+            adminApply.fire();
+            adminArrangeAlgorithm.fire();
+            try {
+                t.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            adminArrangeAuto.isSelected();
+            adminArrangeEntrence.fire();
+            t.interrupt();
+
+
+        });
     }
 
     private void fillGrid(Tile[][] tiles) {
@@ -325,6 +312,5 @@ public class AdminController {
                 adminStackPane.getChildren().add(tile.getStackPane());
             }
         }
-//        this.parentGridPane.getChildren().add(gridPane);
     }
 }

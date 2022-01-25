@@ -16,7 +16,7 @@ public class Application extends javafx.application.Application {
         Parent root = FXMLLoader.load(getClass().getResource("Authorization.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("Окно авторизации");
-        stage.getIcons().add(new Image("file:icon.png"));
+        stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
         stage.setResizable(false);
         stage.show();
 

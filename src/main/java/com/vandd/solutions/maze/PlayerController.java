@@ -24,13 +24,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-
 public class PlayerController extends Observable {
-private Mouse mouse;
-private Tile tile;
+    private Mouse mouse;
+    private Tile tile;
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -57,19 +55,14 @@ private Tile tile;
     private MenuItem playerSpeed1;
     @FXML
     private MenuItem playerSpeed2;
-
     @FXML
     private MenuItem playerSpeed3;
-
     @FXML
     private MenuItem playerSpeed4;
-
     @FXML
     private Button playerSpeedApply;
-
     @FXML
     private MenuButton playerSpeedBall;
-
     @FXML
     private ImageView playerImageSpring;
     @FXML
@@ -78,38 +71,26 @@ private Tile tile;
     private ImageView playerImageWinter;
     @FXML
     private ImageView playerImageAutumn;
-
-
     @FXML
     private Button playerStart;
-
     @FXML
     private MenuButton playerTopic;
-
     @FXML
     private Button playerTopicApply;
-
     @FXML
     private MenuItem playerTopicAutumn;
-
     @FXML
     private MenuItem playerTopicSpring;
-
     @FXML
     private MenuItem playerTopicSummer;
-
     @FXML
     private MenuItem playerTopicWinter;
-
     @FXML
     private Button playerVisualizationApply;
-
     @FXML
     private RadioButton playerVisualizationDynamic;
-
     @FXML
     private RadioButton playerVisualizationStatic;
-
     private final TemplateManager templateManager = new TemplateManager();
     private Grid grid;
 
@@ -123,11 +104,6 @@ private Tile tile;
         playerAlgorithmApply.setDisable(true);
         playerAlgorithmRightHand.setDisable(true);
         playerAlgorithmWave.setDisable(true);
-        playerStart.setDisable(true);
-        //НАПИСАТЬ что все кнопки дизейбл,пока чел не загрузит...
-        //а как только загрузил,может нажать старт с выставленными значениями "по умолчанию"
-
-
         //темы
         playerTopicSpring.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -138,7 +114,7 @@ private Tile tile;
                 playerImageWinter.setVisible(false);
                 playerImageAutumn.setVisible(false);
             }
-            if(grid != null) grid.setTheme("spring");
+            if (grid != null) grid.setTheme("spring");
         });
         playerTopicSummer.setOnAction(actionEvent -> {
             if (!playerImageSpring.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -149,7 +125,7 @@ private Tile tile;
                 playerImageAutumn.setVisible(false);
                 playerImageWinter.setVisible(false);
             }
-            if(grid != null) grid.setTheme("summer");
+            if (grid != null) grid.setTheme("summer");
 
         });
         playerTopicAutumn.setOnAction(actionEvent -> {
@@ -161,7 +137,7 @@ private Tile tile;
                 playerImageAutumn.setVisible(true);
                 playerImageWinter.setVisible(false);
             }
-            if(grid != null) grid.setTheme("autumn");
+            if (grid != null) grid.setTheme("autumn");
         });
         playerTopicWinter.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageSpring.isVisible()) {
@@ -172,7 +148,7 @@ private Tile tile;
                 playerImageAutumn.setVisible(false);
                 playerImageWinter.setVisible(true);
             }
-            if(grid != null) grid.setTheme("winter");
+            if (grid != null) grid.setTheme("winter");
         });
 
         //шаблоны
@@ -187,16 +163,16 @@ private Tile tile;
                         playerImageSummer.setVisible(false);
                         playerImageAutumn.setVisible(false);
                         playerImageWinter.setVisible(false);
-                        if(theme.equals("summer")){
+                        if (theme.equals("summer")) {
                             playerImageSummer.setVisible(true);
                         }
-                        if(theme.equals("autumn")){
+                        if (theme.equals("autumn")) {
                             playerImageAutumn.setVisible(true);
                         }
-                        if(theme.equals("spring")){
+                        if (theme.equals("spring")) {
                             playerImageSpring.setVisible(true);
                         }
-                        if(theme.equals("winter")){
+                        if (theme.equals("winter")) {
                             playerImageWinter.setVisible(true);
                         }
                         var themeList = StackPaneP.getChildren().stream().limit(4).collect(Collectors.toList());
@@ -211,24 +187,23 @@ private Tile tile;
 
         //закрепляем выбранную тему
         playerTopicApply.setOnAction(actionEvent -> {
-            playerTopic.setDisable(true);
-            playerTopicApply.setDisable(true);
             playerAlgorithmApply.setDisable(false);
             playerAlgorithmRightHand.setDisable(false);
             playerAlgorithmWave.setDisable(false);
         });
 
         //алгоритм старт
-        playerStart.setOnAction( actionEvent -> {
-            //if wave action
-            System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
-            //if rightHand action
+        playerStart.setOnAction(actionEvent -> {
             //что-то нахуй не то с Tile и координаты входа задать
             int EntranceX = tile.getX();
             int EntranceY = tile.getY();
             mouse = new Mouse(EntranceX, EntranceY);
             changeDirection(grid.getXSize() - 1, grid.getYSize() - 1);
             grid.setMouse(mouse);
+            //if wave action
+            System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
+            //if rightHand action
+            //System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand)));
         });
 
 
@@ -246,7 +221,7 @@ private Tile tile;
             stage.setScene(new Scene(root));
             stage.setTitle("О разработчиках");
             stage.setResizable(false);
-            stage.getIcons().add(new Image("file:icon.png"));
+            stage.getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
             stage.showAndWait();
         });
         playerMenuReferenceApp.setOnAction(actionEvent -> {
@@ -273,9 +248,6 @@ private Tile tile;
             RadioButton selection = (RadioButton) groupA.getSelectedToggle();
 
             // включение алгоритма в сетку...
-            playerAlgorithmApply.setDisable(true);
-            playerAlgorithmRightHand.setDisable(true);
-            playerAlgorithmWave.setDisable(true);
             playerVisualizationApply.setDisable(false);
             playerVisualizationDynamic.setDisable(false);
             playerVisualizationStatic.setDisable(false);
@@ -298,18 +270,10 @@ private Tile tile;
             if (playerVisualizationDynamic.isSelected()) {
                 playerSpeedBall.setDisable(false);
                 playerSpeedApply.setDisable(false);
-            } else {
-                playerStart.setDisable(false);
             }
         });
         playerSpeedApply.setOnAction(actionEvent -> {
-            playerSpeedBall.setDisable(true);
-            playerSpeedApply.setDisable(true);
-            playerStart.setDisable(false);
         });
-
-
-
     }
 
     private void fillGrid(Tile[][] tiles) {
@@ -320,6 +284,7 @@ private Tile tile;
         }
 //        this.parentGridPane.getChildren().add(gridPane);
     }
+
     public void changeDirection(int x_size, int y_size) {
         //down location
         if (mouse.y == y_size) {

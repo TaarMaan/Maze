@@ -13,161 +13,130 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.vandd.solutions.maze.AdminController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.AdminController">
     <MenuBar maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="NEVER">
         <menus>
             <Menu fx:id="adminMenuFile" mnemonicParsing="false" text="Файл">
                 <items>
-                    <MenuItem fx:id="adminMenuFileSave" mnemonicParsing="false" text="Сохранить"/>
+                    <MenuItem fx:id="adminMenuFileSave" mnemonicParsing="false" text="Сохранить" />
                 </items>
             </Menu>
             <Menu fx:id="adminMenuReference" mnemonicParsing="false" text="Справка">
                 <items>
-                    <MenuItem fx:id="adminMenuReferenceApp" mnemonicParsing="false" text="О приложении"/>
-                    <MenuItem fx:id="adminMenuReferenceDevelopers" mnemonicParsing="false" text="О разработчиках"/>
+                    <MenuItem fx:id="adminMenuReferenceApp" mnemonicParsing="false" text="О приложении" />
+                    <MenuItem fx:id="adminMenuReferenceDevelopers" mnemonicParsing="false" text="О разработчиках" />
                 </items>
             </Menu>
         </menus>
     </MenuBar>
-    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-                prefWidth="840.0"  style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="0" maxWidth="0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #9fc9ff;" VBox.vgrow="ALWAYS">
         <HBox>
-            <AnchorPane maxHeight="600.0" maxWidth="240.0" prefHeight="600.0" prefWidth="240.0"
-                        style="-fx-background-color: #3599ff;">
-                <AnchorPane layoutX="10.0" layoutY="5.0" prefHeight="181.0" prefWidth="220.0"
-                            style="-fx-background-color: #9fc9ff;">
+            <AnchorPane maxHeight="600.0" maxWidth="240.0" prefHeight="600.0" prefWidth="240.0" style="-fx-background-color: #3599ff;">
+                <AnchorPane layoutX="10.0" layoutY="5.0" prefHeight="181.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                     <children>
-                        <Button fx:id="adminApply" layoutX="34.0" layoutY="143.0" mnemonicParsing="false"
-                                prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="adminApply" layoutX="34.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </Button>
-                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="130.0" prefWidth="210.0"
-                                    style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="130.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                             <children>
-                                <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0"
-                                       prefWidth="93.0" style="-fx-background-color: #9fc9ff;" text="Параметры"
-                                       textAlignment="CENTER">
+                                <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #9fc9ff;" text="Параметры" textAlignment="CENTER">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="23.0" layoutY="32.0" prefHeight="16.0"
-                                       prefWidth="66.0" style="-fx-background-color: #9fc9ff;" text="Ширина:"
-                                       textAlignment="CENTER">
+                                <Label alignment="CENTER" layoutX="23.0" layoutY="32.0" prefHeight="16.0" prefWidth="66.0" style="-fx-background-color: #9fc9ff;" text="Ширина:" textAlignment="CENTER">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <MenuButton fx:id="adminTopic" layoutX="52.0" layoutY="97.0" mnemonicParsing="false"
-                                            prefHeight="21.0" prefWidth="101.0" text="Тема">
+                                <MenuButton fx:id="adminTopic" layoutX="52.0" layoutY="97.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="101.0" text="Тема">
                                     <items>
-                                        <MenuItem fx:id="adminTopicSpring" mnemonicParsing="false" text="Весна"/>
-                                        <MenuItem fx:id="adminTopicSummer" mnemonicParsing="false" text="Лето"/>
-                                        <MenuItem fx:id="adminTopicAutumn" mnemonicParsing="false" text="Осень"/>
-                                        <MenuItem fx:id="adminTopicWinter" mnemonicParsing="false" text="Зима"/>
+                                        <MenuItem fx:id="adminTopicSpring" mnemonicParsing="false" text="Весна" />
+                                        <MenuItem fx:id="adminTopicSummer" mnemonicParsing="false" text="Лето" />
+                                        <MenuItem fx:id="adminTopicAutumn" mnemonicParsing="false" text="Осень" />
+                                        <MenuItem fx:id="adminTopicWinter" mnemonicParsing="false" text="Зима" />
                                     </items>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                 </MenuButton>
-                                <TextField fx:id="adminWidth" alignment="CENTER" layoutX="112.0" layoutY="30.0"
-                                           prefHeight="25.0" prefWidth="79.0" promptText="31"/>
-                                <TextField fx:id="adminHeight" alignment="CENTER" layoutX="112.0" layoutY="61.0"
-                                           prefHeight="25.0" prefWidth="79.0" promptText="25"/>
-                                <Label alignment="CENTER" layoutX="27.0" layoutY="63.0" prefHeight="16.0"
-                                       prefWidth="66.0" style="-fx-background-color: #9fc9ff;" text="Высота:"
-                                       textAlignment="CENTER">
+                                <TextField fx:id="adminWidth" alignment="CENTER" layoutX="112.0" layoutY="30.0" prefHeight="25.0" prefWidth="79.0" promptText="31" />
+                                <TextField fx:id="adminHeight" alignment="CENTER" layoutX="112.0" layoutY="61.0" prefHeight="25.0" prefWidth="79.0" promptText="31" />
+                                <Label alignment="CENTER" layoutX="27.0" layoutY="63.0" prefHeight="16.0" prefWidth="66.0" style="-fx-background-color: #9fc9ff;" text="Высота:" textAlignment="CENTER">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Label>
                             </children>
                         </AnchorPane>
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="10.0" layoutY="335.0" prefHeight="192.0" prefWidth="220.0"
-                            style="-fx-background-color: #9fc9ff;">
+                <AnchorPane layoutX="10.0" layoutY="335.0" prefHeight="192.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                     <children>
-                        <Button fx:id="adminArrangeEntrence" layoutX="34.0" layoutY="146.0" mnemonicParsing="false"
-                                prefHeight="25.0" prefWidth="149.0" text="Расставить">
+                        <Button fx:id="adminArrangeEntrence" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Расставить">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </Button>
-                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="85.0" prefWidth="210.0"
-                                    style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="85.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                             <children>
-                                <Label alignment="CENTER" layoutX="56.0" layoutY="1.0" prefHeight="25.0"
-                                       prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Вход и Выход"
-                                       textAlignment="CENTER">
+                                <Label alignment="CENTER" layoutX="56.0" layoutY="1.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Вход и Выход" textAlignment="CENTER">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <RadioButton fx:id="adminArrangeAuto" layoutX="41.0" layoutY="43.0"
-                                             mnemonicParsing="false" text="Автоматически">
+                                <RadioButton fx:id="adminArrangeAuto" layoutX="41.0" layoutY="43.0" mnemonicParsing="false" text="Автоматически">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </RadioButton>
-                                <RadioButton fx:id="adminArrangeManually" layoutX="41.0" layoutY="72.0"
-                                             mnemonicParsing="false" text="Вручную">
+                                <RadioButton fx:id="adminArrangeManually" layoutX="41.0" layoutY="72.0" mnemonicParsing="false" text="Вручную">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </RadioButton>
                             </children>
                         </AnchorPane>
-                        <ComboBox fx:id="AdminMenuArrangeEntxit" layoutX="55.0" layoutY="107.0" prefHeight="26.0"
-                                  prefWidth="108.0" promptText="Вход/Выход"/>
+                        <ComboBox fx:id="AdminMenuArrangeEntxit" layoutX="55.0" layoutY="107.0" prefHeight="26.0" prefWidth="108.0" promptText="Вход/Выход" />
                     </children>
                 </AnchorPane>
-                <Button fx:id="adminStart" layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="59.0"
-                        prefWidth="220.0" text="Сгенерировать лабиринт">
+                <Button fx:id="adminStart" layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="220.0" text="Сгенерировать лабиринт">
                     <font>
-                        <Font size="16.0"/>
+                        <Font size="16.0" />
                     </font>
                 </Button>
-                <AnchorPane layoutX="10.0" layoutY="190.0" prefHeight="140.0" prefWidth="220.0"
-                            style="-fx-background-color: #9fc9ff;">
+                <AnchorPane layoutX="10.0" layoutY="190.0" prefHeight="140.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">
                     <children>
-                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="80.0" prefWidth="210.0"
-                                    style="-fx-background-color: #9fc9ff;">
+                        <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="80.0" prefWidth="210.0" style="-fx-background-color: #9fc9ff;">
                             <children>
-                                <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0"
-                                       prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм"
-                                       textAlignment="CENTER">
+                                <Label alignment="CENTER" layoutX="56.0" layoutY="2.0" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #9fc9ff;" text="Алгоритм" textAlignment="CENTER">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0"
-                                             mnemonicParsing="false" text="Крускала">
+                                <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Крускала">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </RadioButton>
-                                <RadioButton fx:id="adminPrim" layoutX="40.0" layoutY="63.0" mnemonicParsing="false"
-                                             prefHeight="21.0" prefWidth="89.0" text="Прима">
+                                <RadioButton fx:id="adminPrim" layoutX="40.0" layoutY="63.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="89.0" text="Прима">
                                     <font>
-                                        <Font size="15.0"/>
+                                        <Font size="15.0" />
                                     </font>
                                 </RadioButton>
                             </children>
                         </AnchorPane>
-                        <Button fx:id="adminArrangeAlgorithm" layoutX="34.0" layoutY="94.0" mnemonicParsing="false"
-                                prefHeight="25.0" prefWidth="149.0" text="Применить">
+                        <Button fx:id="adminArrangeAlgorithm" layoutX="34.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Применить">
                             <font>
-                                <Font size="15.0"/>
+                                <Font size="15.0" />
                             </font>
                         </Button>
                     </children>
@@ -175,28 +144,24 @@
             </AnchorPane>
             <Pane fx:id="adminStackPane" prefHeight="600.0" prefWidth="600.0">
                 <children>
-                    <ImageView fx:id="adminImageSpring" fitHeight="600.0" fitWidth="600.0" visible="false"
-                               StackPane.alignment="CENTER">
+                    <ImageView fx:id="adminImageSpring" fitHeight="600.0" fitWidth="600.0" visible="false" StackPane.alignment="CENTER">
                         <image>
-                            <Image url="@spring.jpg"/>
+                            <Image url="@../../../../Images/spring.jpg" />
                         </image>
                     </ImageView>
-                    <ImageView fx:id="adminImageSummer" fitHeight="600.0" fitWidth="600.0" visible="false"
-                               StackPane.alignment="CENTER">
+                    <ImageView fx:id="adminImageSummer" fitHeight="600.0" fitWidth="600.0" visible="false" StackPane.alignment="CENTER">
                         <image>
-                            <Image url="@summer.jpg"/>
+                            <Image url="@../../../../Images/summer.jpg" />
                         </image>
                     </ImageView>
-                    <ImageView fx:id="adminImageAutumn" fitHeight="600.0" fitWidth="600.0" visible="false"
-                               StackPane.alignment="CENTER">
+                    <ImageView fx:id="adminImageAutumn" fitHeight="600.0" fitWidth="600.0" visible="false" StackPane.alignment="CENTER">
                         <image>
-                            <Image url="@autumn.jpg"/>
+                            <Image url="@../../../../Images/autumn.jpg" />
                         </image>
                     </ImageView>
-                    <ImageView fx:id="adminImageWinter" fitHeight="600.0" fitWidth="600.0" visible="false"
-                               StackPane.alignment="CENTER">
+                    <ImageView fx:id="adminImageWinter" fitHeight="600.0" fitWidth="600.0" visible="false" StackPane.alignment="CENTER">
                         <image>
-                            <Image url="@winter.jpg"/>
+                            <Image url="@../../../../Images/winter.jpg" />
                         </image>
                     </ImageView>
                 </children>

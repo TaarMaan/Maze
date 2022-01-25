@@ -10,20 +10,15 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.Pane?>
 <VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vandd.solutions.maze.PlayerController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu fx:id="playerMenuFile" mnemonicParsing="false" text="Файл">
-          <items>
-            <MenuItem fx:id="playerMenuFileLoad" mnemonicParsing="false" text="Загрузить" />
-          </items>
-        </Menu>
+        <Menu fx:id="playerMenuFile" mnemonicParsing="false" text="Загрузить" />
             <Menu fx:id="playerMenuReference" mnemonicParsing="false" text="Справка">
                <items>
                   <MenuItem fx:id="playerMenuReferenceApp" mnemonicParsing="false" text="О приложении" />
@@ -147,22 +142,22 @@
                <children>
                   <ImageView fx:id="playerImageSpring" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
-                        <Image url="@spring.jpg" />
+                        <Image url="@../../../../Images/spring.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="playerImageSummer" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
-                        <Image url="@summer.jpg" />
+                        <Image url="@../../../../Images/summer.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="playerImageAutumn" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
-                        <Image url="@autumn.jpg" />
+                        <Image url="@../../../../Images/autumn.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="playerImageWinter" fitHeight="600.0" fitWidth="600.0" visible="false">
                      <image>
-                        <Image url="@winter.jpg" />
+                        <Image url="@../../../../Images/winter.jpg" />
                      </image>
                   </ImageView>
                </children>

@@ -10,7 +10,6 @@ import com.vandd.solutions.maze.template.serialization.LightweightTile;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 
@@ -24,10 +23,6 @@ public class Tile extends Observable {
         WALL,
         HIGHLIGHT,
         VISITED,
-        VISITED_LIGHT,
-        VISITED_MEDIUM,
-        VISITED_DENSE,
-        VISITED_MAX
     }
 
     private final Map<Type, Color> typeMap;
@@ -36,7 +31,6 @@ public class Tile extends Observable {
     private final int[] WEIGHTS = {
             this.getDefaultWeight(), 3, 6, 9, 12};
 
-    // JavaFX Node
     private final StackPane pane;
     private final int x;
     private final int y;
@@ -50,56 +44,42 @@ public class Tile extends Observable {
     public Tile(int x, int y, int size, String theme) {
 
         pane = new StackPane();
-        // Type color Mapping
         typeMap = new HashMap<>();
         typeMap.put(Type.EXIT, Color.BLACK);
-        typeMap.put(Type.ENTRANCE, Color.PURPLE);
+        typeMap.put(Type.ENTRANCE, Color.YELLOW);
         typeMap.put(Type.EMPTY, Color.WHITE);
         typeMap.put(Type.WALL, Color.BLACK);
-        typeMap.put(Type.PATH, Color.DEEPPINK);
+        typeMap.put(Type.PATH, Color.DARKTURQUOISE);
         typeMap.put(Type.HIGHLIGHT, Color.RED);
         typeMap.put(Type.VISITED, Color.BLUEVIOLET);
 
         if (theme.equals("autumn"))
-            typeMap.put(Type.WALL, Color.YELLOW);
+            typeMap.put(Type.WALL, Color.SADDLEBROWN);
         if (theme.equals("spring"))
-            typeMap.put(Type.WALL, Color.DARKGREEN);
+            typeMap.put(Type.WALL, Color.GREEN);
         if (theme.equals("summer"))
             typeMap.put(Type.WALL, Color.DARKRED);
         if (theme.equals("winter"))
             typeMap.put(Type.WALL, Color.DARKBLUE);
 
-        // Visited Color based on weight
         visitedMap = new HashMap<>();
-        visitedMap.put(this.WEIGHTS[0], Color.PALEGREEN);
-        visitedMap.put(this.WEIGHTS[1], Color.LIGHTGREEN);
-        visitedMap.put(this.WEIGHTS[2], Color.SPRINGGREEN);
-        visitedMap.put(this.WEIGHTS[3], Color.GREENYELLOW);
-        visitedMap.put(this.WEIGHTS[4], Color.GREEN);
+        visitedMap.put(this.WEIGHTS[0], Color.MOCCASIN);
 
-        // Empty Weight color
+
         weightMap = new HashMap<>();
         weightMap.put(this.WEIGHTS[0], Color.TRANSPARENT);
-        weightMap.put(this.WEIGHTS[1], Color.LIGHTCYAN);
-        weightMap.put(this.WEIGHTS[2], Color.AQUA);
-        weightMap.put(this.WEIGHTS[3], Color.DEEPSKYBLUE);
-        weightMap.put(this.WEIGHTS[4], Color.CORNFLOWERBLUE);
 
-        // Coordinates
         this.x = x;
         this.y = y;
 
-        // Attributes
         this.weight = defaultWeight;
         this.type = Type.EMPTY;
         this.size = size;
 
-        // Tile content
         this.rectangle = new Rectangle(size - tileGap, size - tileGap);
         this.rectangle.setFill(Color.TRANSPARENT);
         this.setTileStroke(true);
 
-        // build this StackPane
         pane.getChildren().add(rectangle);
         pane.getStyleClass().add("cell");
         pane.setTranslateX(x * size);
@@ -123,7 +103,6 @@ public class Tile extends Observable {
     public void setAttributes(Type type, int weight) {
         Color color;
 
-        // Pick color based on type
         switch (type) {
             case VISITED:
                 color = this.visitedMap.get(this.getWeight());
@@ -172,7 +151,6 @@ public class Tile extends Observable {
     private void setEvents() {
         pane.addEventFilter(MouseEvent.MOUSE_PRESSED, (MouseEvent me) ->
         {
-            // Notifies the @Grid
             setChanged();
             notifyObservers();
         });
@@ -184,9 +162,9 @@ public class Tile extends Observable {
 
     public void setTheme(String theme) {
         if (theme.equals("autumn"))
-            typeMap.put(Type.WALL, Color.DARKORANGE);
+            typeMap.put(Type.WALL, Color.SADDLEBROWN);
         if (theme.equals("spring"))
-            typeMap.put(Type.WALL, Color.DARKGREEN);
+            typeMap.put(Type.WALL, Color.GREEN);
         if (theme.equals("summer"))
             typeMap.put(Type.WALL, Color.DARKRED);
         if (theme.equals("winter"))
