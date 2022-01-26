@@ -16,23 +16,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class AdminController {
-
-    @FXML
-    private ResourceBundle resources;
-    private Pane parentGridPane;
-    private GridPane gridPane;
-    private Grid model;
     private final TemplateManager templateManager = new TemplateManager();
     @FXML
     private ComboBox<Tile.Type> AdminMenuArrangeEntxit;
@@ -282,8 +274,6 @@ public class AdminController {
             }
         });
         adminStart.setOnAction(actionEvent -> {
-            Thread t = new Thread();
-            t.run();
             if (adminWidth.getText().equals("") && adminHeight.getText().equals("")) {
                 int a = 25;
                 adminWidth.setText(String.valueOf(a));
@@ -294,15 +284,12 @@ public class AdminController {
             adminApply.fire();
             adminArrangeAlgorithm.fire();
             try {
-                t.sleep(5000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             adminArrangeAuto.isSelected();
             adminArrangeEntrence.fire();
-            t.interrupt();
-
-
         });
     }
 

@@ -141,7 +141,6 @@ public class Grid extends Observable implements Observer {
 
     public List<Tile> getTileNeighbors(Tile tile) {
         List<Tile> neighbors = new ArrayList<>();
-
         neighbors.add(this.getNorthTile(tile));
         neighbors.add(this.getSouthTile(tile));
         neighbors.add(this.getEastTile(tile));

@@ -4,13 +4,17 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sun.glass.events.MouseEvent;
 import com.vandd.solutions.maze.GridModel.Grid;
+import com.vandd.solutions.maze.GridModel.Painter;
 import com.vandd.solutions.maze.GridModel.Tile;
 import com.vandd.solutions.maze.algorithms.AlgoFactory;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.pathfind.Mouse;
+import com.vandd.solutions.maze.algorithms.pathfind.WavePropagation;
 import com.vandd.solutions.maze.template.Template;
 import com.vandd.solutions.maze.template.TemplateManager;
 import javafx.fxml.FXML;
@@ -29,10 +33,7 @@ import javafx.stage.Stage;
 public class PlayerController extends Observable {
     private Mouse mouse;
     private Tile tile;
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
+    private Painter painter;
     @FXML
     private Pane StackPaneP;
     @FXML
@@ -43,10 +44,6 @@ public class PlayerController extends Observable {
     private RadioButton playerAlgorithmWave;
     @FXML
     private Menu playerMenuFile;
-    @FXML
-    private MenuItem playerMenuFileLoad;
-    @FXML
-    private Menu playerMenuReference;
     @FXML
     private MenuItem playerMenuReferenceApp;
     @FXML
@@ -93,6 +90,7 @@ public class PlayerController extends Observable {
     private RadioButton playerVisualizationStatic;
     private final TemplateManager templateManager = new TemplateManager();
     private Grid grid;
+    private final WavePropagation wavePropagation = new WavePropagation();
 
     @FXML
     void initialize() {
@@ -149,6 +147,9 @@ public class PlayerController extends Observable {
                 playerImageWinter.setVisible(true);
             }
             if (grid != null) grid.setTheme("winter");
+            playerAlgorithmApply.setDisable(false);
+            playerAlgorithmRightHand.setDisable(false);
+            playerAlgorithmWave.setDisable(false);
         });
 
         //шаблоны
@@ -184,28 +185,6 @@ public class PlayerController extends Observable {
             );
             return menuItem;
         }).forEach(mItem -> playerMenuFile.getItems().add(mItem));
-
-        //закрепляем выбранную тему
-        playerTopicApply.setOnAction(actionEvent -> {
-            playerAlgorithmApply.setDisable(false);
-            playerAlgorithmRightHand.setDisable(false);
-            playerAlgorithmWave.setDisable(false);
-        });
-
-        //алгоритм старт
-        playerStart.setOnAction(actionEvent -> {
-            //что-то нахуй не то с Tile и координаты входа задать
-            int EntranceX = tile.getX();
-            int EntranceY = tile.getY();
-            mouse = new Mouse(EntranceX, EntranceY);
-            changeDirection(grid.getXSize() - 1, grid.getYSize() - 1);
-            grid.setMouse(mouse);
-            //if wave action
-            System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
-            //if rightHand action
-            //System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand)));
-        });
-
 
         //справка о разработчиках
         playerMenuReferenceDevelopers.setOnAction(actionEvent -> {
@@ -246,8 +225,11 @@ public class PlayerController extends Observable {
         //установка обработчика события нажатия
         playerAlgorithmApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupA.getSelectedToggle();
-
-            // включение алгоритма в сетку...
+            if (selection.equals(playerAlgorithmWave)) {
+                AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation);
+            } else if (selection.equals(playerAlgorithmRightHand)) {
+                AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand);
+            }
             playerVisualizationApply.setDisable(false);
             playerVisualizationDynamic.setDisable(false);
             playerVisualizationStatic.setDisable(false);
@@ -257,22 +239,48 @@ public class PlayerController extends Observable {
         ToggleGroup groupV = new ToggleGroup();
         playerVisualizationDynamic.setToggleGroup(groupV);
         playerVisualizationStatic.setToggleGroup(groupV);
+        playerVisualizationDynamic.setSelected(true);
 
         //установка обработчика события для выбора типа визуализации
         playerVisualizationApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupV.getSelectedToggle();
+if(selection.equals(playerVisualizationDynamic)){
+    playerSpeedBall.setDisable(false);
+    playerSpeedApply.setDisable(false);
+}else if(selection.equals(playerVisualizationStatic)){
 
-            //включение алгоритма в сетку и разблокирование выбора скорости
-            // персонажа(если выбран динамический)...
-            playerVisualizationApply.setDisable(true);
-            playerVisualizationDynamic.setDisable(true);
-            playerVisualizationStatic.setDisable(true);
-            if (playerVisualizationDynamic.isSelected()) {
-                playerSpeedBall.setDisable(false);
-                playerSpeedApply.setDisable(false);
-            }
+}
+
+        });
+
+        //алгоритм старт
+        playerStart.setOnAction(actionEvent -> {
+            //что-то нахуй не то с Tile и координаты входа задать
+            System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
+            /*int EntranceX = tile.getX();
+            int EntranceY = tile.getY();
+            mouse = new Mouse(EntranceX, EntranceY);
+            changeDirection(grid.getXSize() - 1, grid.getYSize() - 1);
+            grid.setMouse(mouse);*/
+            //System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand)));
+        });
+
+        playerSpeed1.setOnAction(actionEvent -> {
+            List<Tile>path = new ArrayList<>();
+            wavePropagation.algorithm(grid, path);
+
+        });
+        playerSpeed2.setOnAction(actionEvent -> {
+
+        });
+        playerSpeed3.setOnAction(actionEvent -> {
+
+        });
+        playerSpeed4.setOnAction(actionEvent -> {
+
         });
         playerSpeedApply.setOnAction(actionEvent -> {
+
         });
     }
 
@@ -282,7 +290,6 @@ public class PlayerController extends Observable {
                 StackPaneP.getChildren().add(tile.getStackPane());
             }
         }
-//        this.parentGridPane.getChildren().add(gridPane);
     }
 
     public void changeDirection(int x_size, int y_size) {
@@ -304,3 +311,4 @@ public class PlayerController extends Observable {
         }
     }
 }
+

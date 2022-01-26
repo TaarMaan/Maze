@@ -122,7 +122,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Крускала">
+                                <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Краскала">
                                     <font>
                                         <Font size="15.0" />
                                     </font>

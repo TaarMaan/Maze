@@ -1,6 +1,6 @@
-
 package com.vandd.solutions.maze.GridModel;
 
+import com.vandd.solutions.maze.PlayerController;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 public final class Painter {
     private static final Painter INSTANCE = new Painter();
     private final Executor executor;
-
     private Painter() {
         executor = Executors.newSingleThreadExecutor();
     }
@@ -21,7 +20,7 @@ public final class Painter {
         return INSTANCE;
     }
 
-    public void drawPath(List<Tile> path, Grid model) {
+     public void drawPath(List<Tile> path, Grid model) {
         this.executor.execute(
                 () ->
                 {
@@ -32,7 +31,7 @@ public final class Painter {
                     }).forEachOrdered((_item) ->
                     {
                         try {
-                            Thread.sleep(20);
+                            Thread.sleep(40);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Grid.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -45,9 +44,9 @@ public final class Painter {
         {
             if (tile != exit && tile != entrance)
                 tile.setAttributes(type, tile.getWeight());
+          try {
+                    Thread.sleep(sleep);
 
-            try {
-                Thread.sleep(sleep);
             } catch (InterruptedException ex) {
                 Logger.getLogger(FindingExit.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -57,11 +56,6 @@ public final class Painter {
     public void highlightTile(Tile tile, long waitTime) {
         this.drawTile(tile, null, null, Tile.Type.HIGHLIGHT, waitTime);
         this.drawTile(tile, null, null, Tile.Type.EMPTY, waitTime);
-    }
-
-    public void highlightTile(Tile tile, Tile.Type type, long waitTime) {
-        this.drawTile(tile, null, null, Tile.Type.HIGHLIGHT, waitTime);
-        this.drawTile(tile, null, null, type, waitTime);
     }
 
     public void clearPath(Grid model) {
@@ -79,5 +73,3 @@ public final class Painter {
         });
     }
 }
-
-

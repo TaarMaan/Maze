@@ -2,6 +2,7 @@ package com.vandd.solutions.maze.algorithms.pathfind;
 
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
+import com.vandd.solutions.maze.PlayerController;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import java.util.Set;
 
 public class WavePropagation extends FindingExit {
     private final int DEFAULT_DISTANCE = 1;
-
     public WavePropagation() {
         super();
     }
@@ -22,12 +22,9 @@ public class WavePropagation extends FindingExit {
     protected int runPathfinder(Grid model, List<Tile> path) {
         HashMap<Tile, Integer> tileData = new HashMap<>();
         this.executeWavePropagation(model, tileData);
-
         this.buildPath(path, model, tileData);
         int cost = tileData.get(model.getTarget()) - 1;
-
         this.painter.drawPath(path, model);
-
         return cost;
     }
 
@@ -58,9 +55,9 @@ public class WavePropagation extends FindingExit {
                     unprocessed.add(elem);
                     visited.add(elem);
                     tileData.put(elem, this.DEFAULT_DISTANCE + iteration);
+                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT,  4);
+                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.VISITED, 2);
 
-                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT, 2);
-                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.VISITED, 4);
                 }
             }
         }
