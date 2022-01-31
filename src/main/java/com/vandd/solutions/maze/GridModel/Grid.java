@@ -19,7 +19,6 @@ public class Grid extends Observable implements Observer {
     Tile exit, entrance;
     private Tile.Type clickType;
     private final Painter painter;
-
     public Tile getExit() {
         return exit;
     }
@@ -52,12 +51,12 @@ public class Grid extends Observable implements Observer {
         return this;
     }
 
-    public boolean executeFinding(FindingExit findingExit) {
+    public boolean executeFinding(int sleepDuration, FindingExit findingExit) {
         if (entrance == null || exit == null) return false;
         this.painter.clearPath(this);
 
         List<Tile> path = new ArrayList<>();
-        findingExit.algorithm(this, path);
+        findingExit.algorithm(sleepDuration,this, path);
         return true;
     }
 

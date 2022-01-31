@@ -21,7 +21,7 @@ public class RightHand extends FindingExit {
     }
 
     @Override
-    protected int runPathfinder(Grid grid, List<Tile> path) {
+    protected int runPathfinder(int sleepDuration,Grid grid, List<Tile> path) {
 
         HashMap<Tile, Integer> tileData = new HashMap<>();
         this.executeRightHand(grid, tileData);
@@ -29,7 +29,7 @@ public class RightHand extends FindingExit {
         this.buildPath(path, grid, tileData);
         int cost = tileData.get(grid.getTarget()) - 1;
 
-        this.painter.drawPath(path, grid);
+        this.painter.drawPath(sleepDuration, path, grid);
 
         return cost;
     }

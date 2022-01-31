@@ -122,12 +122,12 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <RadioButton fx:id="adminKruskal" layoutX="40.0" layoutY="31.0" mnemonicParsing="false" text="Краскала">
+                                <RadioButton fx:id="adminKruskal" layoutX="39.0" layoutY="51.0" mnemonicParsing="false" text="Краскала">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </RadioButton>
-                                <RadioButton fx:id="adminPrim" layoutX="40.0" layoutY="63.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="89.0" text="Прима">
+                                <RadioButton fx:id="adminPrim" layoutX="39.0" layoutY="28.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="89.0" text="Прима">
                                     <font>
                                         <Font size="15.0" />
                                     </font>

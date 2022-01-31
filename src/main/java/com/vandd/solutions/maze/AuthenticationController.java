@@ -30,21 +30,24 @@ public class AuthenticationController {
 
             if ((loginPl.length() > 8) || loginPl.length() < 4) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
+                alert.setTitle("Ошибка");
                 alert.setHeaderText(null);
                 alert.setContentText("Недопустимое количество символов в нике");
+                ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 alert.showAndWait();
             } else {
                 if (loginPl.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
+                    alert.setTitle("Ошибка");
                     alert.setHeaderText(null);
                     alert.setContentText("В поле Логин пусто! Введите свой ник");
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     alert.showAndWait();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Successful authentication");
                     alert.setHeaderText("Welcome, " + loginP.getText());
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     alert.showAndWait();
 
                     //переход в поле игрока,после нажатия войти
@@ -77,6 +80,7 @@ public class AuthenticationController {
                 alert.setTitle("Welcome!");
                 alert.setHeaderText(null);
                 alert.setContentText("Вы зашли как Администратор");
+                ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 alert.showAndWait();
 //переход в поле администратора,после нажатия войти
                 entranceA.getScene().getWindow().hide();
@@ -99,21 +103,20 @@ public class AuthenticationController {
             } else {
                 if (loginAd.equals("") || passwordAd.equals("")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
+                    alert.setTitle("Ошибка");
                     alert.setHeaderText(null);
                     alert.setContentText("В поле логина или пароля пусто");
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     alert.showAndWait();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
+                    alert.setTitle("Ошибка");
                     alert.setHeaderText(null);
                     alert.setContentText("Неправильный логин или пароль");
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     alert.showAndWait();
                 }
             }
         });
     }
 }
-
-
-

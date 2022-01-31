@@ -19,17 +19,17 @@ public class WavePropagation extends FindingExit {
     }
 
     @Override
-    protected int runPathfinder(Grid model, List<Tile> path) {
+    protected int runPathfinder(int sleepDuration, Grid model, List<Tile> path) {
         HashMap<Tile, Integer> tileData = new HashMap<>();
-        this.executeWavePropagation(model, tileData);
+        this.executeWavePropagation(sleepDuration, model, tileData);
         this.buildPath(path, model, tileData);
         int cost = tileData.get(model.getTarget()) - 1;
-        this.painter.drawPath(path, model);
+        this.painter.drawPath(sleepDuration, path, model);
         return cost;
     }
 
 
-    private void executeWavePropagation(Grid model, HashMap<Tile, Integer> tileData) {
+    private void executeWavePropagation(int sleepDuration, Grid model, HashMap<Tile, Integer> tileData) {
         Set<Tile> visited = new HashSet<>();
         List<Tile> toProcess = new LinkedList<>();
         List<Tile> unprocessed = new LinkedList<>();
@@ -55,8 +55,8 @@ public class WavePropagation extends FindingExit {
                     unprocessed.add(elem);
                     visited.add(elem);
                     tileData.put(elem, this.DEFAULT_DISTANCE + iteration);
-                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT,  4);
-                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.VISITED, 2);
+                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT,  sleepDuration);
+                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.VISITED, sleepDuration);
 
                 }
             }

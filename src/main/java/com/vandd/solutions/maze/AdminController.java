@@ -83,17 +83,11 @@ public class AdminController {
         adminArrangeAuto.setDisable(true);
         adminArrangeManually.setDisable(true);
         AdminMenuArrangeEntxit.setDisable(true);
+        adminArrangeEntrence.setDisable(true);
 
         AdminMenuArrangeEntxit.getItems().add(Tile.Type.ENTRANCE);
         AdminMenuArrangeEntxit.getItems().add(Tile.Type.EXIT);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.PATH);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.HIGHLIGHT);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_DENSE);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_LIGHT);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MAX);
-//        AdminMenuArrangeEntxit.getItems().remove(Tile.Type.VISITED_MEDIUM);
-          AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
+        AdminMenuArrangeEntxit.getSelectionModel().selectFirst();
         AdminMenuArrangeEntxit.setOnAction(actionEvent -> {
             if (grid != null) grid.changeClickType(AdminMenuArrangeEntxit.getSelectionModel().getSelectedItem());
         });
@@ -118,7 +112,23 @@ public class AdminController {
 
         adminMenuFileSave.setOnAction(actionEvent ->
         {
-            if (grid != null && (adminPrim.isSelected() || adminKruskal.isSelected()) && theme != null) {
+            if (grid == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка!");
+                alert.setHeaderText("Нечего сохранять!\n" +
+                        "Заполните сетку и инициализируйте генерацию лабиринта");
+                ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                alert.setContentText(null);
+                alert.showAndWait();
+            } else if (theme == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка!");
+                alert.setHeaderText("Нечего сохранять!\n" +
+                        "Выберите тему и инициализируйте генерацию лабиринта");
+                ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
+                alert.setContentText(null);
+                alert.showAndWait();
+            } else {
                 String a;
                 if (adminPrim.isSelected()) {
                     a = "Prim";
@@ -128,14 +138,8 @@ public class AdminController {
                 //использовать для сохранения шаблона
                 templateManager.save(new Template("sample" + " " + theme + "_" + adminHeight.getText()
                         + "_" + adminWidth.getText() + " " + a, grid, theme));
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Ошибка!");
-                alert.setHeaderText("Нечего сохранять!\n" +
-                        "Заполните сетку и инициализируйте генерацию лабиринта");
-                alert.setContentText(null);
-                alert.showAndWait();
             }
+
         });
 
         adminApply.setOnAction(actionEvent -> {
@@ -158,6 +162,7 @@ public class AdminController {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Ошибка!");
                     alert.setHeaderText("Некорректно введены параметры сетки!");
+                    ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                     alert.showAndWait();
                 }
             }
@@ -219,6 +224,7 @@ public class AdminController {
                 if (grid != null) grid.setTheme(theme);
             }
         });
+
         //установка группы для радиокнопок(алгоритмы)
         ToggleGroup groupA = new ToggleGroup();
         adminKruskal.setToggleGroup(groupA);
@@ -230,6 +236,7 @@ public class AdminController {
             adminArrangeAuto.setDisable(false);
             adminArrangeEntrence.setDisable(false);
             adminArrangeManually.setDisable(false);
+
             MazeGeneration.MazeGen mazeGen = null;
             if (selection.equals(adminKruskal)) {
                 mazeGen = MazeGeneration.MazeGen.Kruskal;
@@ -280,7 +287,7 @@ public class AdminController {
                 adminHeight.setText(String.valueOf(a));
             }
             adminTopicWinter.fire();
-            adminPrim.isSelected();
+            adminPrim.setSelected(true);
             adminApply.fire();
             adminArrangeAlgorithm.fire();
             try {

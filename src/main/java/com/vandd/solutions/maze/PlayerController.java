@@ -2,19 +2,13 @@ package com.vandd.solutions.maze;
 
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import com.sun.glass.events.MouseEvent;
 import com.vandd.solutions.maze.GridModel.Grid;
-import com.vandd.solutions.maze.GridModel.Painter;
 import com.vandd.solutions.maze.GridModel.Tile;
 import com.vandd.solutions.maze.algorithms.AlgoFactory;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
-import com.vandd.solutions.maze.algorithms.pathfind.Mouse;
-import com.vandd.solutions.maze.algorithms.pathfind.WavePropagation;
 import com.vandd.solutions.maze.template.Template;
 import com.vandd.solutions.maze.template.TemplateManager;
 import javafx.fxml.FXML;
@@ -31,9 +25,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PlayerController extends Observable {
-    private Mouse mouse;
-    private Tile tile;
-    private Painter painter;
     @FXML
     private Pane StackPaneP;
     @FXML
@@ -71,10 +62,6 @@ public class PlayerController extends Observable {
     @FXML
     private Button playerStart;
     @FXML
-    private MenuButton playerTopic;
-    @FXML
-    private Button playerTopicApply;
-    @FXML
     private MenuItem playerTopicAutumn;
     @FXML
     private MenuItem playerTopicSpring;
@@ -90,18 +77,18 @@ public class PlayerController extends Observable {
     private RadioButton playerVisualizationStatic;
     private final TemplateManager templateManager = new TemplateManager();
     private Grid grid;
-    private final WavePropagation wavePropagation = new WavePropagation();
+    private int sleepDuration;
 
     @FXML
     void initialize() {
+        playerSpeedApply.setDisable(true);
+        playerSpeedBall.setDisable(true);
+        playerVisualizationStatic.setDisable(true);
         playerVisualizationApply.setDisable(true);
         playerVisualizationDynamic.setDisable(true);
-        playerVisualizationStatic.setDisable(true);
-        playerSpeedBall.setDisable(true);
-        playerSpeedApply.setDisable(true);
-        playerAlgorithmApply.setDisable(true);
-        playerAlgorithmRightHand.setDisable(true);
         playerAlgorithmWave.setDisable(true);
+        playerAlgorithmRightHand.setDisable(true);
+        playerAlgorithmApply.setDisable(true);
         //темы
         playerTopicSpring.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -113,6 +100,9 @@ public class PlayerController extends Observable {
                 playerImageAutumn.setVisible(false);
             }
             if (grid != null) grid.setTheme("spring");
+            playerAlgorithmWave.setDisable(false);
+            playerAlgorithmRightHand.setDisable(false);
+            playerAlgorithmApply.setDisable(false);
         });
         playerTopicSummer.setOnAction(actionEvent -> {
             if (!playerImageSpring.isVisible() && !playerImageAutumn.isVisible() && !playerImageWinter.isVisible()) {
@@ -124,6 +114,9 @@ public class PlayerController extends Observable {
                 playerImageWinter.setVisible(false);
             }
             if (grid != null) grid.setTheme("summer");
+            playerAlgorithmWave.setDisable(false);
+            playerAlgorithmRightHand.setDisable(false);
+            playerAlgorithmApply.setDisable(false);
 
         });
         playerTopicAutumn.setOnAction(actionEvent -> {
@@ -136,6 +129,9 @@ public class PlayerController extends Observable {
                 playerImageWinter.setVisible(false);
             }
             if (grid != null) grid.setTheme("autumn");
+            playerAlgorithmWave.setDisable(false);
+            playerAlgorithmRightHand.setDisable(false);
+            playerAlgorithmApply.setDisable(false);
         });
         playerTopicWinter.setOnAction(actionEvent -> {
             if (!playerImageSummer.isVisible() && !playerImageAutumn.isVisible() && !playerImageSpring.isVisible()) {
@@ -213,6 +209,7 @@ public class PlayerController extends Observable {
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText(null);
                 alert.setContentText("Файл справки поврежден или отсутствует...");
+                ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("D:\\vlad\\ideaProjects\\Maze\\src\\main\\resources\\Images\\icon.png"));
                 alert.showAndWait();
             }
         });
@@ -220,7 +217,7 @@ public class PlayerController extends Observable {
         ToggleGroup groupA = new ToggleGroup();
         playerAlgorithmRightHand.setToggleGroup(groupA);
         playerAlgorithmWave.setToggleGroup(groupA);
-        playerAlgorithmWave.setSelected(true);
+        playerAlgorithmRightHand.setSelected(true);
 
         //установка обработчика события нажатия
         playerAlgorithmApply.setOnAction(actionEvent -> {
@@ -239,24 +236,17 @@ public class PlayerController extends Observable {
         ToggleGroup groupV = new ToggleGroup();
         playerVisualizationDynamic.setToggleGroup(groupV);
         playerVisualizationStatic.setToggleGroup(groupV);
-        playerVisualizationDynamic.setSelected(true);
-
-        //установка обработчика события для выбора типа визуализации
+        playerVisualizationStatic.setSelected(true);
         playerVisualizationApply.setOnAction(actionEvent -> {
-            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
-if(selection.equals(playerVisualizationDynamic)){
-    playerSpeedBall.setDisable(false);
-    playerSpeedApply.setDisable(false);
-}else if(selection.equals(playerVisualizationStatic)){
-
-}
-
+            if (playerVisualizationDynamic.isSelected()) {
+                playerSpeedBall.setDisable(false);
+                playerSpeedApply.setDisable(false);
+            }
         });
 
         //алгоритм старт
         playerStart.setOnAction(actionEvent -> {
-            //что-то нахуй не то с Tile и координаты входа задать
-            System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
+            System.out.println(grid.executeFinding(sleepDuration, AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
             /*int EntranceX = tile.getX();
             int EntranceY = tile.getY();
             mouse = new Mouse(EntranceX, EntranceY);
@@ -266,21 +256,44 @@ if(selection.equals(playerVisualizationDynamic)){
         });
 
         playerSpeed1.setOnAction(actionEvent -> {
-            List<Tile>path = new ArrayList<>();
-            wavePropagation.algorithm(grid, path);
-
+            playerSpeed1.setDisable(true);
+            playerSpeed2.setDisable(false);
+            playerSpeed3.setDisable(false);
+            playerSpeed4.setDisable(false);
         });
         playerSpeed2.setOnAction(actionEvent -> {
-
+            playerSpeed1.setDisable(false);
+            playerSpeed2.setDisable(true);
+            playerSpeed3.setDisable(false);
+            playerSpeed4.setDisable(false);
         });
         playerSpeed3.setOnAction(actionEvent -> {
-
+            playerSpeed1.setDisable(false);
+            playerSpeed2.setDisable(false);
+            playerSpeed3.setDisable(true);
+            playerSpeed4.setDisable(false);
         });
         playerSpeed4.setOnAction(actionEvent -> {
-
+            playerSpeed1.setDisable(false);
+            playerSpeed2.setDisable(false);
+            playerSpeed3.setDisable(false);
+            playerSpeed4.setDisable(true);
         });
         playerSpeedApply.setOnAction(actionEvent -> {
-
+            RadioButton selection = (RadioButton) groupV.getSelectedToggle();
+            if (selection.equals(playerVisualizationStatic)) {
+                sleepDuration = 0;
+            } else if (selection.equals(playerVisualizationDynamic)) {
+                if (playerSpeed1.isDisable()) {
+                    sleepDuration = 100;
+                } else if (playerSpeed2.isDisable()) {
+                    sleepDuration = 50;
+                } else if (playerSpeed3.isDisable()) {
+                    sleepDuration = 25;
+                } else if (playerSpeed4.isDisable()) {
+                    sleepDuration = 5;
+                }
+            }
         });
     }
 
@@ -292,7 +305,7 @@ if(selection.equals(playerVisualizationDynamic)){
         }
     }
 
-    public void changeDirection(int x_size, int y_size) {
+    /*public void changeDirection(int x_size, int y_size) {
         //down location
         if (mouse.y == y_size) {
             mouse.direction = 0;
@@ -309,6 +322,6 @@ if(selection.equals(playerVisualizationDynamic)){
         else if (mouse.x == x_size) {
             mouse.direction = 3;
         }
-    }
+    }*/
 }
 

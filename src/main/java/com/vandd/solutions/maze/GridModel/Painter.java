@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public final class Painter {
     private static final Painter INSTANCE = new Painter();
     private final Executor executor;
+
     private Painter() {
         executor = Executors.newSingleThreadExecutor();
     }
@@ -20,7 +21,7 @@ public final class Painter {
         return INSTANCE;
     }
 
-     public void drawPath(List<Tile> path, Grid model) {
+    public void drawPath(int sleepDuration, List<Tile> path, Grid model) {
         this.executor.execute(
                 () ->
                 {
@@ -31,7 +32,9 @@ public final class Painter {
                     }).forEachOrdered((_item) ->
                     {
                         try {
-                            Thread.sleep(40);
+                            if (sleepDuration > 0)
+                                Thread.sleep(sleepDuration);
+
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Grid.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -44,7 +47,8 @@ public final class Painter {
         {
             if (tile != exit && tile != entrance)
                 tile.setAttributes(type, tile.getWeight());
-          try {
+            try {
+                if (sleep > 0)
                     Thread.sleep(sleep);
 
             } catch (InterruptedException ex) {

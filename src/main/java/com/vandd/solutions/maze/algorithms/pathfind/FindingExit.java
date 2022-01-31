@@ -18,10 +18,10 @@ public abstract class FindingExit {
         this.painter = Painter.getInstance();
     }
 
-    public final int algorithm(Grid model, List<Tile> path) {
-        int cost = this.runPathfinder(model, path);
+    public final int algorithm(int sleepDuration, Grid model, List<Tile> path) {
+        int cost = this.runPathfinder(sleepDuration, model, path);
         return cost;
     }
 
-    protected abstract int runPathfinder(Grid model, List<Tile> path);
+    protected abstract int runPathfinder(int sleepDuration, Grid model, List<Tile> path);
 }
