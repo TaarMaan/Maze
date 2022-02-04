@@ -1,4 +1,3 @@
-
 package com.vandd.solutions.maze.algorithms;
 
 import com.vandd.solutions.maze.algorithms.generation.Kruskal;

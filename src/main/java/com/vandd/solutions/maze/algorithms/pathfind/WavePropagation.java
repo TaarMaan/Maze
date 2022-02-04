@@ -2,7 +2,6 @@ package com.vandd.solutions.maze.algorithms.pathfind;
 
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
-import com.vandd.solutions.maze.PlayerController;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,7 +64,6 @@ public class WavePropagation extends FindingExit {
 
     private void buildPath(List<Tile> path, Grid model, HashMap<Tile, Integer> data) {
         Tile currentTile = model.getTarget();
-
         do {
             path.add(currentTile);
             Tile lowestCost = null;

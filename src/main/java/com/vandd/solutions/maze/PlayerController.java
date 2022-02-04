@@ -247,12 +247,7 @@ public class PlayerController extends Observable {
         //алгоритм старт
         playerStart.setOnAction(actionEvent -> {
             System.out.println(grid.executeFinding(sleepDuration, AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
-            /*int EntranceX = tile.getX();
-            int EntranceY = tile.getY();
-            mouse = new Mouse(EntranceX, EntranceY);
-            changeDirection(grid.getXSize() - 1, grid.getYSize() - 1);
-            grid.setMouse(mouse);*/
-            //System.out.println(grid.executeFinding(AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand)));
+
         });
 
         playerSpeed1.setOnAction(actionEvent -> {
@@ -305,23 +300,5 @@ public class PlayerController extends Observable {
         }
     }
 
-    /*public void changeDirection(int x_size, int y_size) {
-        //down location
-        if (mouse.y == y_size) {
-            mouse.direction = 0;
-        }
-        //left location
-        else if (mouse.x == 0) {
-            mouse.direction = 1;
-        }
-        //up location
-        else if (mouse.y == 0) {
-            mouse.direction = 2;
-        }
-        //right location
-        else if (mouse.x == x_size) {
-            mouse.direction = 3;
-        }
-    }*/
 }
 

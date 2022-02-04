@@ -108,9 +108,9 @@
                         <ComboBox fx:id="AdminMenuArrangeEntxit" layoutX="55.0" layoutY="107.0" prefHeight="26.0" prefWidth="108.0" promptText="Вход/Выход" />
                     </children>
                 </AnchorPane>
-                <Button fx:id="adminStart" layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="220.0" text="Сгенерировать лабиринт">
+                <Button fx:id="adminStart" layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="220.0" text="Автоматическая генерация">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
                 <AnchorPane layoutX="10.0" layoutY="190.0" prefHeight="140.0" prefWidth="220.0" style="-fx-background-color: #9fc9ff;">

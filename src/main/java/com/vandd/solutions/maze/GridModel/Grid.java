@@ -1,24 +1,25 @@
 
 package com.vandd.solutions.maze.GridModel;
 
+import com.vandd.solutions.maze.AdminController;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import com.vandd.solutions.maze.template.serialization.LightweightGrid;
 import com.vandd.solutions.maze.template.serialization.LightweightTile;
-import com.vandd.solutions.maze.algorithms.pathfind.Mouse;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Grid extends Observable implements Observer {
+    public int direction;
     private String theme = "";
     private int x_size;
     private int y_size;
-    private Mouse mouse;
     private Tile[][] grid;
     Tile exit, entrance;
     private Tile.Type clickType;
     private final Painter painter;
+
     public Tile getExit() {
         return exit;
     }
@@ -56,7 +57,7 @@ public class Grid extends Observable implements Observer {
         this.painter.clearPath(this);
 
         List<Tile> path = new ArrayList<>();
-        findingExit.algorithm(sleepDuration,this, path);
+        findingExit.algorithm(sleepDuration, this, path);
         return true;
     }
 
@@ -264,9 +265,141 @@ public class Grid extends Observable implements Observer {
         }
         return new LightweightGrid(x_size, y_size, lightweightTiles, exit != null ? exit.toLightweight() : null, entrance != null ? entrance.toLightweight() : null);
     }
-
-    public void setMouse(Mouse mouse) {
-        this.mouse = mouse;
+    //передвигает мышь на шаг вперед
+    public void toStep(Tile tile, int x, int y) {
+        x = tile.getX();
+        y = tile.getY();
+        switch (direction) {
+            case 0:
+                --y;
+                break;
+            case 1:
+                ++x;
+                break;
+            case 2:
+                ++y;
+                break;
+            case 3:
+                --x;
+                break;
+        }
     }
+    public void changeDirection(int x_size, int y_size) {
+        this.x_size = x_size;
+        this.y_size = y_size;
+        //down
+        if (tile.getY() == y_size) {
+            tile.direction = 0;
+        }
+        //left
+        else if (tile.getX() == 0) {
+            tile.direction = 1;
+        }
+        //up
+        else if (tile.getY() == 0) {
+            tile.direction = 2;
+        }
+        //right
+        else if (tile.getX() == x_size) {
+            tile.direction = 3;
+        }
+    }
+
+    //разварачивает мышь на 90 градусов вправо
+    public void rightRotate() {
+        ++direction;
+        if (direction > 3) {
+            direction = 0;
+        }
+    }
+
+    //разварачивает мышь на 90 градусов влево
+    public void leftRotate() {
+        --direction;
+        if (direction < 0) {
+            direction = 3;
+        }
+    }
+
+    public void isRightWall() {
+        int x = currentTile.getX();
+        int y = currentTile.getY();
+        int p = currentTile.direction;
+        switch (p) {
+            case 0:
+                x = x + 1;
+                currentTile.isWall();
+            case 1:
+                y = y + 1;
+                currentTile.isWall();
+            case 2:
+                x = x - 1;
+                currentTile.isWall();
+            case 3:
+                y = y - 1;
+                currentTile.isWall();
+        }
+    }
+
+    public void isTopWall() {
+        int x = currentTile.getX();
+        int y = currentTile.getY();
+        int p = currentTile.direction;
+        switch (p) {
+            case 0:
+                y = y - 1;
+                currentTile.isWall();
+            case 1:
+                x = x + 1;
+                currentTile.isWall();
+            case 2:
+                y = y + 1;
+                currentTile.isWall();
+            case 3:
+                x = x - 1;
+                currentTile.isWall();
+        }
+    }
+
+    public void isLeftWall() {
+        int x = currentTile.getX();
+        int y = currentTile.getY();
+        int p = currentTile.direction;
+        switch (p) {
+            case 0:
+                x = x - 1;
+                currentTile.isWall();
+            case 1:
+                y = y - 1;
+                currentTile.isWall();
+            case 2:
+                x = x + 1;
+                currentTile.isWall();
+            case 3:
+                y = y + 1;
+                currentTile.isWall();
+        }
+    }
+
+    public void isDownWall() {
+        int x = currentTile.getX();
+        int y = currentTile.getY();
+        int p = currentTile.direction;
+        switch (p) {
+            case 0:
+                y = y + 1;
+                currentTile.isWall();
+            case 1:
+                x = x - 1;
+                currentTile.isWall();
+            case 2:
+                y = y - 1;
+                currentTile.isWall();
+            case 3:
+                x = x + 1;
+                currentTile.isWall();
+        }
+    }
+
 }
 

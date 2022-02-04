@@ -13,7 +13,6 @@ public abstract class FindingExit {
         WavePropagation,
         RightHand
     }
-
     public FindingExit() {
         this.painter = Painter.getInstance();
     }
