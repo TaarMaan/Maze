@@ -74,7 +74,6 @@ public class AdminController {
     @FXML
     private TextField adminWidth;
     private Grid grid;
-    Tile tile;
 
     @FXML
     public void initialize() {
@@ -92,14 +91,14 @@ public class AdminController {
         AdminMenuArrangeEntxit.setOnAction(actionEvent -> {
             if (grid != null)
                 grid.changeClickType(AdminMenuArrangeEntxit.getSelectionModel().getSelectedItem());
-            if(grid != null)
-            grid.changeDirection(grid.getXSize(), grid.getYSize());
+            // grid.changeDirection(grid.getXSize(), grid.getYSize());
         });
 
         adminArrangeEntrence.setOnAction(actionEvent -> {
             if (grid != null) {
                 grid.addRandomEntranceExit();
-                grid.changeDirection(grid.getXSize(), grid.getYSize());
+
+                // grid.changeDirection(grid.getXSize(), grid.getYSize());
             }
         });
 

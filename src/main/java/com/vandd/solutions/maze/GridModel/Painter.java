@@ -1,6 +1,5 @@
 package com.vandd.solutions.maze.GridModel;
 
-import com.vandd.solutions.maze.PlayerController;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 
 import java.util.List;

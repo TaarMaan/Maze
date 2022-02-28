@@ -1,7 +1,6 @@
 
 package com.vandd.solutions.maze.GridModel;
 
-import com.vandd.solutions.maze.AdminController;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
 import com.vandd.solutions.maze.algorithms.generation.MazeGeneration;
 import com.vandd.solutions.maze.template.serialization.LightweightGrid;
@@ -11,7 +10,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Grid extends Observable implements Observer {
-    public int direction;
     private String theme = "";
     private int x_size;
     private int y_size;
@@ -19,14 +17,6 @@ public class Grid extends Observable implements Observer {
     Tile exit, entrance;
     private Tile.Type clickType;
     private final Painter painter;
-
-    public Tile getExit() {
-        return exit;
-    }
-
-    public Tile getEntrance() {
-        return entrance;
-    }
 
     public Grid() {
         this.exit = null;
@@ -149,7 +139,6 @@ public class Grid extends Observable implements Observer {
         return neighbors;
     }
 
-
     public Tile getNorthTile(Tile tile) {
         return (tile.getY() - 1 >= 0) ? grid[tile.getX()][tile.getY() - 1] : null;
     }
@@ -166,6 +155,12 @@ public class Grid extends Observable implements Observer {
         return (tile.getX() + 1 <= x_size - 1) ? grid[tile.getX() + 1][tile.getY()] : null;
     }
 
+    public boolean isOnEast(Tile tile, Tile compare) {
+        if (tile.getY() != compare.getY())
+            return false;
+
+        return tile.getX() > compare.getX();
+    }
 
     public boolean isOnNorth(Tile tile, Tile compare) {
         if (tile.getX() != compare.getX())
@@ -187,14 +182,6 @@ public class Grid extends Observable implements Observer {
 
         return tile.getX() < compare.getX();
     }
-
-    public boolean isOnEast(Tile tile, Tile compare) {
-        if (tile.getY() != compare.getY())
-            return false;
-
-        return tile.getX() > compare.getX();
-    }
-
 
     public int getYSize() {
         return this.y_size;
@@ -252,7 +239,6 @@ public class Grid extends Observable implements Observer {
             }
         }
 
-
     }
 
     public LightweightGrid toLightweight() {
@@ -265,141 +251,23 @@ public class Grid extends Observable implements Observer {
         }
         return new LightweightGrid(x_size, y_size, lightweightTiles, exit != null ? exit.toLightweight() : null, entrance != null ? entrance.toLightweight() : null);
     }
-    //передвигает мышь на шаг вперед
-    public void toStep(Tile tile, int x, int y) {
-        x = tile.getX();
-        y = tile.getY();
-        switch (direction) {
-            case 0:
-                --y;
-                break;
-            case 1:
-                ++x;
-                break;
-            case 2:
-                ++y;
-                break;
-            case 3:
-                --x;
-                break;
+
+    public List<Tile> getTiles() {
+        List<Tile> tiles = new ArrayList<>();
+
+        for (int y = 0; y < this.y_size; y++) {
+            for (int x = 0; x < this.x_size; x++) {
+                tiles.add(grid[x][y]);
+            }
         }
-    }
-    public void changeDirection(int x_size, int y_size) {
-        this.x_size = x_size;
-        this.y_size = y_size;
-        //down
-        if (tile.getY() == y_size) {
-            tile.direction = 0;
-        }
-        //left
-        else if (tile.getX() == 0) {
-            tile.direction = 1;
-        }
-        //up
-        else if (tile.getY() == 0) {
-            tile.direction = 2;
-        }
-        //right
-        else if (tile.getX() == x_size) {
-            tile.direction = 3;
-        }
+        return tiles;
     }
 
-    //разварачивает мышь на 90 градусов вправо
-    public void rightRotate() {
-        ++direction;
-        if (direction > 3) {
-            direction = 0;
-        }
+    public boolean executePathfinding(int sleepDuration, FindingExit pathfindingStrategy) throws InterruptedException {
+        if (exit == null || entrance == null) return false;
+        this.painter.clearPath(this);
+        List<Tile> path = new ArrayList<>();
+        pathfindingStrategy.algorithm(sleepDuration, this, path);
+        return true;
     }
-
-    //разварачивает мышь на 90 градусов влево
-    public void leftRotate() {
-        --direction;
-        if (direction < 0) {
-            direction = 3;
-        }
-    }
-
-    public void isRightWall() {
-        int x = currentTile.getX();
-        int y = currentTile.getY();
-        int p = currentTile.direction;
-        switch (p) {
-            case 0:
-                x = x + 1;
-                currentTile.isWall();
-            case 1:
-                y = y + 1;
-                currentTile.isWall();
-            case 2:
-                x = x - 1;
-                currentTile.isWall();
-            case 3:
-                y = y - 1;
-                currentTile.isWall();
-        }
-    }
-
-    public void isTopWall() {
-        int x = currentTile.getX();
-        int y = currentTile.getY();
-        int p = currentTile.direction;
-        switch (p) {
-            case 0:
-                y = y - 1;
-                currentTile.isWall();
-            case 1:
-                x = x + 1;
-                currentTile.isWall();
-            case 2:
-                y = y + 1;
-                currentTile.isWall();
-            case 3:
-                x = x - 1;
-                currentTile.isWall();
-        }
-    }
-
-    public void isLeftWall() {
-        int x = currentTile.getX();
-        int y = currentTile.getY();
-        int p = currentTile.direction;
-        switch (p) {
-            case 0:
-                x = x - 1;
-                currentTile.isWall();
-            case 1:
-                y = y - 1;
-                currentTile.isWall();
-            case 2:
-                x = x + 1;
-                currentTile.isWall();
-            case 3:
-                y = y + 1;
-                currentTile.isWall();
-        }
-    }
-
-    public void isDownWall() {
-        int x = currentTile.getX();
-        int y = currentTile.getY();
-        int p = currentTile.direction;
-        switch (p) {
-            case 0:
-                y = y + 1;
-                currentTile.isWall();
-            case 1:
-                x = x - 1;
-                currentTile.isWall();
-            case 2:
-                y = y - 1;
-                currentTile.isWall();
-            case 3:
-                x = x + 1;
-                currentTile.isWall();
-        }
-    }
-
 }
-

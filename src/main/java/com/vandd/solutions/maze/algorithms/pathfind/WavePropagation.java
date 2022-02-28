@@ -10,9 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-
 public class WavePropagation extends FindingExit {
     private final int DEFAULT_DISTANCE = 1;
+
     public WavePropagation() {
         super();
     }
@@ -26,7 +26,6 @@ public class WavePropagation extends FindingExit {
         this.painter.drawPath(sleepDuration, path, model);
         return cost;
     }
-
 
     private void executeWavePropagation(int sleepDuration, Grid model, HashMap<Tile, Integer> tileData) {
         Set<Tile> visited = new HashSet<>();
@@ -54,7 +53,7 @@ public class WavePropagation extends FindingExit {
                     unprocessed.add(elem);
                     visited.add(elem);
                     tileData.put(elem, this.DEFAULT_DISTANCE + iteration);
-                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT,  sleepDuration);
+                    this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.HIGHLIGHT, sleepDuration);
                     this.painter.drawTile(elem, model.getTarget(), model.getRoot(), Tile.Type.VISITED, sleepDuration);
 
                 }

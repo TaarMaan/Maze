@@ -51,7 +51,7 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Text layoutX="50.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Курсовой проект по дисцеплине: «Программная инженерия»" wrappingWidth="572.005859375">
+            <Text layoutX="50.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Курсовой проект по дисциплине: «Программная инженерия»" wrappingWidth="572.005859375">
                <font>
                   <Font size="20.0" />
                </font>

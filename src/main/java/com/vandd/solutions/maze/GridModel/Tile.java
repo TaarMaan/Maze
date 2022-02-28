@@ -1,6 +1,4 @@
-
 package com.vandd.solutions.maze.GridModel;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
-
 public class Tile extends Observable {
-
     public static enum Type {
         EXIT,
         ENTRANCE,
@@ -32,8 +28,8 @@ public class Tile extends Observable {
             this.getDefaultWeight(), 3, 6, 9, 12};
 
     private final StackPane pane;
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
     private final Rectangle rectangle;
     private final int defaultWeight = 1;
     private int weight;

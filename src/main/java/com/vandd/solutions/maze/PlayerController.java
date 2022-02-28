@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import com.vandd.solutions.maze.GridModel.Grid;
 import com.vandd.solutions.maze.GridModel.Tile;
 import com.vandd.solutions.maze.algorithms.AlgoFactory;
+import com.vandd.solutions.maze.algorithms.pathfind.AStar;
 import com.vandd.solutions.maze.algorithms.pathfind.FindingExit;
+import com.vandd.solutions.maze.algorithms.pathfind.HeuristicStrategy;
 import com.vandd.solutions.maze.template.Template;
 import com.vandd.solutions.maze.template.TemplateManager;
 import javafx.fxml.FXML;
@@ -177,6 +179,9 @@ public class PlayerController extends Observable {
                         StackPaneP.getChildren().addAll(themeList);
                         this.grid = new Grid().fromLightweight(template.getGrid(), theme);
                         fillGrid(grid.getGrid());
+                        /*Tile ent = grid.getRoot();
+                        int cost = ent.direction;
+                        grid.setDirection(cost,grid);*/
                     }
             );
             return menuItem;
@@ -223,9 +228,11 @@ public class PlayerController extends Observable {
         playerAlgorithmApply.setOnAction(actionEvent -> {
             RadioButton selection = (RadioButton) groupA.getSelectedToggle();
             if (selection.equals(playerAlgorithmWave)) {
-                AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation);
+                AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation,AlgoFactory.getHeuristicStrategy(AStar.Heuristic.Manhattan));
+                //,AlgoFactory.getHeuristicStrategy(RightHand.Heuristic.Manhattan)
             } else if (selection.equals(playerAlgorithmRightHand)) {
-                AlgoFactory.getFindingExit(FindingExit.Algorithms.RightHand);
+                AlgoFactory.getFindingExit(FindingExit.Algorithms.AStar,AlgoFactory.getHeuristicStrategy(AStar.Heuristic.Manhattan));
+                //,AlgoFactory.getHeuristicStrategy(RightHand.Heuristic.Manhattan)
             }
             playerVisualizationApply.setDisable(false);
             playerVisualizationDynamic.setDisable(false);
@@ -246,8 +253,13 @@ public class PlayerController extends Observable {
 
         //алгоритм старт
         playerStart.setOnAction(actionEvent -> {
-            System.out.println(grid.executeFinding(sleepDuration, AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation)));
+            if(playerAlgorithmWave.isSelected())
+            System.out.println(grid.executeFinding(sleepDuration, AlgoFactory.getFindingExit(FindingExit.Algorithms.WavePropagation, AlgoFactory.getHeuristicStrategy(AStar.Heuristic.Manhattan))));
+            //, AlgoFactory.getHeuristicStrategy(RightHand.Heuristic.Manhattan)
+else if(playerAlgorithmRightHand.isSelected())
 
+    System.out.println(grid.executeFinding(sleepDuration, AlgoFactory.getFindingExit(FindingExit.Algorithms.AStar, AlgoFactory.getHeuristicStrategy(AStar.Heuristic.Manhattan))));
+//, AlgoFactory.getHeuristicStrategy(RightHand.Heuristic.Manhattan)
         });
 
         playerSpeed1.setOnAction(actionEvent -> {
@@ -299,6 +311,11 @@ public class PlayerController extends Observable {
             }
         }
     }
-
+    public boolean doShortestPathAlgorithm(FindingExit.Algorithms algorithm, AStar.Heuristic heuristic) throws InterruptedException
+    {
+        HeuristicStrategy heuristicStrategy = AlgoFactory.getHeuristicStrategy(heuristic);
+        FindingExit pathfindingStrategy = AlgoFactory.getFindingExit(algorithm, heuristicStrategy);
+        return this.grid.executePathfinding(sleepDuration,pathfindingStrategy);
+    }
 }
 

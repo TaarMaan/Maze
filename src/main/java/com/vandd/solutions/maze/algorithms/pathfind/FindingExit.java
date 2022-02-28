@@ -11,7 +11,7 @@ public abstract class FindingExit {
 
     public static enum Algorithms {
         WavePropagation,
-        RightHand
+        AStar
     }
     public FindingExit() {
         this.painter = Painter.getInstance();
